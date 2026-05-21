@@ -9,8 +9,8 @@ The primary focus areas of this project are **high-quality documentation**,
 
 ## 🏗️ Architecture
 
-* [C4 Model - Level 1: System Context](link_to_diagram) - Shows the general architecture and how the application interacts with users and external dependencies.
-* [C4 Model - Level 2: Container Diagram](link_to_diagram) - Details the different containers (applications) that make up the project and how they interact with each other.
+* [C4 Model - Level 1: System Context](./docs/architecture/Zeewordle_C4_level_1.png) - Shows the general architecture and how the application interacts with users and external dependencies.
+* [C4 Model - Level 2: Container Diagram](./docs/architecture/Zeewordle_C4_level_2.png) - Details the different containers (applications) that make up the project and how they interact with each other.
 
 ## 🛠️ Tech Stack
 
