@@ -14,6 +14,5 @@ The primary focus areas of this project are **high-quality documentation**,
 
 ## 🛠️ Tech Stack
 
-* **Frontend:** React 18 (Vite), TypeScript, Tailwind CSS.
-* **Backend:** Node.js 24 (Express), TypeScript, Vitest (or Jest).
-* **Infra / DevOps:** Terraform (IaC), Ansible, Docker.
+* **Frontend:** React 18 (Vite), TypeScript.
+* **Backend:** Node.js 24 (Express), TypeScript, Vitest.
