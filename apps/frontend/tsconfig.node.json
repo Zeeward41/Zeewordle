@@ -1,24 +1,43 @@
 {
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "es2023",
-    "lib": ["ES2023"],
-    "module": "esnext",
-    "types": ["node"],
-    "skipLibCheck": true,
+    "compilerOptions": {
+        // ===== Configuration de base & Environnement =====
+        "target": "es2023", // Version de JavaScript générée en sortie.
+        "lib": ["ES2023"], // Liste des fonctionnalités globales disponibles (ex: méthodes de tableaux récentes).
+        "types": ["node"], // Charge explicitement les types globaux de l'environnement Node.js.
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo", // Stocke le cache pour accélérer les futures compilations.
+        "skipLibCheck": true, // Ignore la vérification des types dans 'node_modules' pour compiler plus vite.
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
+        // ===== Rigueur du typage (Mode Strict) =====
+        "strict": true, // Active le mode ultra-strict (interdit le type 'any' implicite, vérifie le 'null', etc.).
+        "exactOptionalPropertyTypes": true, // Interdit de donner la valeur 'undefined' à une propriété marquée optionnelle '?'.
+        "noImplicitOverride": true, // Force l'usage du mot-clé 'override' dans les classes enfants.
+        "noImplicitReturns": true, // Force toutes les branches d'une fonction à retourner explicitement une valeur.
+        "noPropertyAccessFromIndexSignature": true, // Force l'usage de obj["clef"] plutôt que obj.clef pour les types dynamiques.
+        "noUncheckedIndexedAccess": true, // Ajoute automatiquement '| undefined' lors de la lecture d'un tableau ou objet dynamique.
 
-    /* Linting */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "include": ["vite.config.ts"]
+        // ===== Gestion des Modules & Bundler =====
+        "module": "esnext", // Utilise la syntaxe d'import/export moderne la plus récente.
+        "moduleResolution": "bundler", // Aligne la logique d'import sur celle de votre outil (Vite, Webpack, etc.).
+        "moduleDetection": "force", // Traite chaque fichier comme un module, même sans import/export explicite.
+        "verbatimModuleSyntax": true, // Force une séparation stricte entre les imports de types et de code.
+        "isolatedModules": true, // Force chaque fichier à être indépendant afin que les bundlers puissent les compiler un par un.
+        "esModuleInterop": true, // Permet d'importer facilement d'anciens modules JavaScript (CommonJS) comme du code moderne.
+        "allowImportingTsExtensions": true, // Autorise l'écriture de ".ts" directement dans les chemins d'import.
+        "noUncheckedSideEffectImports": true, // Erreur si vous importez un fichier CSS/JS qui n'existe pas (ex: import "./style.css").
+
+        // ===== Émission (Output) =====
+        "noEmit": true, // Demande à TS de vérifier les types sans générer de fichiers JavaScript (Vite s'en charge).
+        "useDefineForClassFields": true, // Aligne le comportement des propriétés de classe sur la norme officielle ECMAScript.
+
+        // ===== Qualité du code (Linting & Analyse) =====
+        "checkJs": true, // Demande à TypeScript de rapporter les erreurs même dans les fichiers .js.
+        "noUnusedLocals": true, // Erreur si une variable locale est déclarée mais jamais utilisée.
+        "noUnusedParameters": true, // Erreur si un paramètre de fonction n'est pas utilisé.
+        "erasableSyntaxOnly": true, // Interdit les fonctionnalités TS qui ne peuvent pas être simplement effacées en JS (ex: enums).
+        "noFallthroughCasesInSwitch": true, // Erreur si un 'case' de switch oublie son 'break' et passe au suivant.
+        "allowUnusedLabels": false, // Interdit les étiquettes de code (labels) inutilisées.
+        "allowUnreachableCode": false // Erreur si du code est écrit après un 'return' (code inaccessible).
+    },
+    // ===== Fichiers inclus =====
+    "include": ["vite.config.ts"] // Indique que ce fichier de configuration cible uniquement 'vite.config.ts'.
 }
