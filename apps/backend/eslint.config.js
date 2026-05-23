@@ -25,9 +25,9 @@ export default defineConfig(
         extends: [
             // Choisir UNE des deux options ci-dessous :
             // Option A — Recommandé (type-checking standard)
-            ...tseslint.configs.recommendedTypeChecked,
+            //...tseslint.configs.recommendedTypeChecked,
             // Option B — Strict (tolérance zéro, décommenter et commenter Option A)
-            // ...tseslint.configs.strictTypeChecked,
+            ...tseslint.configs.strictTypeChecked,
 
             ...tseslint.configs.stylisticTypeChecked, // Règles de style et cohérence qui utilisent les types.
         ],
