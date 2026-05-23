@@ -25,6 +25,7 @@ I use the C4 Model to document the system at different levels of abstraction:
 
 - **[System Context (Level 1)](./docs/architecture/Zeewordle_C4_level_1.png)** : Shows the general architecture and how the application interacts with users and external dependencies.
 - **[Container Diagram (Level 2)](./docs/architecture/Zeewordle_C4_level_2.png)** : Details the different containers (applications) that make up the project and how they interact with each other.
+- **[Container Diagram CICD (Level 2 Support)](./docs/architecture/Zeewordle_C4_level_2_Support_CICD.png)** : Details the different steps of the CI/CD pipeline.
 
 ### 🧠 Knowledge Base
 
