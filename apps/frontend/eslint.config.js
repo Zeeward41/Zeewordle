@@ -18,15 +18,15 @@ export default defineConfig([
         files: ['**/*.{js,jsx,ts,tsx}'],
         plugins: {
             react: reactPlugin,
-            'react-hooks': reactHooks, // on les met entre '' car il y a un tiret.
-            'react-refresh': reactRefresh,
-            'jsx-a11y': jsxA11y,
+            'react-refresh': reactRefresh, // on les met entre '' car il y a un tiret.
+            //'react-hooks': reactHooks,
+            //'jsx-a11y': jsxA11y,
         },
         extends: [
             js.configs.recommended,
-            reactPlugin.configs.recommended,
-            reactHooks.configs.recommended,
-            jsxA11y.configs.recommended,
+            reactPlugin.configs.flat.recommended,
+            reactHooks.configs.flat.recommended, // gère lui meme le plugin
+            jsxA11y.flatConfigs.recommended, // gère lui meme le plugin
         ],
         languageOptions: {
             ecmaVersion: 'latest',
@@ -36,7 +36,6 @@ export default defineConfig([
             },
             globals: {
                 ...globals.browser,
-                ...globals.node, // ⚠️ voir la section globals ci-dessous
             },
         },
         settings: {
