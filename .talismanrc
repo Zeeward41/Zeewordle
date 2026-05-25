@@ -1,0 +1,4 @@
+fileignoreconfig:
+- filename: .sops.yaml
+  checksum: b7100b4ce7758f2f4c85a6f61284d94c0c7b9cd61eacb7c44152f006a44e7aa9
+version: "1.0"
