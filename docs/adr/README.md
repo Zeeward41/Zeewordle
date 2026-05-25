@@ -7,3 +7,4 @@ Each file follows the standard format (Context, Decision, Consequences).
 | :--- | :--- | :--- | :--- |
 | [0001](./0001-separation-of-frontend-and-backend.md) | 21/05/2026 | Choice of global architecture | ✅ Accepted |
 | [0002](./0002-techs-choice-for-frontend-and-backend.md) | 22/05/2026 | Techs choice for frontend and backend | ✅ Accepted |
+| [0003](./0003-security-policy-of-secrets.md) | 25/05/2026 | Security Policy of secrets | ✅ Accepted |
