@@ -2,5 +2,5 @@ fileignoreconfig:
 - filename: .sops.yaml
   checksum: b7100b4ce7758f2f4c85a6f61284d94c0c7b9cd61eacb7c44152f006a44e7aa9
 - filename: docs/adr/0003-security-policy-of-secrets.md
-  checksum: 39ba01cc544d655bcb4a28e4c89a10088b00a5420b3ac75405d7e54311d3ece2
+  checksum: 1e92bbb107ea54cce17e803650d2299bb521239ea2c6b37d0d394a3f1f886ce1
 version: "1.0"

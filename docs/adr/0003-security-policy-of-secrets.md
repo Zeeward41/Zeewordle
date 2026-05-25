@@ -5,11 +5,11 @@
 
 ## Context
 
-Before writing any core application code, we must establish a strategy to manage secrets throughout the software development lifecycle. Additionally, we need a rigorous process to prevent sensitive information from being leaked into the Git repository history.
+Before writing any core application code, I must establish a strategy to manage secrets throughout the software development lifecycle. Additionally, i need a rigorous process to prevent sensitive information from being leaked into the Git repository history.
 
 ## Decision
 
-We implement a multi-layered security approach for secrets management:
+I implement a multi-layered security approach for secrets management:
 
 1. **Encryption at Rest:** Use **SOPS** combined with **age** to directly encrypt configuration files containing sensitive data. Only the encrypted files (e.g., `secrets.enc.yaml`) will be committed to Git.
 2. **Leak Prevention (Local Hooks):** Install **Talisman** and **BetterLeaks** as local Git hooks to capture human errors before code leaves the machine.
