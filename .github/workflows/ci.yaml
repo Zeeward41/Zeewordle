@@ -23,7 +23,7 @@ jobs:
           # Check if Archive has been well downloaded
           echo "${{env.BETTERLEAKS_CHECKSUM }} ${{ env.BETTERLEAKS_ARCHIVE_NAME}}" | sha256sum -c
           # untar the archive in betterleaks folder
-          tar xzvf ${{ env.BETTERLEAKS_ARCHIVE_NAME }} --one-top-level=betterleaks
+          tar xzvf ${{ env.BETTERLEAKS_ARCHIVE_NAME }}
           # Move betterleaks to /usr/local/bin
           sudo mv betterleaks/betterleaks /usr/local/bin/
           #Test if betterleaks works
