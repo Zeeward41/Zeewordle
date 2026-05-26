@@ -25,7 +25,7 @@ jobs:
           # untar the archive in betterleaks folder
           tar xzvf ${{ env.BETTERLEAKS_ARCHIVE_NAME }}
           # Move betterleaks to /usr/local/bin
-          sudo mv betterleaks/betterleaks /usr/local/bin/
+          sudo mv betterleaks /usr/local/bin/
           #Test if betterleaks works
           betterleaks -v
 
