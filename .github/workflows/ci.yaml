@@ -18,16 +18,16 @@ jobs:
 
       - name: Install and setup Betterleaks (1.3.1)
         run: |
-        # 1. Download Betterleaks archive
-        curl -sLO ${{ env.BETTERLEAKS_URL }}
-        # Check if Archive has been well downloaded
-        echo "${{env.BETTERLEAKS_CHECKSUM }} ${{ env.BETTERLEAKS_ARCHIVE_NAME}}" | sha256sum -c
-        # untar the archive in betterleaks folder
-        tar xzvf ${{ env.BETTERLEAKS_ARCHIVE_NAME}} --one-top-level=betterleaks
-        # Move betterleaks to /usr/local/bin
-        sudo mv "$cmdPWD"/betterleaks/betterleaks /usr/local/bin/
-        #Test if betterleaks works
-        betterleaks -v
+          # 1. Download Betterleaks archive
+          curl -sLO ${{ env.BETTERLEAKS_URL }}
+          # Check if Archive has been well downloaded
+          echo "${{env.BETTERLEAKS_CHECKSUM }} ${{ env.BETTERLEAKS_ARCHIVE_NAME}}" | sha256sum -c
+          # untar the archive in betterleaks folder
+          tar xzvf ${{ env.BETTERLEAKS_ARCHIVE_NAME}} --one-top-level=betterleaks
+          # Move betterleaks to /usr/local/bin
+          sudo mv "$cmdPWD"/betterleaks/betterleaks /usr/local/bin/
+          #Test if betterleaks works
+          betterleaks -v
 
       - name: Check if credentials leaks with betterleaks
         run: |
