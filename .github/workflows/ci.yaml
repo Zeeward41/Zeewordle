@@ -80,7 +80,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v6
         with:
-          node-versoin: ${{ env.NODE_VERSION }}
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm' # Caches the pnpm global store to speed up subsequent CI runs
           # Tells the cache action where to find the lockfile inside the matrix app directory
           cache-dependency-path: apps/${{ matrix.changes }}/pnpm-lock.yaml
