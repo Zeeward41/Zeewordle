@@ -10,7 +10,8 @@
         "format": "prettier --write .",
         "lint:html": "htmlhint src/**/*.html",
         "lint:css": "stylelint src/**/*.css",
-        "lint": "eslint src"
+        "lint:ts": "eslint src",
+        "lint": "pnpm run lint:css && pnpm run lint:html && pnpm run lint:ts"
     },
     "dependencies": {
         "react": "^19.2.6",
