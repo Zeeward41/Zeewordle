@@ -94,6 +94,8 @@ jobs:
           pnpm run format
           ## Linter
           pnpm run lint
+          ## Unit Test
+          pnpm run test
           
 
 
