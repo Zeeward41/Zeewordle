@@ -9,7 +9,7 @@ on:
   push:
   workflow_dispatch:
 jobs:
-  settings-CI: #JOB Name
+  check-credentials-leak:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,5 +34,51 @@ jobs:
           # scan the repo with betterleaks
           betterleaks git ${{ github.workspace }} -v --git-workers=4
 
+
+  detect-Change:
+    runs-on: ubuntu-latest
+    needs: check-credentials-leak # Only run this job if check-credentials-leak succeeds
+    outputs:
+      changes: ${{steps.detect-paths.outputs.changes }} # Store the detected path changes as a JSON array
+    steps:
+      - name: Get the source code
+        uses: actions/checkout@v6
+      - name: Get path
+        uses: dorny/paths-filter@v4
+        id: detect-paths
+        with:
+          # Base = the previous state of the branch on GitHub before the push
+          base: ${{ github.event.before }}
+          # ref = the latest commit of the current push
+          ref: ${{ github.event.after }}
+          filters: |
+            frontend:
+              - 'apps/frontend/**'
+            backend:
+              - 'apps/backend/**'
+
+  settings-CI:
+    runs-on: ubuntu-latest
+    # Only run if the previous job detected relevant file changes
+    if: ${{ needs.detect-Change.outputs.changes != '[]' && needs.detect-Change.outputs.changes != '' }}
+    needs: detect-Change
+    strategy:
+      # Dynamically spawn parallel jobs for each modified application
+      matrix:
+        changes: ${{ fromJSON(needs.detect-Change.outputs.changes) }}
+    steps:
+      - name: Get the source code
+        uses: actions/checkout@v6
+      - name: Install dependency
+        run: |
+          # Move to the directory
+          cd apps/${{ matrix.changes }}
+          # Install dependency
+          pnpm i
+          ## Formatter
+          pnpm run format
+          ## Linter
+          pnpm run lint
+          
 
 
