@@ -11,7 +11,8 @@
         "lint:html": "htmlhint src/**/*.html",
         "lint:css": "stylelint src/**/*.css",
         "lint:ts": "eslint src",
-        "lint": "pnpm run lint:css && pnpm run lint:html && pnpm run lint:ts"
+        "lint": "pnpm run lint:css && pnpm run lint:html && pnpm run lint:ts",
+        "test": "vitest"
     },
     "dependencies": {
         "react": "^19.2.6",
@@ -36,6 +37,7 @@
         "stylelint-config-standard": "^40.0.0",
         "typescript": "~6.0.2",
         "typescript-eslint": "^8.59.4",
-        "vite": "^8.0.12"
+        "vite": "^8.0.12",
+        "vitest": "^4.1.7"
     }
 }

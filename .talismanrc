@@ -3,6 +3,10 @@ fileignoreconfig:
   checksum: 41f4a568c058192c83ebad19b8073057fd8becf4cce20fd07eabd22b73e161d3
 - filename: .sops.yaml
   checksum: b7100b4ce7758f2f4c85a6f61284d94c0c7b9cd61eacb7c44152f006a44e7aa9
+- filename: apps/backend/pnpm-lock.yaml
+  checksum: a7fbf225aa0923a204ddd80c3a3df1784bc1d4abdcf9025371c35c4949034b0f
+- filename: apps/frontend/pnpm-lock.yaml
+  checksum: 7d4a3673e1370de5999aef27625abde95875d2f13c822b19a56db55b09002429
 - filename: docs/adr/0003-security-policy-of-secrets.md
   checksum: 1e92bbb107ea54cce17e803650d2299bb521239ea2c6b37d0d394a3f1f886ce1
 version: "1.0"
