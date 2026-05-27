@@ -5,6 +5,8 @@ env:
   BETTERLEAKS_URL: 'https://github.com/betterleaks/betterleaks/releases/download/v1.3.1/betterleaks_1.3.1_linux_x64.tar.gz'
   BETTERLEAKS_CHECKSUM: '7b241c80204538cbb210c94514dc7cdff86430938bd7d5b6e289207959530849'
   BETTERLEAKS_ARCHIVE_NAME: 'betterleaks_1.3.1_linux_x64.tar.gz'
+  PNPM_VERSION: '11.2.2'
+  NODE_VERSION: '25.0.0'
 on:
   push:
   workflow_dispatch:
@@ -69,12 +71,25 @@ jobs:
     steps:
       - name: Get the source code
         uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: ${{ env.PNPM_VERSION }} 
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-versoin: ${{ env.NODE_VERSION }}
+          cache: 'pnpm' # Caches the pnpm global store to speed up subsequent CI runs
+          # Tells the cache action where to find the lockfile inside the matrix app directory
+          cache-dependency-path: apps/${{ matrix.changes }}/pnpm-lock.yaml
       - name: Install dependency
         run: |
           # Move to the directory
           cd apps/${{ matrix.changes }}
           # Install dependency
-          pnpm i
+          pnpm i --frozen-lockfile # ensure the exact version of dependencies
           ## Formatter
           pnpm run format
           ## Linter
