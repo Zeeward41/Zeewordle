@@ -3,10 +3,18 @@ fileignoreconfig:
   checksum: 41f4a568c058192c83ebad19b8073057fd8becf4cce20fd07eabd22b73e161d3
 - filename: .sops.yaml
   checksum: b7100b4ce7758f2f4c85a6f61284d94c0c7b9cd61eacb7c44152f006a44e7aa9
+- filename: apps/backend/coverage/lcov-report/base.css
+  checksum: 2ebd1655da04e0b972db9241ac3bb99bb057f3aeb90578957a6c570249b229c2
+- filename: apps/backend/coverage/lcov-report/block-navigation.js
+  checksum: eb28b398b0435b91e192acc403218170a9e6b692bdd4c7195c0f3fd7e9edcad1
+- filename: apps/backend/coverage/lcov-report/prettify.js
+  checksum: b3bb2e5271b0dd53ce77664e5b33f1b127b1dd26097d2f62aa58eaefee258c57
+- filename: apps/backend/coverage/lcov-report/sorter.js
+  checksum: ab12308876d2c2ed6ae4d6bdcc48f80984b8b88deb977d8382e86699149398f2
 - filename: apps/backend/pnpm-lock.yaml
-  checksum: a7fbf225aa0923a204ddd80c3a3df1784bc1d4abdcf9025371c35c4949034b0f
+  checksum: e751d755eba2284d15dfe623115bc249a636ef0add41f4467315a8a84448ce49
 - filename: apps/frontend/pnpm-lock.yaml
-  checksum: 7d4a3673e1370de5999aef27625abde95875d2f13c822b19a56db55b09002429
+  checksum: 7e99a1250145700f6d9213770c94eb84f4d0483567e9c44f28a6b866204278d2
 - filename: docs/adr/0003-security-policy-of-secrets.md
   checksum: 1e92bbb107ea54cce17e803650d2299bb521239ea2c6b37d0d394a3f1f886ce1
 version: "1.0"

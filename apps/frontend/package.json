@@ -12,7 +12,7 @@
         "lint:css": "stylelint src/**/*.css",
         "lint:ts": "eslint src",
         "lint": "pnpm run lint:css && pnpm run lint:html && pnpm run lint:ts",
-        "test": "vitest"
+        "test": "vitest run --coverage.enabled=true --coverage.reporter=lcov"
     },
     "dependencies": {
         "react": "^19.2.6",
@@ -24,6 +24,7 @@
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "@vitejs/plugin-react": "^6.0.1",
+        "@vitest/coverage-v8": "^4.1.7",
         "eslint": "^9.39.4",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-jsx-a11y": "^6.10.2",
