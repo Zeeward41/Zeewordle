@@ -84,20 +84,27 @@ jobs:
           cache: 'pnpm' # Caches the pnpm global store to speed up subsequent CI runs
           # Tells the cache action where to find the lockfile inside the matrix app directory
           cache-dependency-path: apps/${{ matrix.changes }}/pnpm-lock.yaml
+
       - name: Install dependency
         run: |
           # Move to the directory
           cd apps/${{ matrix.changes }}
           # Install dependency
           pnpm i --frozen-lockfile # ensure the exact version of dependencies
+
+      - name: Linter & Formatter
+        run: |
           ## Formatter
           pnpm run format
           ## Linter
           pnpm run lint
+
+      - name: Unit Test
+        run: |
           ## Unit Test
           pnpm run test
           
-      - name: 🚀 Run SonarQube Analysis
+      - name: Run SonarQube Analysis
         uses: sonarsource/sonarqube-scan-action@v8.1.0
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBECLOUD_TOKEN }}
