@@ -4,4 +4,5 @@ Welcome to the guides section. Here you will find all step-by-step instructions 
 
 ## 🗂️ Guides Index
 
-* **[Local Setup & Installation](./001-local-setup.md)** – *Coming soon* (How to install dependencies and run the project locally).
+- **[Local Setup & Installation](./001-local-setup.md)** – *Coming soon* (How to install dependencies and run the project locally).
+- :**[Configuration SonarQubeCloud](./0002-config-sonarQubeCloud.md)** - How to setup SonarQube Cloud.
