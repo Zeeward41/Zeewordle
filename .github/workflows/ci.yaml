@@ -104,11 +104,11 @@ jobs:
         with:
           projectBaseDir: apps/${{ matrix.changes }}
           args: |
-            -Dsonar.organization=Zeeward41
             -Dsonar.projectKey=Zeeward41_Zeewordle_${{ matrix.changes }}
+            -Dsonar.organization=zeeward41
             -Dsonar.projectName=Zeewordle-${{ matrix.changes }}
             -Dsonar.sources=src
-            -Dsonar.tests=src
-            -Dsonar.exclusions=**/src/tests/**
+            -Dsonar.tests=src/tests
+            -Dsonar.exclusions=src/tests/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
