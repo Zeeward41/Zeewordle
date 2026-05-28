@@ -103,4 +103,14 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONARQUBECLOUD_TOKEN }}
         with:
           projectBaseDir: apps/${{ matrix.changes }}
+          args: |
+            -Dsonar.organization=Zeeward41
+            # Defines the unique identifier used by SonarCloud to track this specific application
+            -Dsonar.projectKey=Zeeward41_Zeewordle_${{ matrix.changes }}
+            # Sets the display name that will appear on the SonarCloud web dashboard interface
+            -Dsonar.projectName=Zeewordle-${{ matrix.changes }}
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.exclusions=**/src/tests/**
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
