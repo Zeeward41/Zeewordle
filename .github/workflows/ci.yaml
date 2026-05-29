@@ -111,7 +111,6 @@ jobs:
         run: |
           ## Unit Test
           pnpm run test
-          
       - name: Run SonarQube Analysis
         uses: sonarsource/sonarqube-scan-action@v8.1.0
         env:
@@ -126,15 +125,9 @@ jobs:
             -Dsonar.tests=src/tests
             -Dsonar.exclusions=src/tests/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-
-      - name: Verify SonarQube quality Gate
-        # This action will check the Quality gate of the code.
-        uses: sonarsource/sonarqube-quality-gate-action@v1.2.0
-        with:
-          pollingTimeoutSec: 150
-          scanMetadataReportFile: apps/${{ matrix.changes }}/.scannerwork/report-task.txt
-        env:
-          SONAR_TOKEN: ${{ secrets.SONARQUBECLOUD_TOKEN }}
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.qualitygate.timeout=150
+            -Dsonar.branch.name=main
 
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@v0.36.0
