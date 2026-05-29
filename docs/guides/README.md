@@ -5,4 +5,7 @@ Welcome to the guides section. Here you will find all step-by-step instructions 
 ## 🗂️ Guides Index
 
 - [Local Setup & Installation](./0001-Getting-Started.md) – How to Start. 
-- [Configuration SonarQubeCloud](./0002-config-sonarQubeCloud.md) - How to setup SonarQube Cloud.
+- [How to Setup SonarQube Token](./0002-How-to-Setup-SonarQube-Token.md)
+- [How to restrict GITHUB_TOKEN](./0003-Token-Restriction-Guide.md)
+- [How to Activate Dependabot and Dependency graph](./0004-How-to-Activate-Dependabot-and-Dependency-graph.md)
+- [Configuration SonarQubeCloud](./internal/0005-sonar-cloud-guide.md) - How to setup SonarQube Cloud.

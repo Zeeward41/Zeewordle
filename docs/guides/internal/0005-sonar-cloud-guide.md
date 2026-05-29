@@ -38,8 +38,8 @@ with:
 
 To find your `project Key`. Go to `Favorite projects` -> `Zeewordle` -> `Project Information`
 
-![Image - Favorite projects](../../images/0002-config-sonarQubeCloud/2026-05-28-17-34-57.png)
-![Image - Project Key](../../images/0002-config-sonarQubeCloud/2026-05-28-17-35-53.png)
+![Image - Favorite projects](../../../images/0005-sonar-cloud-guide/2026-05-28-17-34-57.png)
+![Image - Project Key](../../../images/0005-sonar-cloud-guide/2026-05-28-17-35-53.png)
 
 ### Note: Test Coverage
 
