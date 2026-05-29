@@ -62,7 +62,8 @@ jobs:
   settings-CI:
     runs-on: ubuntu-latest
     permissions:
-      contents: read           # Required to read the code
+      contents: write           # Required to read the code and SBOM
+      actions: read             # Required by SBOM
       security-events: write   # REQUIRED to upload the SARIF report
     defaults:
       run:
@@ -141,3 +142,11 @@ jobs:
         with:
           sarif_file: 'trivy-results-${{ matrix.changes }}.sarif'
           category: '${{ matrix.changes }}'
+
+      - name: Run SBOM scan (And upload on Github for dependency graph)
+        uses: anchore/sbom-action@v0
+        with:
+          dependency-snapshot: true
+          artifact-name: 'sbom-${{ matrix.changes }}.spdx.json'
+          path: .
+
