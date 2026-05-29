@@ -127,6 +127,12 @@ jobs:
             -Dsonar.exclusions=src/tests/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
+      - name: 🔍 Debug - Find report-task.txt
+        run: |
+          echo "=== Recherche du fichier report-task.txt ==="
+          find . -name "report-task.txt"
+          echo "============================================"
+
       - name: Verify SonarQube quality Gate
         # This action will check the Quality gate of the code.
         uses: sonarsource/sonarqube-quality-gate-action@v1.2.0
