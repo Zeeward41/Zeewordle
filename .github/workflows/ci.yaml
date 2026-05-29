@@ -126,6 +126,8 @@ jobs:
             -Dsonar.tests=src/tests
             -Dsonar.exclusions=src/tests/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.qualitygate.wait=true
+
 
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@v0.36.0
