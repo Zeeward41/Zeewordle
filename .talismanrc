@@ -19,6 +19,8 @@ fileignoreconfig:
   checksum: 1e92bbb107ea54cce17e803650d2299bb521239ea2c6b37d0d394a3f1f886ce1
 - filename: docs/adr/0005-CI-Choices.md
   checksum: 059ffbc4610f99a06346bab45c91cbe623a5c752fb75762a28d10a30015dceda
+- filename: docs/guides/0002-How-to-Setup-SonarQube-Token.md
+  checksum: f8aad979c4bd7614896909cf80d9be17db5db9895ab8f4c60c266c8e2059554b
 - filename: docs/guides/0002-config-sonarQubeCloud.md
   checksum: 61f44cbfc27573784500af5546c8c7b7c448a9dc623bbb32e943ec02dda6a3f7
 - filename: sonar-project.properties
