@@ -61,13 +61,22 @@ jobs:
 
   settings-CI:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read           # Required to read the code
+      security-events: write   # REQUIRED to upload the SARIF report
+    defaults:
+      run:
+        # Make sure we run command in the right directory
+        working-directory: apps/${{ matrix.changes }}
+
     # Only run if the previous job detected relevant file changes
-    if: ${{ needs.detect-Change.outputs.changes != '[]' && needs.detect-Change.outputs.changes != '' }}
+    ##SSSSS####if: ${{ needs.detect-Change.outputs.changes != '[]' && needs.detect-Change.outputs.changes != '' }}
     needs: detect-Change
     strategy:
       # Dynamically spawn parallel jobs for each modified application
       matrix:
-        changes: ${{ fromJSON(needs.detect-Change.outputs.changes) }}
+        ##SSSSSS###changes: ${{ fromJSON(needs.detect-Change.outputs.changes) }}
+        changes: ["frontend", "backend"]
     steps:
       - name: Get the source code
         uses: actions/checkout@v6
@@ -87,8 +96,6 @@ jobs:
 
       - name: Install dependency
         run: |
-          # Move to the directory
-          cd apps/${{ matrix.changes }}
           # Install dependency
           pnpm i --frozen-lockfile # ensure the exact version of dependencies
 
@@ -119,3 +126,18 @@ jobs:
             -Dsonar.exclusions=src/tests/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'sarif'
+          output: 'trivy-results-${{ matrix.changes }}.sarif'
+          severity: 'MEDIUM,HIGH,CRITICAL'
+          version: 'v0.70.0'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'trivy-results-${{ matrix.changes }}.sarif'
+          category: '${{ matrix.changes }}'
