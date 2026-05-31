@@ -2,7 +2,7 @@
 
 ## Step 1 - Configure SonarQube Token
 
-[SonarQube Token Creation Guide](./0002-How-to-Setup-SonarQube-Token.md)
+[SonarQube Token Creation Guide](./0002-How-to-Setup-SonarQube.md)
 
 ## Step 2 - Workflow Configuration
 
@@ -13,26 +13,23 @@ Do not use a `sonar-project.properties` file at the root level. Since I use a ma
 
 Add the following step to your GitHub Actions workflow file:
 ```txt
-- name: 🚀 Run SonarQube Analysis
-uses: sonarsource/sonarqube-scan-action@v8.1.0
-env:
-  SONAR_TOKEN: ${{ secrets.SONARQUBECLOUD_TOKEN }}
-with:
-  projectBaseDir: apps/${{ matrix.changes }}
-  args: |
-# Defines the unique identifier used by SonarCloud to track this specific application
-    -Dsonar.projectKey=Zeeward41_Zeewordle_${{ matrix.changes }}
-    -Dsonar.organization=zeeward41
-# Sets the display name that will appear on the SonarCloud web dashboard interface
-    -Dsonar.projectName=Zeewordle-${{ matrix.changes }}
-# The paths to the code and tests
-    -Dsonar.sources=src
-# We tell SonarQube which files in src are tests
-    -Dsonar.tests=src/tests
-# We ask SonarQube to ignore these files in the analysis of the main source code
-    -Dsonar.exclusions=src/tests/**
-# Tell SonarQube where to find the Vitest test coverage report to display the percentage of tested code
-    -Dsonar.javascript.lcov.reportPaths=coverage/lcov.inf
+- name: Run SonarQube Analysis
+  uses: sonarsource/sonarqube-scan-action@v8.1.0
+  env:
+      SONAR_TOKEN: ${{ secrets.SONARQUBECLOUD_TOKEN }}
+  with:
+      projectBaseDir: apps/${{ matrix.changes }}
+      args: |
+          -Dsonar.projectKey=Zeeward41_Zeewordle_${{ matrix.changes }}
+          -Dsonar.organization=zeeward41
+          -Dsonar.projectName=Zeewordle-${{ matrix.changes }}
+          -Dsonar.sources=src
+          -Dsonar.tests=src/tests
+          -Dsonar.exclusions=src/tests/**
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+          -Dsonar.qualitygate.wait=true
+          -Dsonar.qualitygate.timeout=150
+          -Dsonar.branch.name=main
 
 ```
 

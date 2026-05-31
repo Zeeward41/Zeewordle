@@ -31,5 +31,4 @@ Several security tools in our workflow require specific GitHub features to be en
 
 This token is mandatory for the CI workflow (`.github/workflows/ci.yaml`) to run successfully. SonarQube Cloud requires it to authenticate and publish code quality reports.
 To use the SonarQube token securely without hardcoding it, you must save it as an encrypted GitHub Actions Secret.
-👉 [SonarQube Token Creation Guide](./0002-How-to-Setup-SonarQube-Token.md)
-
+👉 [SonarQube Token Creation Guide](./0002-How-to-Setup-SonarQube.md)
