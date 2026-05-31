@@ -10,3 +10,4 @@ Each file follows the standard format (Context, Decision, Consequences).
 | [0003](./0003-security-policy-of-secrets.md) | 25/05/2026 | Security Policy of secrets | ✅ Accepted |
 | [0004](./0004-tech-choice-for-unit-test.md) | 27/07/2026 | tech choice for unit Test | ✅ Accepted |
 | [0005](./0005-CI-Choices.md) | 29/05/2026 | Continous Integration choices | ✅ Accepted |
+| [0006](./0006-Restricting-SonarCloud-Scans-sto-the-Main-Branch-Only.md) | 31/05/2026 | Restricting Scans to the Main Branch Only | ✅ Accepted |
