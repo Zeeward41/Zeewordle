@@ -71,13 +71,12 @@ jobs:
         working-directory: apps/${{ matrix.changes }}
 
     # Only run if the previous job detected relevant file changes
-    ##SSSSS####if: ${{ needs.detect-Change.outputs.changes != '[]' && needs.detect-Change.outputs.changes != '' }}
+    if: ${{ needs.detect-Change.outputs.changes != '[]' && needs.detect-Change.outputs.changes != '' }}
     needs: detect-Change
     strategy:
       # Dynamically spawn parallel jobs for each modified application
       matrix:
-        ##SSSSSS###changes: ${{ fromJSON(needs.detect-Change.outputs.changes) }}
-        changes: ["frontend", "backend"]
+        changes: ${{ fromJSON(needs.detect-Change.outputs.changes) }}
     steps:
       - name: Get the source code
         uses: actions/checkout@v6
@@ -85,7 +84,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: ${{ env.PNPM_VERSION }} 
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Install Node.js
         uses: actions/setup-node@v6
