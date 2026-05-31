@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: .github/workflows/ci.yaml
-  checksum: 7888af21f86f44cf838c30c233404050bfde289876f93f6dc348bbda586513cc
+  checksum: 164d08e8e24609e8f056645ede3e097022f04f383f09a2462cb4a6ea522ed344
 - filename: .sops.yaml
   checksum: b7100b4ce7758f2f4c85a6f61284d94c0c7b9cd61eacb7c44152f006a44e7aa9
 - filename: apps/backend/coverage/lcov-report/base.css

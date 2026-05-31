@@ -118,7 +118,7 @@ jobs:
         with:
           projectBaseDir: apps/${{ matrix.changes }}
           args: |
-            -Dsonar.projectKey=Zeeward41_Zeewordle_${{ matrix.changes }}
+            -Dsonar.projectKey=${{ vars.KEY_PROJECT }}_${{ matrix.changes }}
             -Dsonar.organization=zeeward41
             -Dsonar.projectName=Zeewordle-${{ matrix.changes }}
             -Dsonar.sources=src
