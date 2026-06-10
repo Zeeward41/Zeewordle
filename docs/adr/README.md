@@ -11,3 +11,4 @@ Each file follows the standard format (Context, Decision, Consequences).
 | [0004](./0004-tech-choice-for-unit-test.md) | 27/07/2026 | tech choice for unit Test | ✅ Accepted |
 | [0005](./0005-CI-Choices.md) | 29/05/2026 | Continous Integration choices | ✅ Accepted |
 | [0006](./0006-Restricting-SonarCloud-Scans-sto-the-Main-Branch-Only.md) | 31/05/2026 | Restricting Scans to the Main Branch Only | ✅ Accepted |
+| [0007](./0007-Frontend-design-scope.md) | 10/06/2026 | Frontend design scope - wireframes only | ✅ Accepted |
