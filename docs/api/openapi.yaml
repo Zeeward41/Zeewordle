@@ -30,6 +30,12 @@ components:
             $ref: "./components/schemas/loginRequest.yaml"
         User:
             $ref: "./components/schemas/user.yaml"
+        ErrorResponse:
+            $ref: "./components/schemas/errorResponse.yaml"
     responses:
         LoginSuccess:
-            $ref: "./components/responses/loginSuccess.yaml"
+            $ref: "./components/responses/authResponses.yaml#/loginSuccess"
+        LoginUnauthorized:
+            $ref: "./components/responses/authResponses.yaml#/loginUnauthorized"
+        LoginServerError:
+            $ref: "./components/responses/authResponses.yaml#/loginServerError"

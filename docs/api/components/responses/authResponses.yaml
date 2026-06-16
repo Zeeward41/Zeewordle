@@ -1,0 +1,51 @@
+# ----------------------------------------------------
+# Login Responses
+# ----------------------------------------------------
+loginSuccess:
+  description: "The response should contains an object user with an id, username, email and role."
+  content:
+    application/json:
+      schema:
+        $ref: "../../openapi.yaml#/components/schemas/User"
+      examples:
+        loginUserResponse:
+          summary: "Response from the server"
+          description: "The frontend should receive an ID, email, role and username of the user."
+          value:
+            user:
+              email: "marc@test.com"
+              id: 1
+              username: "marc"
+              role: ["user"]
+
+#----
+
+loginUnauthorized:
+  description: "The user gave a wrong email or password"
+  content:
+    application/json:
+      schema:
+        $ref: "../../openapi.yaml#/components/schemas/ErrorResponse"
+      examples:
+        wrongLoginError:
+          description: "The user or admin gave a wrong email or password."
+          value:
+            error:
+              statusCode: 401
+              message: "The email or password is wrong."
+
+#----
+
+loginServerError:
+  description: "Something wrong happened"
+  content:
+    application/json:
+      schema:
+        $ref: "../../openapi.yaml#/components/schemas/ErrorResponse"
+      examples:
+        internalServerError:
+          description: "Something unexpected happened."
+          value:
+            error:
+              statusCode: 500
+              message: "Something went wrong."

@@ -1,11 +1,14 @@
 type: object
 required:
-    - email
-    - password
+  - email
+  - password
 properties:
-    email:
-        type: string
-        format: email
-    password:
-        type: string
-        writeOnly: true
+  email:
+    type: string
+    format: email
+    maxLength: 100
+  password:
+    type: string
+    minLength: 5
+    maxLength: 100
+    writeOnly: true

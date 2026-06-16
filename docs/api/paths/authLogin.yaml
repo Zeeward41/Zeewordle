@@ -1,4 +1,5 @@
 post:
+    operationId: loginUser
     tags:
         - Authentication
     summary: 'Login route'
@@ -13,10 +14,14 @@ post:
                 examples:
                     loginUser:
                         summary: 'User login with credential'
-                        description: "User uses his email 'marc@test.com' with his password 'sky'."
+                        description: "User uses his email 'marc@test.com' with his password 'water'."
                         value:
                             email: 'marc@test.com'
-                            password: 'sky'
+                            password: 'water'
     responses:
         '200':
             $ref: "../openapi.yaml#/components/responses/LoginSuccess"
+        '401':
+            $ref: "../openapi.yaml#/components/responses/LoginUnauthorized"
+        '500':
+            $ref: "../openapi.yaml#/components/responses/LoginServerError"
