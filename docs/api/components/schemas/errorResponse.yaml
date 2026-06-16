@@ -1,0 +1,14 @@
+  type: object
+  required:
+    - error
+  properties:
+    error:
+      type: object
+      required:
+        - statusCode
+        - message
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string

@@ -1,136 +1,35 @@
 openapi: 3.1.2
 info:
-  title: Zeewordle API documentation.
-  version: "0.1"
-  description: |
-    "Zeewordle API provides a robust set of RESTful endpoints to manage word-guessing game sessions,
-    validate player attempts, and track scores. Designed for seamless integration,
-    it handles game state orchestration, dictionary validation, and daily challenge distributions."
-  contact:
-    name: "Zeeward41"
-    email: "zeeward41@gmail.com"
+    title: Zeewordle API documentation.
+    version: '0.1'
+    description: |
+        "Zeewordle API...
+    contact:
+        name: 'Zeeward41'
+        email: 'zeeward41@gmail.com'
 servers:
-  - url: "http://localhost:8080/v1"
-    description: "Local development server"
-  - url: "https://dev.xxx.com/v1"
-    description: "Development / Staging server"
-  - url: "https://api.xxx.com/v1"
-    description: "Production server"
-components:
-  schemas:
-    ErrorResponse:
-      type: object
-      required:
-        - error
-      properties:
-        error:
-          type: object
-          required:
-            - statusCode
-            - message
-          properties:
-            statusCode:
-              type: integer
-            message:
-              type: string
+    - url: 'http://localhost:8080/v1'
+      description: 'Local development server'
+    - url: 'https://dev.xxx.com/v1'
+      description: 'Development / Staging server'
+    - url: 'https://api.xxx.com/v1'
+      description: 'Production server'
 tags:
-  - name: Authentication
-    description: "Endpoints related to user and admin authentication, session management, and token distribution."
+    - name: Authentication
+      description: 'Endpoints...'
+security:
+    - SessionAuth: []
 paths:
-  /auth/login:
-    post:
-      tags:
-        - Authentication
-      summary: "Login route"
-      description: "This route is for the user or admin to log on the application."
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - email
-                - password
-              properties:
-                email:
-                  type: string
-                  format: email
-                password:
-                  type: string
-                  writeOnly: true
-            examples:
-              loginUser:
-                summary: "User login with credential"
-                description: "User uses his email 'marc@test.com' with his password 'sky'."
-                value:
-                  email: "marc@test.com"
-                  password: "sky"
-      responses:
-        '200':
-          summary: "Return user informations"
-          description: "The response should contains an object user with an id, username, email and role."
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - user
-                properties:
-                  user:
-                    type: object
-                    required:
-                      - id
-                      - username
-                      - email
-                      - role
-                    properties:
-                      id:
-                        type: integer
-                        readOnly: true
-                      username:
-                        type: string
-                      email:
-                        type: string
-                        format: email
-                      role:
-                        type: array
-                        items:
-                          type: string
-                        uniqueItems: true
-              examples:
-                loginUserResponse:
-                  summary: "Response from the server"
-                  description: "The frontend should receive an ID, email, role and username of the user."
-                  value:
-                    user:
-                      email: "marc@test.com"
-                      id: 1
-                      username: "marc"
-                      role: ["user"]
-        '401':
-          description: "The user or admin gave a wrong email or password"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-              examples:
-                wrongLoginError:
-                  description: "The user or admin gave a wrong email or password."
-                  value:
-                    error:
-                      statusCode: 401
-                      message: "The email or password is wrong."
-        '500':
-          description: "Internal Server Error - Something went wrong on the server side"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-              examples:
-                InternalLoginError:
-                  description: "Unexpected database or server error."
-                  value:
-                    error:
-                      statusCode: 500
-                      message: "An unexpected error occurred. Please try again later."
+    /auth/login:
+        $ref: "./paths/authLogin.yaml"
+components:
+    securitySchemes:
+        $ref: "./components/securitySchemes.yaml"
+    schemas:
+        LoginRequest:
+            $ref: "./components/schemas/loginRequest.yaml"
+        User:
+            $ref: "./components/schemas/user.yaml"
+    responses:
+        LoginSuccess:
+            $ref: "./components/responses/loginSuccess.yaml"

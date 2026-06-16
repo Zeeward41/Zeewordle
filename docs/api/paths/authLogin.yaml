@@ -1,0 +1,22 @@
+post:
+    tags:
+        - Authentication
+    summary: 'Login route'
+    description: 'This route is for the user or admin to log on the application.'
+    security: []
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    $ref: "../openapi.yaml#/components/schemas/LoginRequest"
+                examples:
+                    loginUser:
+                        summary: 'User login with credential'
+                        description: "User uses his email 'marc@test.com' with his password 'sky'."
+                        value:
+                            email: 'marc@test.com'
+                            password: 'sky'
+    responses:
+        '200':
+            $ref: "../openapi.yaml#/components/responses/LoginSuccess"

@@ -12,13 +12,17 @@ fileignoreconfig:
 - filename: apps/backend/coverage/lcov-report/sorter.js
   checksum: ab12308876d2c2ed6ae4d6bdcc48f80984b8b88deb977d8382e86699149398f2
 - filename: apps/backend/pnpm-lock.yaml
-  checksum: e751d755eba2284d15dfe623115bc249a636ef0add41f4467315a8a84448ce49
+  checksum: a7bb971b97030ce549988fc24128973e72225fb201828508f525528decaa0324
+- filename: apps/backend/public/docs/index.html
+  checksum: 272e4c4b4af74a82a06f625a8b02e396eb0c06e668c734eb8dec3277fcb7dcc1
 - filename: apps/frontend/pnpm-lock.yaml
   checksum: 7e99a1250145700f6d9213770c94eb84f4d0483567e9c44f28a6b866204278d2
 - filename: docs/adr/0003-security-policy-of-secrets.md
   checksum: 1e92bbb107ea54cce17e803650d2299bb521239ea2c6b37d0d394a3f1f886ce1
 - filename: docs/adr/0005-CI-Choices.md
   checksum: 059ffbc4610f99a06346bab45c91cbe623a5c752fb75762a28d10a30015dceda
+- filename: docs/api/index.html
+  checksum: 51b80681ac4f9f97b4b1a99cf996ca484dc10645d0bdc9198282bb8a920f4fd3
 - filename: docs/guides/0002-How-to-Setup-SonarQube-Token.md
   checksum: f8aad979c4bd7614896909cf80d9be17db5db9895ab8f4c60c266c8e2059554b
 - filename: docs/guides/0002-How-to-Setup-SonarQube.md
