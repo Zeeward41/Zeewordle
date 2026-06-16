@@ -1,0 +1,30 @@
+post:
+    operationId: RegisterUser
+    tags:
+        - Authentication
+    summary: 'Register route'
+    description: 'This route is for the user to Register on the application.'
+    security: []
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    $ref: "../openapi.yaml#/components/schemas/RegisterRequest"
+                examples:
+                    registerUser:
+                        summary: 'User Register with email, username and password.'
+                        description: "User give an email 'marc@test.com', username and a password 'water'."
+                        value:
+                            email: 'marc@test.com'
+                            password: 'water'
+                            username: 'marc'
+    responses:
+        '201':
+            $ref: "../openapi.yaml#/components/responses/RegisterSuccess"
+        '400':
+            $ref: "../openapi.yaml#/components/responses/RegisterBadRequest"
+        '409':
+            $ref: "../openapi.yaml#/components/responses/RegisterConflict"
+        '500':
+            $ref: "../openapi.yaml#/components/responses/ServerError"

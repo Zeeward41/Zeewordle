@@ -2,15 +2,15 @@
 # Login Responses
 # ----------------------------------------------------
 loginSuccess:
-  description: "The response should contains an object user with an id, username, email and role."
+  description: "Authentication successful. Returns the authenticated user's profile data."
   content:
     application/json:
       schema:
         $ref: "../../openapi.yaml#/components/schemas/User"
       examples:
         loginUserResponse:
-          summary: "Response from the server"
-          description: "The frontend should receive an ID, email, role and username of the user."
+          summary: "Standard User Profile"
+          description: "Example of a successful response for a standard user account."
           value:
             user:
               email: "marc@test.com"
@@ -36,16 +36,61 @@ loginUnauthorized:
 
 #----
 
-loginServerError:
-  description: "Something wrong happened"
+# ----------------------------------------------------
+# Register Responses
+# ----------------------------------------------------
+
+registerSuccess:
+  description: "User account created successfully. The user is now registered in the system."
+  content:
+    application/json:
+      schema:
+        $ref: "../../openapi.yaml#/components/schemas/User"
+      examples:
+        loginUserResponse:
+          summary: "Newly created user profile"
+          description: "Example of the returned profile object after a successful registration."
+          value:
+            user:
+              email: "marc@test.com"
+              id: 1
+              username: "marc"
+              role: ["user"]
+
+#----
+
+registerBadRequest:
+  description: "Validation failed. The request body contains missing, invalid, or malformed fields."
   content:
     application/json:
       schema:
         $ref: "../../openapi.yaml#/components/schemas/ErrorResponse"
       examples:
-        internalServerError:
-          description: "Something unexpected happened."
+        missingField:
+          summary: "Missing mandatory fields"
+          description: "Triggered when required fields like 'username' or 'password' or 'username' are not provided."
           value:
             error:
-              statusCode: 500
-              message: "Something went wrong."
+              statusCode: 400
+              message: "The username field is required.."
+        invalidEmail:
+          summary: "Invalid email format"
+          description: "Triggered when the provided email does not match a valid email pattern."
+          value:
+            error:
+              statusCode: 400
+              message: "The email format is invalid."
+registerConflict:
+  description: "Registration conflict. The provided email address or username is already in use."
+  content:
+    application/json:
+      schema:
+        $ref: "../../openapi.yaml#/components/schemas/ErrorResponse"
+      examples:
+        emailAlreadyExists:
+          summary: "Email already registered"
+          description: "Returned when a user attempts to sign up with an existing email address."
+          value:
+            error:
+              statusCode: 409
+              message: "An account with this email address already exists."

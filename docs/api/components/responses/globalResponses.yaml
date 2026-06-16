@@ -1,0 +1,16 @@
+# ----------------------------------------------------
+# global Responses
+# ----------------------------------------------------
+serverError:
+  description: "Something wrong happened"
+  content:
+    application/json:
+      schema:
+        $ref: "../../openapi.yaml#/components/schemas/ErrorResponse"
+      examples:
+        internalServerError:
+          description: "Something unexpected happened."
+          value:
+            error:
+              statusCode: 500
+              message: "Something went wrong."

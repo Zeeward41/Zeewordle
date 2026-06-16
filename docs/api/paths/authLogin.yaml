@@ -24,4 +24,4 @@ post:
         '401':
             $ref: "../openapi.yaml#/components/responses/LoginUnauthorized"
         '500':
-            $ref: "../openapi.yaml#/components/responses/LoginServerError"
+            $ref: "../openapi.yaml#/components/responses/ServerError"

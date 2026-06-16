@@ -22,6 +22,8 @@ security:
 paths:
     /auth/login:
         $ref: "./paths/authLogin.yaml"
+    /auth/register:
+        $ref: "./paths/authRegister.yaml"
 components:
     securitySchemes:
         $ref: "./components/securitySchemes.yaml"
@@ -32,10 +34,18 @@ components:
             $ref: "./components/schemas/user.yaml"
         ErrorResponse:
             $ref: "./components/schemas/errorResponse.yaml"
+        RegisterRequest:
+            $ref: "./components/schemas/registerRequest.yaml"
     responses:
+        ServerError:
+            $ref: "./components/responses/globalResponses.yaml#/serverError"
         LoginSuccess:
             $ref: "./components/responses/authResponses.yaml#/loginSuccess"
         LoginUnauthorized:
             $ref: "./components/responses/authResponses.yaml#/loginUnauthorized"
-        LoginServerError:
-            $ref: "./components/responses/authResponses.yaml#/loginServerError"
+        RegisterSuccess:
+            $ref: "./components/responses/authResponses.yaml#/registerSuccess"
+        RegisterBadRequest:
+            $ref: "./components/responses/authResponses.yaml#/registerBadRequest"
+        RegisterConflict:
+            $ref: "./components/responses/authResponses.yaml#/registerConflict"
