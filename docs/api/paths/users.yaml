@@ -1,0 +1,13 @@
+delete:
+    operationId: userDelete
+    tags:
+        - Users
+    summary: 'Delete a user.'
+    description: 'Permanently deletes a user account from the database by its unique identifier. This action is irreversible and restricted strictly to users with administrator privileges.'
+    responses:
+        '200':
+            $ref: "../components/responses/usersResponses.yaml#/userDelete"
+        '401':
+            $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
+        '500':
+            $ref: "../components/responses/globalResponses.yaml#/serverError"

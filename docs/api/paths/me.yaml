@@ -1,0 +1,13 @@
+get:
+    operationId: me
+    tags:
+        - Users
+    summary: 'Get current user profile'
+    description: 'Retrieves the profile data of the currently authenticated user based on the active session cookie.'
+    responses:
+        '200':
+            $ref: "../components/responses/usersResponses.yaml#/me"
+        '401':
+            $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
+        '500':
+            $ref: "../components/responses/globalResponses.yaml#/serverError"

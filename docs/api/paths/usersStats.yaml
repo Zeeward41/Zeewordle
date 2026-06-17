@@ -1,0 +1,28 @@
+delete:
+    operationId: statsDelete
+    tags:
+        - Users
+    summary: 'Reset user statistics'
+    description: 'Permanently deletes or resets all game and performance statistics for the currently authenticated user. This action cannot be undone.'
+    responses:
+        '200':
+            $ref: "../components/responses/usersResponses.yaml#/statsDelete"
+        '401':
+            $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
+        '500':
+            $ref: "../components/responses/globalResponses.yaml#/serverError"
+
+
+get:
+    operationId: GetStats
+    tags:
+        - Users
+    summary: 'Get user statistics'
+    description: 'Retrieves the gameplay and performance statistics for the currently authenticated user.'
+    responses:
+        '200':
+            $ref: "../components/responses/usersResponses.yaml#/getStats"
+        '401':
+            $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
+        '500':
+            $ref: "../components/responses/globalResponses.yaml#/serverError"

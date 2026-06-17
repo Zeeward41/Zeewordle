@@ -1,0 +1,13 @@
+get:
+    operationId: GetUserProfile
+    tags:
+        - Users
+    summary: 'Get detailed user data.'
+    description: 'Retrieve complete profile information of the user. Restricted to user him-self.'
+    responses:
+        '200':
+            $ref: "../components/responses/usersResponses.yaml#/getUser"
+        '401':
+            $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
+        '500':
+            $ref: "../components/responses/globalResponses.yaml#/serverError"

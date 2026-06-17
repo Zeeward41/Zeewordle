@@ -31,7 +31,7 @@ getUser:
       schema:
         $ref: "../schemas/users.yaml#/userResponse"
       examples:
-        adminUsersList:
+        adminGetUser:
           summary: "Detailed user profile profile."
           description: "Example of a successful response returning all available data for a specific user."
           value:

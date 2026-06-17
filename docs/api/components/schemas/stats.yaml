@@ -1,0 +1,30 @@
+# ----------------------------------------------------
+# Stats Schemas
+# ----------------------------------------------------
+statsInfo:
+  type: object
+  required:
+    - games_played
+    - wins
+    - current_streak
+    - best_streak
+  properties:
+    games_played:
+      type: integer
+      minimum: 0
+    wins:
+      type: integer
+      minimum: 0
+    current_streak:
+      type: integer
+      minimum: 0
+    best_streak:
+      type: integer
+      minimum: 0
+
+statsResponse:
+  type: object
+  required: [stats]
+  properties:
+    stats:
+      $ref: '#/statsInfo'

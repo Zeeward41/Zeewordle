@@ -34,6 +34,18 @@ paths:
         $ref: "./paths/adminListUsers.yaml"
     /admin/users/{id}:
         $ref: "./paths/adminUser.yaml"
+    /me:
+        $ref: "./paths/me.yaml"
+    /users:
+        $ref: "./paths/users.yaml"
+    /users/profile:
+        $ref: "./paths/usersProfile.yaml"
+    /users/stats:
+        $ref: "./paths/usersStats.yaml"
+    /game/{id}:
+        $ref: "./paths/gameById.yaml"
+    /game/{id}/guess:
+        $ref: "./paths/gameById.yaml"
 components:
     securitySchemes:
         $ref: "./components/securitySchemes.yaml"

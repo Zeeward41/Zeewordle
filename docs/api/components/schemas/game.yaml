@@ -1,0 +1,74 @@
+# ----------------------------------------------------
+# Game Schemas
+# ----------------------------------------------------
+gameStat:
+  type: object
+  required:
+    - id
+    - user_id
+    - word
+    - attempts
+    - status
+    - created_at
+  properties:
+    id:
+      type: integer
+      minimum: 1
+    user_id:
+      type: integer
+      minimum: 1
+    word:
+      type: string
+      minLength: 5
+      maxLength: 5
+    attempts:
+      type: array
+      items:
+        $ref: "#/attemptEntry"
+      minItems: 0
+      maxItems: 6
+    status:
+      type: string
+      enum: [IN_PROGRESS, WON, LOST]
+    created_at:
+      type: string
+      format: date-time
+
+attemptEntry:
+  type: object
+  required:
+    - word
+    - result
+  properties:
+    word:
+      type: string
+      minLength: 5
+      maxLength: 5
+    result:
+      type: array
+      items:
+        type: string
+        enum: [CORRECT, MISPLACED, WRONG]
+
+gameResponse:
+  type: object
+  required: [game]
+  properties:
+    game:
+      $ref: '#/gameStat'
+
+gameGuess:
+  type: object
+  required: [word]
+  properties:
+    word:
+      type: string
+      minLength: 5
+      maxLength: 5
+
+guessResponse:
+  type: object
+  required: [game]
+  properties:
+    game:
+      $ref: "#/gameStat"

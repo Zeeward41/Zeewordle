@@ -46,7 +46,7 @@ registerSuccess:
       schema:
         $ref: "../schemas/users.yaml#/userResponse"
       examples:
-        loginUserResponse:
+        RegisterResponse:
           summary: "Newly created user profile"
           description: "Example of the returned profile object after a successful registration."
           value:
