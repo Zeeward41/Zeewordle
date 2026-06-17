@@ -16,7 +16,13 @@ servers:
       description: 'Production server'
 tags:
     - name: Authentication
-      description: 'Endpoints...'
+      description: 'Endpoints handling user identity, token generation, login, registration, and session management.'
+    - name: Admin
+      description: 'Administrative operations restricted to system administrators, including backend configuration and platform oversight.'
+    - name: Users
+      description: 'Operations related to user account management, profile updates, preferences, and account retrieval.'
+    - name: Game
+      description: 'Core game mechanics, matchmaking, state updates, leaderboards, and real-time interaction endpoints.'
 security:
     - SessionAuth: []
 paths:
@@ -24,28 +30,10 @@ paths:
         $ref: "./paths/authLogin.yaml"
     /auth/register:
         $ref: "./paths/authRegister.yaml"
+    /admin/users:
+        $ref: "./paths/adminListUsers.yaml"
+    /admin/users/{id}:
+        $ref: "./paths/adminUser.yaml"
 components:
     securitySchemes:
         $ref: "./components/securitySchemes.yaml"
-    schemas:
-        LoginRequest:
-            $ref: "./components/schemas/loginRequest.yaml"
-        User:
-            $ref: "./components/schemas/user.yaml"
-        ErrorResponse:
-            $ref: "./components/schemas/errorResponse.yaml"
-        RegisterRequest:
-            $ref: "./components/schemas/registerRequest.yaml"
-    responses:
-        ServerError:
-            $ref: "./components/responses/globalResponses.yaml#/serverError"
-        LoginSuccess:
-            $ref: "./components/responses/authResponses.yaml#/loginSuccess"
-        LoginUnauthorized:
-            $ref: "./components/responses/authResponses.yaml#/loginUnauthorized"
-        RegisterSuccess:
-            $ref: "./components/responses/authResponses.yaml#/registerSuccess"
-        RegisterBadRequest:
-            $ref: "./components/responses/authResponses.yaml#/registerBadRequest"
-        RegisterConflict:
-            $ref: "./components/responses/authResponses.yaml#/registerConflict"

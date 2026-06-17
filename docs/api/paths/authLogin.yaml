@@ -10,7 +10,7 @@ post:
         content:
             application/json:
                 schema:
-                    $ref: "../openapi.yaml#/components/schemas/LoginRequest"
+                    $ref: "../components/schemas/users.yaml#/loginRequest"
                 examples:
                     loginUser:
                         summary: 'User login with credential'
@@ -20,8 +20,8 @@ post:
                             password: 'water'
     responses:
         '200':
-            $ref: "../openapi.yaml#/components/responses/LoginSuccess"
+            $ref: "../components/responses/authResponses.yaml#/loginSuccess"
         '401':
-            $ref: "../openapi.yaml#/components/responses/LoginUnauthorized"
+            $ref: "../components/responses/authResponses.yaml#/loginUnauthorized"
         '500':
-            $ref: "../openapi.yaml#/components/responses/ServerError"
+            $ref: "../components/responses/globalResponses.yaml#/serverError"

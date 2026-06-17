@@ -1,0 +1,39 @@
+get:
+    operationId: adminListUsers
+    tags:
+        - Admin
+    summary: 'Retrieve a list of all registered users.'
+    description: 'Returns a paginated list of all users in the system. This endpoint supports filtering, sorting, and is strictly restricted to accounts with administrative privileges.'
+    parameters:
+      - name: search
+        in: query
+        description: 'Filter users by name, username, or email (case-insensitive fuzzy match)'
+        required: false
+        schema:
+            type: string
+        example: 'marc'
+      - name: page
+        in: query
+        description: 'The page number to retrieve'
+        required: false
+        schema:
+            type: integer
+            default: 1
+      - name: limit
+        in: query
+        description: 'Number of users per page'
+        required: false
+        schema:
+            type: integer
+            default: 20
+    responses:
+        '200':
+            $ref: "../components/responses/adminResponses.yaml#/usersList"
+        '400':
+            $ref: "../components/responses/adminResponses.yaml#/badRequestError"
+        '401':
+            $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
+        '403':
+            $ref: "../components/responses/globalResponses.yaml#/forbiddenError"
+        '500':
+            $ref: "../components/responses/globalResponses.yaml#/serverError"

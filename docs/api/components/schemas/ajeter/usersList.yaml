@@ -1,0 +1,9 @@
+type: object
+required:
+  - users
+properties:
+  users:
+    type: array
+    items:
+      $ref: "../../openapi.yaml#/components/schemas/User"
+    uniqueItems: true

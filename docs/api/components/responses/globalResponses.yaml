@@ -6,7 +6,7 @@ serverError:
   content:
     application/json:
       schema:
-        $ref: "../../openapi.yaml#/components/schemas/ErrorResponse"
+        $ref: "../schemas/errorResponse.yaml"
       examples:
         internalServerError:
           description: "Something unexpected happened."
@@ -14,3 +14,44 @@ serverError:
             error:
               statusCode: 500
               message: "Something went wrong."
+
+#----
+
+unauthorizedError:
+  description: "Unauthorized. The request requires user authentication. The session cookie is missing, invalid, or has expired."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorResponse.yaml"
+
+      examples:
+        missingCookie:
+          summary: "Missing session cookie"
+          description: "The user attempted to access a protected route without providing the authentication cookie in the request headers."
+          value:
+            error:
+              statusCode: 401
+              message: "Authentication required. Please log in."
+        expiredSession:
+          summary: "Expired or invalid session"
+          description: "The request contained a session cookie, but the session has expired on the server or the identifier is invalid."
+          value:
+            error:
+              statusCode: 401
+              message: "Invalid or expired session. Please re-authenticate."
+# ----
+
+forbiddenError:
+  description: "Forbidden. The authenticated user does not have the necessary permissions or roles to access this resource."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorResponse.yaml"
+      examples:
+        insufficientPrivileges:
+          summary: "Insufficent administrative privileges"
+          description: "The user is successfully logged in but has a standard 'user' role, which blocks them from viewing admin-only resources."
+          value:
+            error:
+              statusCode: 403
+              message: "Access denied. Administrative privileges are required for this action."

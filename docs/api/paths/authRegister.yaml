@@ -10,21 +10,21 @@ post:
         content:
             application/json:
                 schema:
-                    $ref: "../openapi.yaml#/components/schemas/RegisterRequest"
+                    $ref: "../components/schemas/users.yaml#/registerRequest"
                 examples:
                     registerUser:
                         summary: 'User Register with email, username and password.'
                         description: "User give an email 'marc@test.com', username and a password 'water'."
                         value:
-                            email: 'marc@test.com'
+                            email: 'milenia@test.com'
                             password: 'water'
-                            username: 'marc'
+                            username: 'milenia'
     responses:
         '201':
-            $ref: "../openapi.yaml#/components/responses/RegisterSuccess"
+            $ref: "../components/responses/authResponses.yaml#/registerSuccess"
         '400':
-            $ref: "../openapi.yaml#/components/responses/RegisterBadRequest"
+            $ref: "../components/responses/authResponses.yaml#/registerBadRequest"
         '409':
-            $ref: "../openapi.yaml#/components/responses/RegisterConflict"
+            $ref: "../components/responses/authResponses.yaml#/registerConflict"
         '500':
-            $ref: "../openapi.yaml#/components/responses/ServerError"
+            $ref: "../components/responses/globalResponses.yaml#/serverError"

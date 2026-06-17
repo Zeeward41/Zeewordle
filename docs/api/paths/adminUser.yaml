@@ -1,0 +1,55 @@
+get:
+    operationId: GetUser
+    tags:
+        - Admin
+    summary: 'Get detailed user data.'
+    description: 'Retrieve complete profile information for a specific user by their ID. Restricted to admins.'
+    parameters:
+      - name: id
+        in: path
+        description: 'The unique identifier of the user.'
+        required: true
+        schema:
+            type: integer
+        example: 2
+    responses:
+        '200':
+            $ref: "../components/responses/adminResponses.yaml#/getUser"
+        '400':
+            $ref: "../components/responses/adminResponses.yaml#/badRequestError"
+        '401':
+            $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
+        '403':
+            $ref: "../components/responses/globalResponses.yaml#/forbiddenError"
+        '404':
+            $ref: "../components/responses/adminResponses.yaml#/UserNotFound"
+        '500':
+            $ref: "../components/responses/globalResponses.yaml#/serverError"
+
+delete:
+    operationId: deleteUser
+    tags:
+        - Admin
+    summary: 'Delete a user.'
+    description: 'Permanently deletes a user account from the database by its unique identifier. This action is irreversible and restricted strictly to users with administrator privileges.'
+    parameters:
+      - name: id
+        in: path
+        description: 'The unique identifier of the user.'
+        required: true
+        schema:
+            type: integer
+        example: 2
+    responses:
+        '200':
+            $ref: "../components/responses/adminResponses.yaml#/deleteUser"
+        '400':
+            $ref: "../components/responses/adminResponses.yaml#/badRequestError"
+        '401':
+            $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
+        '403':
+            $ref: "../components/responses/globalResponses.yaml#/forbiddenError"
+        '404':
+            $ref: "../components/responses/adminResponses.yaml#/UserNotFound"
+        '500':
+            $ref: "../components/responses/globalResponses.yaml#/serverError"

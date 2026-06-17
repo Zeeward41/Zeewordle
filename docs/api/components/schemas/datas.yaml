@@ -1,0 +1,11 @@
+# ----------------------------------------------------
+# Datas Schemas
+# ----------------------------------------------------
+
+actionStatusResponse:
+  type: object
+  required: [data]
+  properties:
+    data:
+      type: string
+      maxLength: 100

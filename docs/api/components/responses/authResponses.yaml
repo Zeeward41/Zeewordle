@@ -6,17 +6,16 @@ loginSuccess:
   content:
     application/json:
       schema:
-        $ref: "../../openapi.yaml#/components/schemas/User"
+        $ref: "../schemas/users.yaml#/userSummary"
       examples:
         loginUserResponse:
           summary: "Standard User Profile"
           description: "Example of a successful response for a standard user account."
           value:
-            user:
-              email: "marc@test.com"
-              id: 1
-              username: "marc"
-              role: ["user"]
+            email: "milenia@test.com"
+            id: 1
+            username: "milenia"
+            role: ["user"]
 
 #----
 
@@ -25,7 +24,7 @@ loginUnauthorized:
   content:
     application/json:
       schema:
-        $ref: "../../openapi.yaml#/components/schemas/ErrorResponse"
+        $ref: "../schemas/errorResponse.yaml"
       examples:
         wrongLoginError:
           description: "The user or admin gave a wrong email or password."
@@ -45,16 +44,16 @@ registerSuccess:
   content:
     application/json:
       schema:
-        $ref: "../../openapi.yaml#/components/schemas/User"
+        $ref: "../schemas/users.yaml#/userResponse"
       examples:
         loginUserResponse:
           summary: "Newly created user profile"
           description: "Example of the returned profile object after a successful registration."
           value:
             user:
-              email: "marc@test.com"
+              email: "milenia@test.com"
               id: 1
-              username: "marc"
+              username: "milenia"
               role: ["user"]
 
 #----
@@ -64,7 +63,7 @@ registerBadRequest:
   content:
     application/json:
       schema:
-        $ref: "../../openapi.yaml#/components/schemas/ErrorResponse"
+        $ref: "../schemas/errorResponse.yaml"
       examples:
         missingField:
           summary: "Missing mandatory fields"
@@ -80,12 +79,15 @@ registerBadRequest:
             error:
               statusCode: 400
               message: "The email format is invalid."
+
+#----
+
 registerConflict:
   description: "Registration conflict. The provided email address or username is already in use."
   content:
     application/json:
       schema:
-        $ref: "../../openapi.yaml#/components/schemas/ErrorResponse"
+        $ref: "../schemas/errorResponse.yaml"
       examples:
         emailAlreadyExists:
           summary: "Email already registered"

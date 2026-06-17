@@ -1,0 +1,98 @@
+# ----------------------------------------------------
+# Admin Responses
+# ----------------------------------------------------
+usersList:
+  description: "Successfully retrieved the list of users for administration management."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/users.yaml#/userList"
+      examples:
+        adminUsersList:
+          summary: "Standard admin users list response."
+          description: "Example of a successful response returning a paginated list of registered users with their basic administration profiles."
+          value:
+            users:
+              - email: "miliena@test.com"
+                id: 1
+                username: "milenia"
+                role: ["user"]
+              - email: "Mikato@test.com"
+                id: 2
+                username: "Mikato"
+                role: ["user"]
+
+# ----
+
+getUser:
+  description: "Successfully retrieved the detailed profile of the requested user."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/users.yaml#/userResponse"
+      examples:
+        adminUsersList:
+          summary: "Detailed user profile profile."
+          description: "Example of a successful response returning all available data for a specific user."
+          value:
+            user:
+              email: "miliena@test.com"
+              id: 1
+              username: "milenia"
+              role: ["user"]
+
+# ----
+
+deleteUser:
+  description: "The user account was successfully deleted from the system."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/datas.yaml#/actionStatusResponse"
+      examples:
+        deleteUser:
+          summary: "User successfully deleted."
+          description: "Example of a successful response when an administrator deletes a user account. Returns a confirmation message."
+          value:
+            data: "User deleted"
+
+# ----
+
+badRequestError:
+  description: "Bad Request. The server cannot process the request due to invalid query parameters or malformed syntax."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorResponse.yaml"
+      examples:
+        invalidPagination:
+          summary: "Invalid pagination numbers"
+          description: "The user sent a negative page number or text instead of an integer (e.g., ?page=-5 or ?limit=abc)."
+          value:
+            error:
+              statusCode: 400
+              message: "Validation failed: 'page' and 'limit' must be positive integers."
+        invalidSearchQuery:
+          summary: "Search query too short"
+          description: "The user sent a search parameter that does not meet the minimum length requirements defined by the server API."
+          value:
+            error:
+              statusCode: 400
+              message: "Validation failed: 'search' parameter must be at least 2 characters long."
+
+# ----
+
+UserNotFound:
+  description: "Not Found. The requested user ID does not exist in the database."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorResponse.yaml"
+      examples:
+        userNotFound:
+          summary: "User not found."
+          description: "The admin provided a valid ID format, but no user matches this ID."
+          value:
+            error:
+              statusCode: 404
+              message: "No user found with the provided identifier."
