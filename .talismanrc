@@ -14,7 +14,7 @@ fileignoreconfig:
 - filename: apps/backend/pnpm-lock.yaml
   checksum: a7bb971b97030ce549988fc24128973e72225fb201828508f525528decaa0324
 - filename: apps/backend/public/docs/index.html
-  checksum: ccb2ac36b47a93c1dd1fd94fbd80f3cf9527f9879d602b258015290a66647779
+  checksum: 3be6247c10baeb55aaf68ace9bb8a8272490b799ea13b2f13fdecc196b1d1b00
 - filename: apps/frontend/pnpm-lock.yaml
   checksum: 7e99a1250145700f6d9213770c94eb84f4d0483567e9c44f28a6b866204278d2
 - filename: docs/adr/0003-security-policy-of-secrets.md

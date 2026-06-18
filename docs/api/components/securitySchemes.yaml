@@ -3,4 +3,6 @@ SessionAuth:
   type: apiKey
   in: cookie
   name: connect.sid  # 💡 Remplace par le vrai nom de ton cookie de session
-  description: Authentification par cookie de session standard.
+  description: |
+    Express session cookie.
+    Must be sent automatically by browser.

@@ -78,3 +78,59 @@ gameGuess:
                   result: ["WRONG", "WRONG", "MISPLACED", "WRONG", "WRONG"]
               status: "IN_PROGRESS"
               created_at: "2026-06-17T15:30:00Z"
+
+gameStop:
+  description: "The game was successfully stopped. Returns the final state of the game session."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/game.yaml#/gameResponse"
+      examples:
+        gameStop:
+          summary: "Successful game termination"
+          description: "Example response after a player forces the game to stop. The final status is updated."
+          value:
+            game:
+              id: 1
+              user_id: 1
+              word: "CRANE"
+              attempts:
+                - word: "SHEEP"
+                  result: ["WRONG", "WRONG", "MISPLACED", "WRONG", "WRONG"]
+              status: "LOST"
+              created_at: "2026-06-17T15:30:00Z"
+
+# ----
+
+
+gameCurrent:
+  description: "Successful response containing the active game state. It either returns an ongoing game session or a newly initialized one if none existed."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/game.yaml#/gameResponse"
+      examples:
+        gameCurrent:
+          summary: "Retrieved an ongoing game."
+          description: "The user had an active session in progress. Returns the current game state including all previous attempts."
+          value:
+            game:
+              id: 1
+              user_id: 1
+              word: "CRANE"
+              attempts:
+                - word: "SMART"
+                  result: ["CORRECT", "WRONG", "CORRECT", "CORRECT", "WRONG"]
+              status: "IN_PROGRESS"
+              created_at: "2026-06-17T15:30:00Z"
+        gameCreate:
+          summary: "Created a brand new game."
+          description: "No active session was found for the user. A new game has been generated and initialized with zero attempts."
+          value:
+            game:
+              id: 2
+              user_id: 1
+              word: "CRANE"
+              attempts: []
+              status: "IN_PROGRESS"
+              created_at: "2026-06-17T15:30:00Z"
