@@ -3,7 +3,7 @@ delete:
     tags:
         - Users
     summary: 'Delete a user.'
-    description: 'Permanently deletes a user account from the database by its unique identifier. This action is irreversible and restricted strictly to users with administrator privileges.'
+    description: 'Permanently deletes the currently authenticated user account from the database. The user identity is determined securely from the authentication token. This action is irreversible.'
     responses:
         '200':
             $ref: "../components/responses/usersResponses.yaml#/userDelete"

@@ -22,7 +22,7 @@ post:
         '200':
             $ref: "../components/responses/authResponses.yaml#/loginSuccess"
         '400':
-            $ref: "../components/responses/authResponses.yaml#/loginSuccess"
+            $ref: "../components/responses/authResponses.yaml#/loginBadRequest"
         '401':
             $ref: "../components/responses/authResponses.yaml#/loginUnauthorized"
         '500':

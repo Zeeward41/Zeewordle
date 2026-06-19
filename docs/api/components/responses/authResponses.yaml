@@ -35,6 +35,23 @@ loginUnauthorized:
 
 #----
 
+loginBadRequest:
+  description: "Validation failed. The request body contains missing, invalid, or malformed fields."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorResponse.yaml"
+      examples:
+        missingField:
+          summary: "Missing mandatory fields"
+          description: "Triggered when identifier or password is missing."
+          value:
+            error:
+              statusCode: 400
+              message: "The username field is required.."
+
+#----
+
 # ----------------------------------------------------
 # Register Responses
 # ----------------------------------------------------

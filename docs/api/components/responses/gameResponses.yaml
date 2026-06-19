@@ -41,6 +41,23 @@ gameNotFound:
 
 # ----
 
+gameAlreadyFinished:
+  description: "Bad Request. The action cannot be performed because the game has already ended."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorResponse.yaml"
+      examples:
+        gameBadRequest:
+          summary: "Game already finished"
+          description: "Triggered when a player attempts to submit a new word after reaching the maximum number of attempts or having already guessed the correct word."
+          value:
+            error:
+              statusCode: 400
+              message: "Cannot submit a word. This game is already finished."
+
+# ----
+
 gameBadRequest:
   description: "Bad Request. The submitted word is missing, has an incorrect length, contains invalid characters, or the game is already finished."
   content:
