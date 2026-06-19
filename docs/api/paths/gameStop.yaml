@@ -16,7 +16,7 @@ post:
       '200':
         $ref: "../components/responses/gameResponses.yaml#/gameStop"
       '400':
-        $ref: "../components/responses/gameResponses.yaml#/gameBadRequest"
+        $ref: "../components/responses/gameResponses.yaml#/gameAlreadyFinished"
       '401':
         $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
       '404':
