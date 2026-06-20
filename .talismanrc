@@ -4,7 +4,7 @@ fileignoreconfig:
 - filename: .sops.yaml
   checksum: 2f644260f3e3a1b36a28b4964044c874c0a88a0740fe6badd50c613275d75cfb
 - filename: apps/backend/config/development.enc.env
-  checksum: 774c6f9efda3c9e46612ec03a29f827fd2ef5727719e4c50d684ddac903bbf18
+  checksum: 7f2da20dc25d5ed6406f766934357a90c878216f614a201dab3e1b75f0002f71
 - filename: apps/backend/coverage/lcov-report/base.css
   checksum: 2ebd1655da04e0b972db9241ac3bb99bb057f3aeb90578957a6c570249b229c2
 - filename: apps/backend/coverage/lcov-report/block-navigation.js

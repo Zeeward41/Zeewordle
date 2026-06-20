@@ -25,3 +25,4 @@ dist-ssr
 
 # Environnement
 config/development.env
+docker-compose.yml
