@@ -12,7 +12,7 @@ fileignoreconfig:
 - filename: apps/backend/coverage/lcov-report/sorter.js
   checksum: ab12308876d2c2ed6ae4d6bdcc48f80984b8b88deb977d8382e86699149398f2
 - filename: apps/backend/pnpm-lock.yaml
-  checksum: a7bb971b97030ce549988fc24128973e72225fb201828508f525528decaa0324
+  checksum: fc24c760cde0e2838e39843f98ab12f380d3f54fd745e722270ac1691237001e
 - filename: apps/backend/public/docs/index.html
   checksum: 3be6247c10baeb55aaf68ace9bb8a8272490b799ea13b2f13fdecc196b1d1b00
 - filename: apps/frontend/pnpm-lock.yaml
