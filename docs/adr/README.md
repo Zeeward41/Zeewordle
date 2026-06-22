@@ -14,3 +14,4 @@ Each file follows the standard format (Context, Decision, Consequences).
 | [0007](./0007-Frontend-design-scope.md) | 10/06/2026 | Frontend design scope - wireframes only | ✅ Accepted |
 | [0008](./0008-Choice-of-Redocly-and-openAPI.md) | 16/06/2026 | choice of Redocly and openAPI | ✅ Accepted |
 | [0009](./0009-Backend-Execution-Environment-with-Nodemon-and-TSX.md) | 20/06/2026 | Backend Execution Environment with Nodemon and TSX | ✅ Accepted |
+| [0010](./0010-Choice-of-Zod-and-express-openapi-validator.md) | 22/06/2026 | Choice of Zod and express openapi validator |  ✅ Accepted |
