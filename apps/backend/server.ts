@@ -4,11 +4,20 @@ import morgan from 'morgan';
 import 'colors';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import errorHandler from './src/middlewares/error.ts';
+
+// Route files
+import auth from './src/routes/auth.ts';
 
 // Load env vars
 dotenv.config({ path: './config/development.env' });
 
 const app: Application = express();
+
+// Mount routers
+app.use('/api/v1/auth', auth);
+
+app.use(errorHandler);
 
 // CORS
 app.use(
