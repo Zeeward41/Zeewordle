@@ -5,6 +5,7 @@ import 'colors';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import errorHandler from './src/middlewares/error.ts';
+import OpenApiValidator from 'express-openapi-validator';
 
 // Route files
 import auth from './src/routes/auth.ts';
@@ -13,11 +14,6 @@ import auth from './src/routes/auth.ts';
 dotenv.config({ path: './config/development.env' });
 
 const app: Application = express();
-
-// Mount routers
-app.use('/api/v1/auth', auth);
-
-app.use(errorHandler);
 
 // CORS
 app.use(
@@ -39,6 +35,22 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
+console.log('OpenAPI Validator chargé');
+// express-openapi-validator
+app.use(
+    OpenApiValidator.middleware({
+        apiSpec: '../../docs/api/openapi.yaml',
+        validateRequests: true,
+        validateResponses: false,
+    })
+);
+
+console.log('OpenAPI Validator blue');
+
+// Mount routers
+app.use('/api/v1/auth', auth);
+
+app.use(errorHandler);
 
 const PORT: string | number = process.env.PORT || 5000;
 

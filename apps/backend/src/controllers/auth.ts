@@ -6,8 +6,6 @@ import ErrorResponse from '../utils/errorResponse.ts';
 // @access      Public
 export const register = (req: Request, res: Response, next: NextFunction) => {
     try {
-        throw new Error('Oups, crash de test !');
-
         console.log(req.body);
         res.send('OK');
     } catch (err) {
