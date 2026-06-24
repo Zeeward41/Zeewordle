@@ -14,11 +14,15 @@ fileignoreconfig:
 - filename: apps/backend/coverage/lcov-report/sorter.js
   checksum: ab12308876d2c2ed6ae4d6bdcc48f80984b8b88deb977d8382e86699149398f2
 - filename: apps/backend/pnpm-lock.yaml
-  checksum: c3ae65dbf5b234ef6d225a20098af8c07d756b6ab2f69df82bfb76ad04ecd229
+  checksum: 33b92bb72faad8757ad045c6453b4cf6b4fc295c205d51bf83050880241429d1
 - filename: apps/backend/public/docs/index.html
   checksum: 3be6247c10baeb55aaf68ace9bb8a8272490b799ea13b2f13fdecc196b1d1b00
+- filename: apps/backend/src/config/db.ts
+  checksum: a473c2568234215372e4b2db4cb4cb157aa9545d109d58edda2cca12eb417371
 - filename: apps/backend/src/schemas/auth.schema.ts
   checksum: f02cc3f3a6d1a2627e63cfdcdd3485ed1cc141cfe89b27ea3c2fe94929abd3b1
+- filename: apps/backend/src/tests/models/user.model.test.ts
+  checksum: 381b826006305000bb6e7c066829f2093bef112e714ed328f796b1a0a6c3900b
 - filename: apps/frontend/pnpm-lock.yaml
   checksum: 7e99a1250145700f6d9213770c94eb84f4d0483567e9c44f28a6b866204278d2
 - filename: docs/adr/0003-security-policy-of-secrets.md
