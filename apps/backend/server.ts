@@ -1,4 +1,5 @@
-import express, { Application } from 'express';
+import type { Application } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import 'colors';
@@ -32,7 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 // Cookie Parser
 app.use(cookieParser());
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env['NODE_ENV'] === 'development') {
     app.use(morgan('dev'));
 }
 console.log('OpenAPI Validator chargé');
@@ -52,10 +53,12 @@ app.use('/api/v1/auth', auth);
 
 app.use(errorHandler);
 
-const PORT: string | number = process.env.PORT || 5000;
+const PORT: string | number = process.env['PORT'] ?? 5000;
 
 app.listen(PORT, () => {
-    const mode = process.env.NODE_ENV || 'development';
+    const mode = process.env['NODE_ENV'] ?? 'development';
 
-    console.log(`Server running in ${mode} mode on port ${PORT}`.yellow.bold);
+    console.log(
+        `Server running in ${mode} mode on port ${String(PORT)}`.yellow
+    );
 });

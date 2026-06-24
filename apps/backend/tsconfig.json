@@ -39,5 +39,5 @@
         "allowUnreachableCode": false // Erreur si du code est écrit après un 'return' (code inaccessible).
     },
     // ===== Fichiers inclus =====
-    "include": ["src"] // Indique que ce fichier de configuration cible le dossier `src`.
+    "include": ["src", "server.ts"] // Indique que ce fichier de configuration cible le dossier `src`.
 }
