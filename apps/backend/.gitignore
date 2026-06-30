@@ -31,5 +31,6 @@ docker-compose.yml
 .stryker-tmp
 
 ## Code Coverage
-coverage/
+coverage/*
+report/*
 *.lcov

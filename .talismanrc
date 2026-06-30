@@ -17,6 +17,8 @@ fileignoreconfig:
   checksum: 53751f00602d48e0ef3592b1ff80d91806faeb4c7040907b4dc8de53536ec626
 - filename: apps/backend/public/docs/index.html
   checksum: 3be6247c10baeb55aaf68ace9bb8a8272490b799ea13b2f13fdecc196b1d1b00
+- filename: apps/backend/reports/mutation/mutation.html
+  checksum: 47562e32c89dbaa66694d1390cbf75aad2677dbed8d76da8a613d248b800dca9
 - filename: apps/backend/src/config/db.ts
   checksum: a473c2568234215372e4b2db4cb4cb157aa9545d109d58edda2cca12eb417371
 - filename: apps/backend/src/controllers/auth.ts
