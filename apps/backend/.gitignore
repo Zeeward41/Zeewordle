@@ -32,5 +32,5 @@ docker-compose.yml
 
 ## Code Coverage
 coverage/*
-report/*
+reports/*
 *.lcov
