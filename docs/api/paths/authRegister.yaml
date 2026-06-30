@@ -27,4 +27,9 @@ post:
         '409':
             $ref: "../components/responses/authResponses.yaml#/registerConflict"
         '500':
-            $ref: "../components/responses/globalResponses.yaml#/serverError"
+            #$ref: "../components/responses/globalResponses.yaml#/serverError"
+            description: "Something wrong happened"
+            content:
+                application/json:
+                    schema:
+                        $ref: "../components/schemas/errorResponse.yaml"
