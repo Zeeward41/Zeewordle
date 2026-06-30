@@ -11,35 +11,54 @@ interface OpenApiValidator extends Error {
         errorCode: string;
     }[];
 }
-
 const errorHandler = (
-    err: ErrorResponse | OpenApiValidator,
+    err: unknown,
     _req: Request,
     res: Response,
     _next: NextFunction
 ) => {
-    //Log to console for dev
-    console.log(err.stack?.red);
-
     let statusCode = 500;
     let message = 'Server Error';
 
     if (err instanceof ErrorResponse) {
         statusCode = err.statusCode;
         message = err.message;
-    } else {
-        statusCode = err.status;
-        const firstError = err.errors[0];
+    }
+    // Error express-openapi-Validator
+    else if (
+        err &&
+        typeof err === 'object' &&
+        'name' in err &&
+        'status' in err &&
+        'errors' in err
+    ) {
+        const openApiErr = err as OpenApiValidator;
+        statusCode = openApiErr.status;
+
+        // Sécurisation avec le chaînage optionnel ?.
+        const firstError = openApiErr.errors[0];
+
         if (firstError) {
             const cleanPath = firstError.path.startsWith('/')
                 ? firstError.path.slice(1)
                 : firstError.path;
             message = `${cleanPath}: ${firstError.message}`;
+        } else {
+            message = openApiErr.message || 'Validation Error';
         }
     }
+    // Others Errors
+    else {
+        if (err instanceof Error) {
+            console.error('Server Error', err.stack);
+        } else {
+            console.error('Server Error (Unknown Type):', err);
+        }
+    }
+
     res.status(statusCode).json({
         success: false,
-        error: message,
+        message: message,
     });
 };
 
