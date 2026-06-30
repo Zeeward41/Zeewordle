@@ -1,4 +1,5 @@
 import type { Application } from 'express';
+import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
@@ -36,17 +37,15 @@ app.use(cookieParser());
 if (process.env['NODE_ENV'] === 'development') {
     app.use(morgan('dev'));
 }
-console.log('OpenAPI Validator chargé');
+
 // express-openapi-validator
 app.use(
     OpenApiValidator.middleware({
-        apiSpec: '../../docs/api/openapi.yaml',
+        apiSpec: path.resolve('../../docs/api/openapi.yaml'),
         validateRequests: true,
         validateResponses: true,
     })
 );
-
-console.log('OpenAPI Validator blue');
 
 // Mount routers
 app.use('/api/v1/auth', auth);

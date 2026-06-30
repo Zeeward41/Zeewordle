@@ -80,6 +80,12 @@ export default defineConfig(
     {
         ignores: ['node_modules/**', 'dist/**', 'build/**', '*.md'],
     },
-
+    // Configuration pour les fichiers de test
+    {
+        files: ['**/*.test.ts'],
+        rules: {
+            '@typescript-eslint/unbound-method': 'off',
+        },
+    },
     prettierConfig
 );
