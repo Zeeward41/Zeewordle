@@ -9,6 +9,8 @@ env:
   NODE_VERSION: '25.0.0'
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
 jobs:
   check-credentials-leak:
