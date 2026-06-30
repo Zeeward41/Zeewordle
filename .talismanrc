@@ -23,8 +23,10 @@ fileignoreconfig:
   checksum: 3f98a07f9190c774ca40e2edd802ed56c1a8e537e642e150dac803c40e7ea548
 - filename: apps/backend/src/schemas/auth.schema.ts
   checksum: f02cc3f3a6d1a2627e63cfdcdd3485ed1cc141cfe89b27ea3c2fe94929abd3b1
+- filename: apps/backend/src/tests/controllers/auth.test.ts
+  checksum: 9213abb1632ebee0e37c96ef918bfad1274d885be6e9674a512389b59d1ae059
 - filename: apps/backend/src/tests/models/user.model.test.ts
-  checksum: 381b826006305000bb6e7c066829f2093bef112e714ed328f796b1a0a6c3900b
+  checksum: 7a97bcb0d00cbdb22f1a05de8d2cc2191bb70b5e6c29b4f934e12b789c7a963f
 - filename: apps/frontend/pnpm-lock.yaml
   checksum: 7e99a1250145700f6d9213770c94eb84f4d0483567e9c44f28a6b866204278d2
 - filename: docs/adr/0003-security-policy-of-secrets.md
