@@ -35,9 +35,8 @@ gameNotFound:
           summary: "Game not found."
           description: "Example of an error response when the requested game ID does not exist or access is denied."
           value:
-            error:
-              statusCode: 404
-              message: "Game not found or access denied"
+            success: false
+            message: "Game not found or access denied"
 
 # ----
 
@@ -52,9 +51,8 @@ gameAlreadyFinished:
           summary: "Game already finished"
           description: "Triggered when a player attempts to submit a new word after reaching the maximum number of attempts or having already guessed the correct word."
           value:
-            error:
-              statusCode: 400
-              message: "Cannot submit a word. This game is already finished."
+            success: false
+            message: "Cannot submit a word. This game is already finished."
 
 # ----
 
@@ -69,9 +67,8 @@ gameBadRequest:
           summary: "Invalid word submission"
           description: "Example of an error response when the player submits a word that does not meet the 5-letter requirement."
           value:
-            error:
-              statusCode: 400
-              message: "The submitted word must be exactly 5 letters long."
+            success: false
+            message: "The submitted word must be exactly 5 letters long."
 
 # ----
 

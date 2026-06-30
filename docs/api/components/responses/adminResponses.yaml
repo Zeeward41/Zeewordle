@@ -69,16 +69,14 @@ badRequestError:
           summary: "Invalid pagination numbers"
           description: "The user sent a negative page number or text instead of an integer (e.g., ?page=-5 or ?limit=abc)."
           value:
-            error:
-              statusCode: 400
-              message: "Validation failed: 'page' and 'limit' must be positive integers."
+            success: false
+            message: "Validation failed: 'page' and 'limit' must be positive integers."
         invalidSearchQuery:
           summary: "Search query too short"
           description: "The user sent a search parameter that does not meet the minimum length requirements defined by the server API."
           value:
-            error:
-              statusCode: 400
-              message: "Validation failed: 'search' parameter must be at least 2 characters long."
+            success: false
+            message: "Validation failed: 'search' parameter must be at least 2 characters long."
 
 # ----
 
@@ -93,6 +91,5 @@ UserNotFound:
           summary: "User not found."
           description: "The admin provided a valid ID format, but no user matches this ID."
           value:
-            error:
-              statusCode: 404
-              message: "No user found with the provided identifier."
+            success: false
+            message: "No user found with the provided identifier."

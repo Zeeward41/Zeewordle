@@ -29,9 +29,8 @@ loginUnauthorized:
         wrongLoginError:
           description: "The user or admin gave a wrong email or password."
           value:
-            error:
-              statusCode: 401
-              message: "The email or password is wrong."
+            success: false
+            message: "The email or password is wrong."
 
 #----
 
@@ -46,9 +45,8 @@ loginBadRequest:
           summary: "Missing mandatory fields"
           description: "Triggered when identifier or password is missing."
           value:
-            error:
-              statusCode: 400
-              message: "The username field is required.."
+            success: false
+            message: "The username field is required.."
 
 #----
 
@@ -86,16 +84,14 @@ registerBadRequest:
           summary: "Missing mandatory fields"
           description: "Triggered when required fields like 'username' or 'password' or 'username' are not provided."
           value:
-            error:
-              statusCode: 400
-              message: "The username field is required.."
+            success: false
+            message: "The username field is required.."
         invalidEmail:
           summary: "Invalid email format"
           description: "Triggered when the provided email does not match a valid email pattern."
           value:
-            error:
-              statusCode: 400
-              message: "The email format is invalid."
+            success: false
+            message: "The email format is invalid."
 
 #----
 
@@ -110,6 +106,5 @@ registerConflict:
           summary: "Email already registered"
           description: "Returned when a user attempts to sign up with an existing email address."
           value:
-            error:
-              statusCode: 409
-              message: "An account with this email address already exists."
+            success: false
+            message: "An account with this email address already exists."
