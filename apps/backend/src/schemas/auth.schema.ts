@@ -1,8 +1,7 @@
 import { z } from 'zod';
 
-const registerSchema = z.object({
+export const registerSchema = z.object({
     email: z
-        .string()
         .email({ message: 'The email is invalid' })
         .toLowerCase()
         .trim()
