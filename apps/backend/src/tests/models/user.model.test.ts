@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createUser } from '../../models/user.model.ts';
+import { createUser, getUserByEmail } from '../../models/user.model.ts';
 import pool from '../../config/db.ts';
 import type { QueryResult } from 'pg';
+import type { DBUser } from '../../types/auth.types.ts';
 
 vi.mock('../../config/db.ts');
 
@@ -80,6 +81,57 @@ describe('createUser', () => {
         expect(mockQuery).toHaveBeenCalledWith(
             expect.stringContaining('INSERT INTO users'),
             [email, username, password]
+        );
+    });
+});
+
+describe('getUserByEmail', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+    it('should have a function name createUser', () => {
+        expect(typeof getUserByEmail).toBe('function');
+    });
+
+    it('should receive 1 arguments', () => {
+        expect(getUserByEmail.length).toBe(1);
+    });
+    it('should get the user Data', async () => {
+        const email = 'alice@mail.com';
+
+        const mockQuery = vi.mocked(
+            pool.query as unknown as () => Promise<QueryResult>
+        );
+
+        mockQuery.mockResolvedValue({
+            rows: [
+                {
+                    id: 1,
+                    email: 'alice@mail.com',
+                    username: 'alice',
+                    password_hash: 'SuperHash',
+                    role: ['user'],
+                    created_at: new Date('2026-07-01T15:13:00.077Z'),
+                },
+            ],
+        } as unknown as QueryResult);
+
+        const result = await getUserByEmail(email);
+
+        expect(result).toEqual({
+            id: 1,
+            email: 'alice@mail.com',
+            username: 'alice',
+            password_hash: 'SuperHash',
+            role: ['user'],
+            created_at: new Date('2026-07-01T15:13:00.077Z'),
+        });
+
+        //pool.query must be bound to its object to avoid unintentional `this` scoping (unbound-method)
+        expect(mockQuery).toHaveBeenCalledOnce();
+        expect(mockQuery).toHaveBeenCalledWith(
+            'SELECT * FROM users WHERE email = $1',
+            [email]
         );
     });
 });
