@@ -1,16 +1,18 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { register } from '../../controllers/auth.ts';
+import { register, login } from '../../controllers/auth.ts';
 import type { Request, Response, NextFunction } from 'express';
-import { createUser } from '../../models/user.model.ts';
+import { createUser, getUserByEmail } from '../../models/user.model.ts';
 import bcrypt from 'bcrypt';
 
 vi.mock('../../models/user.model.ts', () => ({
     createUser: vi.fn(),
+    getUserByEmail: vi.fn(),
 }));
 
 vi.mock('bcrypt', () => ({
     default: {
         hash: vi.fn(),
+        compare: vi.fn(),
     },
 }));
 
@@ -104,5 +106,47 @@ describe('Register Route', () => {
             'mathilda',
             'hashed_password_123'
         );
+    });
+});
+
+describe('Login Route', () => {
+    it('should be a function', () => {
+        expect(typeof login).toBe('function');
+    });
+    it('should take 3 arguments', () => {
+        expect(register.length).toBe(3);
+    });
+    it('should return user Info when with success login', async () => {
+        const req = {
+            body: {
+                email: 'alice@example.com',
+                password: 'myPassword',
+            },
+        } as unknown as Request;
+        const res = {
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn(),
+        } as unknown as Response;
+        const next = vi.fn() as NextFunction;
+
+        vi.mocked(getUserByEmail).mockResolvedValue({
+            id: 122,
+            email: 'alice@mail.com',
+            username: 'alice',
+            password_hash: 'SuperHash',
+            role: ['user'],
+            created_at: new Date('2026-07-01T15:13:00.077Z'),
+        });
+
+        (
+            bcrypt.compare as unknown as ReturnType<typeof vi.fn>
+        ).mockResolvedValue(true);
+
+        await login(req, res, next);
+
+        expect(res.status).toHaveBeenCalledOnce();
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(getUserByEmail).toHaveBeenCalledOnce();
+        expect(bcrypt.compare).toHaveBeenCalledOnce();
     });
 });
