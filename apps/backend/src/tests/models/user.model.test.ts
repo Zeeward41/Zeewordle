@@ -134,4 +134,28 @@ describe('getUserByEmail', () => {
             [email]
         );
     });
+    it('should throw an ErrorResponse 401 when user is not found', async () => {
+        const email = 'alice@mail.com';
+
+        const mockQuery = vi.mocked(
+            pool.query as unknown as () => Promise<QueryResult>
+        );
+
+        mockQuery.mockResolvedValue({
+            rows: [],
+        } as unknown as QueryResult);
+
+        await expect(getUserByEmail('alice@mail.com')).rejects.toEqual(
+            expect.objectContaining({
+                message: 'email or password is incorrect',
+                statusCode: 401,
+            })
+        );
+        //pool.query must be bound to its object to avoid unintentional `this` scoping (unbound-method)
+        expect(mockQuery).toHaveBeenCalledOnce();
+        expect(mockQuery).toHaveBeenCalledWith(
+            'SELECT * FROM users WHERE email = $1',
+            [email]
+        );
+    });
 });
