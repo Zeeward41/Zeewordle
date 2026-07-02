@@ -16,15 +16,14 @@ export const register = async (
     res: Response,
     next: NextFunction
 ) => {
-    const request = req.body as RegisterBody;
-    const username = request.username;
-    const email = request.email;
-    const password = request.password;
-
-    const factor = 12;
-    const passwordHash = await bcrypt.hash(password, factor);
-
     try {
+        const request = req.body as RegisterBody;
+        const username = request.username;
+        const email = request.email;
+        const password = request.password;
+
+        const factor = 12;
+        const passwordHash = await bcrypt.hash(password, factor);
         const user: UserRecord = await createUser(
             email,
             username,

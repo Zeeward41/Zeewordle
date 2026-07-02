@@ -17,6 +17,10 @@ vi.mock('bcrypt', () => ({
     },
 }));
 
+// -----------
+// Register Route
+// -----------
+
 describe('Register Route', () => {
     let res: Response;
     let next: NextFunction;
@@ -68,6 +72,14 @@ describe('Register Route', () => {
 
         expect(res.status).toHaveBeenCalledWith(201);
         expect(res.json).toHaveBeenCalled();
+        expect(res.json).toHaveBeenCalledWith({
+            user: {
+                id: 1,
+                username: 'mathilda',
+                email: 'mathilda@example.com',
+                role: ['user'],
+            },
+        });
         expect(createUser).toHaveBeenCalledOnce();
     });
     it('should return a status code 409 with Error (duplication)', async () => {
@@ -109,6 +121,10 @@ describe('Register Route', () => {
         );
     });
 });
+
+// -----------
+// Login Route
+// -----------
 
 describe('Login Route', () => {
     let req: Request;
@@ -214,3 +230,7 @@ describe('Login Route', () => {
         expect(next).toHaveBeenCalledWith(new Error('Unexpected error'));
     });
 });
+
+// -----------
+// me Route
+// -----------
