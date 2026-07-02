@@ -31,3 +31,15 @@ export const getUserByEmail = async (email: string): Promise<DBUser> => {
 
     return user;
 };
+
+// undefined because we manage this (user empty) in the controller.
+export const getUserById = async (id: number): Promise<DBUser | undefined> => {
+    const result = await pool.query<DBUser>(
+        `SELECT * FROM users WHERE id = $1`,
+        [id]
+    );
+
+    const user = result.rows[0];
+
+    return user;
+};

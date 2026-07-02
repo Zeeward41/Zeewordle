@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createUser, getUserByEmail } from '../../models/user.model.ts';
+import {
+    createUser,
+    getUserByEmail,
+    getUserById,
+} from '../../models/user.model.ts';
 import pool from '../../config/db.ts';
 import type { QueryResult } from 'pg';
 
@@ -80,11 +84,15 @@ describe('createUser', () => {
     });
 });
 
+// --------------
+// getUserByEmail
+// --------------
+
 describe('getUserByEmail', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
-    it('should have a function name createUser', () => {
+    it('should have a function name getUserById', () => {
         expect(typeof getUserByEmail).toBe('function');
     });
 
@@ -151,6 +159,61 @@ describe('getUserByEmail', () => {
         expect(mockQuery).toHaveBeenCalledWith(
             'SELECT * FROM users WHERE email = $1',
             [email]
+        );
+    });
+});
+
+// --------------
+// getUserById
+// --------------
+
+describe(getUserById, () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+    it('should have a function name getUserById', () => {
+        expect(typeof getUserById).toBe('function');
+    });
+
+    it('should receive 1 arguments', () => {
+        expect(getUserById.length).toBe(1);
+    });
+    it('should return a user when a valid id is provided', async () => {
+        const id = 32;
+
+        const mockQuery = vi.mocked(
+            pool.query as unknown as () => Promise<QueryResult>
+        );
+
+        mockQuery.mockResolvedValue({
+            rows: [
+                {
+                    id: 32,
+                    email: 'alice@mail.com',
+                    username: 'alice',
+                    password_hash: 'SuperHash',
+                    role: ['user'],
+                    created_at: new Date('2026-07-01T15:13:00.077Z'),
+                },
+            ],
+        } as unknown as QueryResult);
+
+        const result = await getUserById(id);
+
+        expect(result).toEqual({
+            id: 32,
+            email: 'alice@mail.com',
+            username: 'alice',
+            password_hash: 'SuperHash',
+            role: ['user'],
+            created_at: new Date('2026-07-01T15:13:00.077Z'),
+        });
+
+        //pool.query must be bound to its object to avoid unintentional `this` scoping (unbound-method)
+        expect(mockQuery).toHaveBeenCalledOnce();
+        expect(mockQuery).toHaveBeenCalledWith(
+            'SELECT * FROM users WHERE id = $1',
+            [id]
         );
     });
 });
