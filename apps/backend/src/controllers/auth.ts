@@ -48,20 +48,26 @@ export const login = async (
     res: Response,
     next: NextFunction
 ) => {
-    const request = req.body as LoginBodyByEmail;
-    const result = await getUserByEmail(request.email);
-    const { id, email, username, role } = result;
-    const comparaison = await bcrypt.compare(
-        request.password,
-        result.password_hash
-    );
-    if (comparaison) {
-        const user = {
-            id,
-            email,
-            username,
-            role,
-        };
-        res.status(200).json(user);
+    try {
+        const request = req.body as LoginBodyByEmail;
+        const result = await getUserByEmail(request.email);
+        const { id, email, username, role } = result;
+        const comparaison = await bcrypt.compare(
+            request.password,
+            result.password_hash
+        );
+        if (comparaison) {
+            const user = {
+                id,
+                email,
+                username,
+                role,
+            };
+            res.status(200).json(user);
+        } else {
+            next(new ErrorResponse('email or password is incorrect', 401));
+        }
+    } catch (err) {
+        next(err);
     }
 };

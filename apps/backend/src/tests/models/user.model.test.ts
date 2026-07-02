@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createUser, getUserByEmail } from '../../models/user.model.ts';
 import pool from '../../config/db.ts';
 import type { QueryResult } from 'pg';
-import type { DBUser } from '../../types/auth.types.ts';
 
 vi.mock('../../config/db.ts');
 
@@ -37,11 +36,7 @@ describe('createUser', () => {
             ],
         } as unknown as QueryResult);
 
-        const result = (await createUser(
-            email,
-            username,
-            password
-        )) as QueryResult;
+        const result = await createUser(email, username, password);
 
         expect(result).toEqual({
             id: 1,

@@ -3,6 +3,7 @@ import { register, login } from '../../controllers/auth.ts';
 import type { Request, Response, NextFunction } from 'express';
 import { createUser, getUserByEmail } from '../../models/user.model.ts';
 import bcrypt from 'bcrypt';
+import ErrorResponse from '../../utils/errorResponse.ts';
 
 vi.mock('../../models/user.model.ts', () => ({
     createUser: vi.fn(),
@@ -110,6 +111,36 @@ describe('Register Route', () => {
 });
 
 describe('Login Route', () => {
+    let req: Request;
+    let res: Response;
+    let next: NextFunction;
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+
+        // RESPONSE
+        res = {
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn(),
+        } as unknown as Response;
+
+        // NEXT
+        next = vi.fn() as NextFunction;
+
+        // BCRYPT
+        (
+            bcrypt.compare as unknown as ReturnType<typeof vi.fn>
+        ).mockResolvedValue(true);
+
+        // Request
+        req = {
+            body: {
+                email: 'alice@example.com',
+                username: 'alice',
+                password: 'myPassword',
+            },
+        } as unknown as Request;
+    });
     it('should be a function', () => {
         expect(typeof login).toBe('function');
     });
@@ -117,18 +148,6 @@ describe('Login Route', () => {
         expect(register.length).toBe(3);
     });
     it('should return user Info when with success login', async () => {
-        const req = {
-            body: {
-                email: 'alice@example.com',
-                password: 'myPassword',
-            },
-        } as unknown as Request;
-        const res = {
-            status: vi.fn().mockReturnThis(),
-            json: vi.fn(),
-        } as unknown as Response;
-        const next = vi.fn() as NextFunction;
-
         vi.mocked(getUserByEmail).mockResolvedValue({
             id: 122,
             email: 'alice@mail.com',
@@ -138,15 +157,60 @@ describe('Login Route', () => {
             created_at: new Date('2026-07-01T15:13:00.077Z'),
         });
 
-        (
-            bcrypt.compare as unknown as ReturnType<typeof vi.fn>
-        ).mockResolvedValue(true);
-
         await login(req, res, next);
 
         expect(res.status).toHaveBeenCalledOnce();
         expect(res.status).toHaveBeenCalledWith(200);
         expect(getUserByEmail).toHaveBeenCalledOnce();
         expect(bcrypt.compare).toHaveBeenCalledOnce();
+    });
+    it('should call next with an ErrorResponse 401 when user is not found', async () => {
+        vi.mocked(getUserByEmail).mockRejectedValue(
+            new ErrorResponse('email or password is incorrect', 401)
+        );
+
+        await login(req, res, next);
+
+        expect(getUserByEmail).toHaveBeenCalledOnce();
+        expect(res.status).not.toHaveBeenCalled();
+        expect(next).toHaveBeenCalledOnce();
+        expect(next).toHaveBeenCalledWith(
+            new ErrorResponse('email or password is incorrect', 401)
+        );
+    });
+    it('should call next with an ErrorResponse 401 when password is incorrect', async () => {
+        vi.mocked(getUserByEmail).mockResolvedValue({
+            id: 122,
+            email: 'alice@mail.com',
+            username: 'alice',
+            password_hash: 'MyOtherPassword',
+            role: ['user'],
+            created_at: new Date('2026-07-01T15:13:00.077Z'),
+        });
+        (
+            bcrypt.compare as unknown as ReturnType<typeof vi.fn>
+        ).mockResolvedValue(false);
+
+        await login(req, res, next);
+
+        expect(getUserByEmail).toHaveBeenCalledOnce();
+        expect(res.status).not.toHaveBeenCalled();
+        expect(bcrypt.compare).toHaveBeenCalledOnce();
+        expect(next).toHaveBeenCalledOnce();
+        expect(next).toHaveBeenCalledWith(
+            new ErrorResponse('email or password is incorrect', 401)
+        );
+    });
+    it('should call next with an unexpected error when an error is thrown', async () => {
+        vi.mocked(getUserByEmail).mockRejectedValue(
+            new Error('Unexpected error')
+        );
+
+        await login(req, res, next);
+
+        expect(getUserByEmail).toHaveBeenCalledOnce();
+        expect(res.status).not.toHaveBeenCalled();
+        expect(next).toHaveBeenCalledOnce();
+        expect(next).toHaveBeenCalledWith(new Error('Unexpected error'));
     });
 });
