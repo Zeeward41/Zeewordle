@@ -108,3 +108,40 @@ registerConflict:
           value:
             success: false
             message: "An account with this email address already exists."
+
+# ----------------------------------------------------
+# Login Responses
+# ----------------------------------------------------
+
+logoutSuccess:
+  description: "User logged out successfully."
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          success:
+            type: boolean
+          message:
+            type: string
+      examples:
+        LogoutResponse:
+          summary: "Successful logout"
+          value:
+            success: true
+            message: "Logout user"
+
+#----
+
+logoutUnauthorized:
+  description: "User is not authenticated."
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/errorResponse.yaml"
+      examples:
+        LogoutUnauthorized:
+          summary: "No active session"
+          value:
+            success: false
+            message: "Unauthorized"

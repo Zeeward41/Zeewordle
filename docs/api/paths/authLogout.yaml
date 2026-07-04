@@ -1,0 +1,18 @@
+post:
+    operationId: logout
+    tags:
+        - Authentication
+    summary: 'Logout route'
+    description: 'This route is for the user or admin to logout on the application.'
+    responses:
+        '200':
+            $ref: "../components/responses/authResponses.yaml#/logoutSuccess"
+        '401':
+            $ref: "../components/responses/authResponses.yaml#/logoutUnauthorized"
+        '500':
+            #$ref: "../components/responses/globalResponses.yaml#/serverError"
+            description: "Something wrong happened"
+            content:
+                application/json:
+                    schema:
+                        $ref: "../components/schemas/errorResponse.yaml"
