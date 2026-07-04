@@ -155,6 +155,7 @@ describe('Login Route', () => {
                 username: 'alice',
                 password: 'myPassword',
             },
+            session: {},
         } as unknown as Request;
     });
     it('should be a function', () => {
@@ -230,7 +231,3 @@ describe('Login Route', () => {
         expect(next).toHaveBeenCalledWith(new Error('Unexpected error'));
     });
 });
-
-// -----------
-// me Route
-// -----------

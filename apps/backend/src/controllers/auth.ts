@@ -62,6 +62,8 @@ export const login = async (
                 username,
                 role,
             };
+
+            req.session.userId = user.id;
             res.status(200).json(user);
         } else {
             next(new ErrorResponse('email or password is incorrect', 401));

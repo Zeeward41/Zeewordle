@@ -4,7 +4,7 @@ fileignoreconfig:
 - filename: .sops.yaml
   checksum: 2f644260f3e3a1b36a28b4964044c874c0a88a0740fe6badd50c613275d75cfb
 - filename: apps/backend/config/development.enc.env
-  checksum: 7f2da20dc25d5ed6406f766934357a90c878216f614a201dab3e1b75f0002f71
+  checksum: 02b15301e00fecf28edd6cb3ed03521e5e5ebe1c3dc054f3a79b24f8744eae93
 - filename: apps/backend/coverage/lcov-report/base.css
   checksum: 2ebd1655da04e0b972db9241ac3bb99bb057f3aeb90578957a6c570249b229c2
 - filename: apps/backend/coverage/lcov-report/block-navigation.js
@@ -14,11 +14,13 @@ fileignoreconfig:
 - filename: apps/backend/coverage/lcov-report/sorter.js
   checksum: ab12308876d2c2ed6ae4d6bdcc48f80984b8b88deb977d8382e86699149398f2
 - filename: apps/backend/pnpm-lock.yaml
-  checksum: 53751f00602d48e0ef3592b1ff80d91806faeb4c7040907b4dc8de53536ec626
+  checksum: 0315d6efc8916858e5cac45aca2ad8848d8d3baae440728c1f429f0396fe727e
 - filename: apps/backend/public/docs/index.html
   checksum: 3be6247c10baeb55aaf68ace9bb8a8272490b799ea13b2f13fdecc196b1d1b00
 - filename: apps/backend/reports/mutation/mutation.html
   checksum: 47562e32c89dbaa66694d1390cbf75aad2677dbed8d76da8a613d248b800dca9
+- filename: apps/backend/server.ts
+  checksum: 5bd11e9ab6fb71af46ed84be8306e017cce67b7833a8ea3e8e543caf0c098d42
 - filename: apps/backend/src/config/db.ts
   checksum: a473c2568234215372e4b2db4cb4cb157aa9545d109d58edda2cca12eb417371
 - filename: apps/backend/src/controllers/auth.ts

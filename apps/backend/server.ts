@@ -8,12 +8,19 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import errorHandler from './src/middlewares/error.ts';
 import OpenApiValidator from 'express-openapi-validator';
+import session from 'express-session';
 
 // Route files
 import auth from './src/routes/auth.ts';
+import me from './src/routes/me.ts';
 
 // Load env vars
 dotenv.config({ path: './config/development.env' });
+
+// Check SESSION_SECRET exists
+if (!process.env['SESSION_SECRET']) {
+    throw new Error('SESSION_SECRET is not defined');
+}
 
 const app: Application = express();
 
@@ -24,6 +31,22 @@ app.use(
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
         allowedHeaders: ['Content-type', 'Authorization'],
+    })
+);
+
+// Cookie + Session
+app.use(
+    session({
+        secret: process.env['SESSION_SECRET'],
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+            //secure: process.env['NODE_ENV'] === 'development' ? false : true,
+            secure: false,
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 30, // 30 minutes
+        },
     })
 );
 
@@ -49,6 +72,7 @@ app.use(
 
 // Mount routers
 app.use('/api/v1/auth', auth);
+app.use('/api/v1', me);
 
 app.use(errorHandler);
 
