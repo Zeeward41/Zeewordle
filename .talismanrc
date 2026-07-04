@@ -29,6 +29,8 @@ fileignoreconfig:
   checksum: f02cc3f3a6d1a2627e63cfdcdd3485ed1cc141cfe89b27ea3c2fe94929abd3b1
 - filename: apps/backend/src/tests/controllers/auth.test.ts
   checksum: 92b2b646ec88da4cf661143688f4e55ebb97f9bd14addb9225e5f4c337d21ebf
+- filename: apps/backend/src/tests/controllers/me.test.ts
+  checksum: a4f8ca2a75c0af069fde03ee3a3b83da7cf415598cc56db3a2ee9ad0638d1b0f
 - filename: apps/backend/src/tests/models/user.model.test.ts
   checksum: 4cd9cfea89b9f9fab1bac6bcdf6710d6aa3c350494af6296b49c9813d5ef2885
 - filename: apps/frontend/pnpm-lock.yaml
