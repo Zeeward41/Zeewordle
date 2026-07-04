@@ -252,6 +252,7 @@ describe('logout route', () => {
         res = {
             status: vi.fn().mockReturnThis(),
             json: vi.fn(),
+            clearCookie: vi.fn(),
         } as unknown as Response;
 
         // NEXT
@@ -291,6 +292,7 @@ describe('logout route', () => {
 
         expect(res.status).toHaveBeenCalledOnce();
         expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.clearCookie).toHaveBeenCalledOnce();
         expect(res.json).toHaveBeenCalledWith(
             expect.objectContaining({
                 success: true,
