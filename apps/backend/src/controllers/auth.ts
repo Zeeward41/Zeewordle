@@ -72,3 +72,27 @@ export const login = async (
         next(err);
     }
 };
+
+// @desc        Logout User/Admin
+// @route       POST /api/v1/auth/logout
+// @access      Private
+export const logout = (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = req.session.userId;
+        if (!userId) {
+            throw new ErrorResponse('Unauthorized!!', 401);
+        }
+        req.session.destroy(err => {
+            if (err) {
+                next(err);
+                return;
+            }
+            res.status(200).json({
+                success: true,
+                message: 'Logout user',
+            });
+        });
+    } catch (err) {
+        next(err);
+    }
+};

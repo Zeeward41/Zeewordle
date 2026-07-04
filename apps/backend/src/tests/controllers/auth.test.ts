@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { register, login } from '../../controllers/auth.ts';
+import { register, login, logout } from '../../controllers/auth.ts';
 import type { Request, Response, NextFunction } from 'express';
 import { createUser, getUserByEmail } from '../../models/user.model.ts';
 import bcrypt from 'bcrypt';
@@ -162,7 +162,7 @@ describe('Login Route', () => {
         expect(typeof login).toBe('function');
     });
     it('should take 3 arguments', () => {
-        expect(register.length).toBe(3);
+        expect(login.length).toBe(3);
     });
     it('should return user Info when with success login', async () => {
         vi.mocked(getUserByEmail).mockResolvedValue({
@@ -229,5 +229,90 @@ describe('Login Route', () => {
         expect(res.status).not.toHaveBeenCalled();
         expect(next).toHaveBeenCalledOnce();
         expect(next).toHaveBeenCalledWith(new Error('Unexpected error'));
+    });
+});
+
+// -----------
+// Logout Route
+// -----------
+describe('logout route', () => {
+    let res: Response;
+    let next: NextFunction;
+    let req: Request;
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+
+        // REQUEST
+        req = {
+            session: {},
+        } as unknown as Request;
+
+        // RESPONSE
+        res = {
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn(),
+        } as unknown as Response;
+
+        // NEXT
+        next = vi.fn() as NextFunction;
+    });
+
+    it('should be a function', () => {
+        expect(typeof logout).toBe('function');
+    });
+    it('should take 3 arguments', () => {
+        expect(logout.length).toBe(3);
+    });
+    it('should return 401 status if userId is not in session', () => {
+        logout(req, res, next);
+
+        expect(res.status).not.toHaveBeenCalled();
+        expect(res.json).not.toHaveBeenCalled();
+        expect(next).toHaveBeenCalledOnce();
+        expect(next).toHaveBeenCalledWith(
+            expect.objectContaining({
+                message: 'Unauthorized!!',
+                statusCode: 401,
+            })
+        );
+    });
+    it('should logout the user and destroy the session', () => {
+        const req = {
+            session: {
+                userId: 122,
+                destroy: vi.fn((cb: (err?: Error) => void) => {
+                    cb();
+                }),
+            },
+        } as unknown as Request;
+
+        logout(req, res, next);
+
+        expect(res.status).toHaveBeenCalledOnce();
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                success: true,
+                message: 'Logout user',
+            })
+        );
+    });
+    it('should call next if destroy fails', () => {
+        const req = {
+            session: {
+                userId: 122,
+                destroy: vi.fn((cb: (err?: Error) => void) => {
+                    cb(new Error('destroy failed'));
+                }),
+            },
+        } as unknown as Request;
+
+        logout(req, res, next);
+
+        expect(res.status).not.toHaveBeenCalled();
+        expect(res.json).not.toHaveBeenCalled();
+        expect(next).toHaveBeenCalledOnce();
+        expect(next).toHaveBeenCalledWith(expect.any(Error));
     });
 });
