@@ -48,14 +48,11 @@ const errorHandler = (
         }
     }
     // Others Errors
-    else {
-        if (err instanceof Error) {
-            console.error('Server Error', err.stack);
-        } else {
-            console.error('Server Error (Unknown Type):', err);
-        }
+    else if (err instanceof Error) {
+        console.error('Server Error', err.stack);
+    } else {
+        console.error('Server Error (Unknown Type):', err);
     }
-
     res.status(statusCode).json({
         success: false,
         message: message,

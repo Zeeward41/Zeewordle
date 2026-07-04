@@ -58,7 +58,7 @@ describe('Register Route', () => {
         expect(typeof register).toBe('function');
     });
     it('should take 3 arguments', () => {
-        expect(register.length).toBe(3);
+        expect(register).toHaveLength(3);
     });
     it('should return a status code 201 with success', async () => {
         vi.mocked(createUser).mockResolvedValue({
@@ -162,7 +162,7 @@ describe('Login Route', () => {
         expect(typeof login).toBe('function');
     });
     it('should take 3 arguments', () => {
-        expect(login.length).toBe(3);
+        expect(login).toHaveLength(3);
     });
     it('should return user Info when with success login', async () => {
         vi.mocked(getUserByEmail).mockResolvedValue({
@@ -263,7 +263,7 @@ describe('logout route', () => {
         expect(typeof logout).toBe('function');
     });
     it('should take 3 arguments', () => {
-        expect(logout.length).toBe(3);
+        expect(logout).toHaveLength(3);
     });
     it('should return 401 status if userId is not in session', () => {
         logout(req, res, next);

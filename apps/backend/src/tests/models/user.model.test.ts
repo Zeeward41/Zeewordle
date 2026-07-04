@@ -18,7 +18,7 @@ describe('createUser', () => {
     });
 
     it('should receive 3 arguments', () => {
-        expect(createUser.length).toBe(3);
+        expect(createUser).toHaveLength(3);
     });
     it('should insert a user and return the created user data', async () => {
         const email = 'test@example.com';
@@ -97,7 +97,7 @@ describe('getUserByEmail', () => {
     });
 
     it('should receive 1 arguments', () => {
-        expect(getUserByEmail.length).toBe(1);
+        expect(getUserByEmail).toHaveLength(1);
     });
     it('should get the user Data', async () => {
         const email = 'alice@mail.com';
@@ -176,7 +176,7 @@ describe(getUserById, () => {
     });
 
     it('should receive 1 arguments', () => {
-        expect(getUserById.length).toBe(1);
+        expect(getUserById).toHaveLength(1);
     });
     it('should return a user when a valid id is provided', async () => {
         const id = 32;

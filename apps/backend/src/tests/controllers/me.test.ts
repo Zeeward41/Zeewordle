@@ -32,7 +32,7 @@ describe('me route', () => {
         expect(typeof me).toBe('function');
     });
     it('should take 3 argument', () => {
-        expect(me.length).toBe(3);
+        expect(me).toHaveLength(3);
     });
     it('should return the authenticated user profile details', async () => {
         vi.mocked(getUserById).mockResolvedValue({
