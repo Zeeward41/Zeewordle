@@ -11,7 +11,14 @@ import { defineConfig } from 'eslint/config';
 export default defineConfig([
     // 1. Fichiers à ignorer globalement
     {
-        ignores: ['dist', 'build', 'node_modules', 'coverage', 'tmpFile_*'],
+        ignores: [
+            'dist',
+            'build',
+            'node_modules',
+            'coverage',
+            'tmpFile_*',
+            '**/routeTree.gen.ts',
+        ],
     },
     // 2. Base commune pour TOUS les fichiers (JS, JSX, TS, TSX)
     {
