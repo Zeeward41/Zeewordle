@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AuthContext } from '../contexts/AuthContext.tsx';
 import type { UserRecord } from '../types/auth.types.tsx';
+import { API_ROUTES } from '../config/api.ts';
 
 interface AuthProviderProps {
     children: React.ReactNode;
@@ -14,12 +15,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     };
 
     const logout = async (): Promise<void> => {
-        const response = await fetch(
-            'http://localhost:5000/api/v1/auth/logout',
-            {
-                method: 'POST',
-            }
-        );
+        const response = await fetch(API_ROUTES.logout, {
+            method: 'POST',
+        });
         if (response.ok) {
             setUser(null);
         }
@@ -28,7 +26,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     useEffect(() => {
         const checkAuthStatus = async (): Promise<void> => {
             try {
-                const response = await fetch('http://localhost:5000/api/v1/me');
+                const response = await fetch(API_ROUTES.me);
                 if (!response.ok) {
                     setUser(null);
                     return;
