@@ -3,7 +3,8 @@ import type { UserRecord } from '../types/auth.types';
 
 interface AuthContextType {
     user: UserRecord | null;
-    setUser: React.Dispatch<React.SetStateAction<UserRecord | null>>;
+    login: (data: UserRecord) => void;
+    logout: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
