@@ -22,9 +22,7 @@ export const me = async (req: Request, res: Response, next: NextFunction) => {
             username: result.username,
             role: result.role,
         };
-        res.status(200).json({
-            user,
-        });
+        res.status(200).json(user);
     } catch (err) {
         next(err);
     }
