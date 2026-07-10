@@ -1,9 +1,9 @@
 import { createContext } from 'react';
-import type { UserRecord } from '../types/auth.types';
+import type { userSummaryType } from '../schemas/auth.schema';
 
 interface AuthContextType {
-    user: UserRecord | null;
-    login: (data: UserRecord) => void;
+    user: userSummaryType | null;
+    login: (data: userSummaryType) => void;
     logout: () => Promise<void>;
 }
 

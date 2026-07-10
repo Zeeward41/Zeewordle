@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { AuthContext } from '../contexts/AuthContext.tsx';
-import type { UserRecord } from '../types/auth.types.tsx';
+import {
+    userSummarySchema,
+    type userSummaryType,
+} from '../schemas/auth.schema.ts';
 import { API_ROUTES } from '../config/api.ts';
 
 interface AuthProviderProps {
@@ -8,9 +11,9 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const [user, setUser] = useState<UserRecord | null>(null);
+    const [user, setUser] = useState<userSummaryType | null>(null);
 
-    const login = (data: UserRecord): void => {
+    const login = (data: userSummaryType): void => {
         setUser(data);
     };
 
@@ -26,13 +29,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
     useEffect(() => {
         const checkAuthStatus = async (): Promise<void> => {
             try {
-                const response = await fetch(API_ROUTES.me);
+                const response = await fetch(API_ROUTES.me, {
+                    method: 'GET',
+                    credentials: 'include',
+                });
                 if (!response.ok) {
                     setUser(null);
                     return;
                 }
 
-                const data = (await response.json()) as UserRecord;
+                // const data = (await response.json()) as userSummaryType;
+                const json = (await response.json()) as unknown;
+                const data = userSummarySchema.parse(json);
                 setUser(data);
             } catch (err) {
                 console.error(err);
