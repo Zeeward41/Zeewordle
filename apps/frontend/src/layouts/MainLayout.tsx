@@ -1,7 +1,6 @@
 import './MainLayout.css';
 import { Navbar } from '../components/Navbar/Navbar.tsx';
 import { Outlet } from '@tanstack/react-router';
-import './MainLayout.css';
 
 export const MainLayout = () => {
     return (

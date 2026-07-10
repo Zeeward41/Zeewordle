@@ -125,13 +125,27 @@ export const Login = () => {
 
     return (
         <div className="login">
-            <p className="login-title">Login</p>
+            <div className="login-website">
+                <img
+                    src="/pen-Zeewordle.png"
+                    alt="Zeewordle - Login"
+                    className="login-website__logo logo"
+                />
+                <p className="login-website__name">Zeewordle</p>
+            </div>
+            <h1 className="login__title">Hi There!</h1>
+            <p className="login__message">Please enter required details</p>
+            <button type="button" className="login-google-btn">
+                <img
+                    src="/google.svg"
+                    alt=""
+                    aria-hidden="true"
+                    className="login-google-btn__logo logo"
+                />
+                <span className="login-google-btn__label">Google</span>
+            </button>
+            <span className="login__separator">Or</span>
             <form onSubmit={handlerSubmit} className="login-form">
-                {fieldState.email && (
-                    <span className="login-form__error login-form__error--email">
-                        {fieldState.email}
-                    </span>
-                )}
                 <input
                     className="login-form__input login-form__input--email"
                     placeholder="Email"
@@ -140,9 +154,9 @@ export const Login = () => {
                     value={form.email}
                     onChange={handlerChange}
                 />
-                {fieldState.password && (
-                    <span className="login-form__error login-form__error--password">
-                        {fieldState.password}
+                {fieldState.email && (
+                    <span className="login-form__error login-form__error--email">
+                        {fieldState.email}
                     </span>
                 )}
                 <input
@@ -153,7 +167,27 @@ export const Login = () => {
                     value={form.password}
                     onChange={handlerChange}
                 />
+                {fieldState.password && (
+                    <span className="login-form__error login-form__error--password">
+                        {fieldState.password}
+                    </span>
+                )}
+                <a
+                    href="https://developer.mozilla.org/fr/docs/Web/CSS"
+                    className="login-form__forgot"
+                >
+                    Forgot Password ?
+                </a>
                 <button className="login-form__button">Login</button>
+                <div className="login-form__signUP">
+                    <p>Create an account?</p>
+                    <a
+                        className="login-form__button--signup"
+                        href="https://developer.mozilla.org/fr/docs/Web/CSS"
+                    >
+                        Sign Up
+                    </a>
+                </div>
             </form>
         </div>
     );
