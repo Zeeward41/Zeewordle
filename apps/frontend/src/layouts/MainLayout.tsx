@@ -1,12 +1,15 @@
 import './MainLayout.css';
 import { Navbar } from '../components/Navbar/Navbar.tsx';
 import { Outlet } from '@tanstack/react-router';
+import './MainLayout.css';
 
 export const MainLayout = () => {
     return (
-        <>
+        <div className="mainlayout">
             <Navbar />
-            <Outlet />
-        </>
+            <div className="mainlayout__content">
+                <Outlet />
+            </div>
+        </div>
     );
 };
