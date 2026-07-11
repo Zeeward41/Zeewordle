@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, Link } from '@tanstack/react-router';
 import type { loginInput } from '../../schemas/auth.schema.ts';
 import {
     loginSchema,
@@ -199,12 +199,12 @@ export const Login = () => {
                 </button>
                 <div className="login-form__signUP">
                     <p>Create an account?</p>
-                    <a
+                    <Link
                         className="login-form__button--signup"
-                        href="https://developer.mozilla.org/fr/docs/Web/CSS"
+                        to="/auth/register"
                     >
                         Sign Up
-                    </a>
+                    </Link>
                 </div>
             </form>
         </div>
