@@ -9,6 +9,7 @@ import {
 import { z } from 'zod';
 import { API_ROUTES } from '../../config/api.ts';
 import { useAuth } from '../../hooks/useAuth.ts';
+import { useNotification } from '../../hooks/useNotifications.ts';
 import './Login.css';
 
 interface FormState {
@@ -25,6 +26,7 @@ export const Login = () => {
     const [form, setForm] = useState<loginInput>({ email: '', password: '' });
     const { login } = useAuth();
     const navigate = useNavigate();
+    const { showNotification } = useNotification();
 
     const [formState, setFormState] = useState<FormState>({
         status: 'idle',
@@ -56,8 +58,8 @@ export const Login = () => {
         // check if SafeParse succeed
         if (!rawData.success) {
             setFormState({
-                status: 'error',
-                message: 'Sanitization failed ',
+                status: 'error' as const,
+                message: `Sanitization failed`,
             });
             // format the errors
             const fieldErrors = z.treeifyError(rawData.error);
@@ -103,24 +105,31 @@ export const Login = () => {
             const json = (await response.json()) as unknown;
             if (!response.ok) {
                 const data = errorResponseSchema.parse(json);
-                setFormState({
-                    status: 'error',
-                    message: data.message,
-                });
+
+                const notifErr = {
+                    status: 'error' as const,
+                    message: `${data.message}`,
+                };
+                setFormState(notifErr);
+                showNotification(notifErr);
                 return;
             }
             const data = userSummarySchema.parse(json);
             login(data);
-            setFormState({
-                status: 'success',
+            const notifSuccess = {
+                status: 'success' as const,
                 message: 'You have successfully logged in.',
-            });
+            };
+            setFormState(notifSuccess);
+            showNotification(notifSuccess);
             await navigate({ to: '/' });
         } catch {
-            setFormState({
-                status: 'error',
+            const notifErrNet = {
+                status: 'error' as const,
                 message: 'Network error, please try again.',
-            });
+            };
+            setFormState(notifErrNet);
+            showNotification(notifErrNet);
         }
     };
     const handlerChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
