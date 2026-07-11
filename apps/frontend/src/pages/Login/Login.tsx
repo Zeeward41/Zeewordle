@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import type { loginInput } from '../../schemas/auth.schema.ts';
 import {
     loginSchema,
@@ -10,23 +11,25 @@ import { API_ROUTES } from '../../config/api.ts';
 import { useAuth } from '../../hooks/useAuth.ts';
 import './Login.css';
 
+interface FormState {
+    status: 'idle' | 'loading' | 'success' | 'error';
+    message: string;
+}
+
+interface FieldState {
+    email: string;
+    password: string;
+}
+
 export const Login = () => {
     const [form, setForm] = useState<loginInput>({ email: '', password: '' });
     const { login } = useAuth();
+    const navigate = useNavigate();
 
-    interface FormState {
-        status: 'idle' | 'loading' | 'success' | 'error';
-        message: string;
-    }
     const [formState, setFormState] = useState<FormState>({
         status: 'idle',
         message: '',
     });
-
-    interface FieldState {
-        email: string;
-        password: string;
-    }
 
     const [fieldState, setFieldState] = useState<FieldState>({
         email: '',
@@ -112,6 +115,7 @@ export const Login = () => {
                 status: 'success',
                 message: 'You have successfully logged in.',
             });
+            await navigate({ to: '/' });
         } catch {
             setFormState({
                 status: 'error',
@@ -178,7 +182,12 @@ export const Login = () => {
                 >
                     Forgot Password ?
                 </a>
-                <button className="login-form__button">Login</button>
+                <button
+                    className={`login-form__button ${formState.status === 'loading' ? 'login-form__button--loading' : ''}`}
+                    disabled={formState.status === 'loading'}
+                >
+                    {formState.status === 'loading' ? 'loading...' : 'Login'}
+                </button>
                 <div className="login-form__signUP">
                     <p>Create an account?</p>
                     <a

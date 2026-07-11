@@ -2,6 +2,7 @@
 .login {
     height: 95%;
     justify-items: center;
+    align-content: center;
 }
 
 .login-website {
@@ -109,7 +110,8 @@
 }
 
 .login-form__button:active,
-.login-form__button:hover {
+.login-form__button:hover,
+.login-form__button--loading {
     background-color: rgb(255 255 255 / 20%);
 }
 
