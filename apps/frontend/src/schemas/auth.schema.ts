@@ -24,6 +24,12 @@ export const errorResponseSchema = z.object({
     message: z.string(),
 });
 
+export const notificationsSchema = z.object({
+    status: z.string(),
+    message: z.string(),
+});
+
 export type loginInput = z.infer<typeof loginSchema>;
 export type userSummaryType = z.infer<typeof userSummarySchema>;
 export type errorResponseType = z.infer<typeof errorResponseSchema>;
+export type notificationsType = z.infer<typeof notificationsSchema>;

@@ -15,6 +15,7 @@ export function NotificationsProvider({
 
     const showNotification = (notif: notificationsType) => {
         setNotification(notif);
+        setTimeout(() => setNotification(null), 3000);
     };
 
     return (
