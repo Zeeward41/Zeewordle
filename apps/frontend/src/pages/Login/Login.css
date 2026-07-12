@@ -46,7 +46,7 @@
     justify-content: center;
     background-color: rgb(255 255 255 / 10%);
     border: none;
-    color: var(--text-color);
+    color: var(--font-color);
     margin-bottom: 1.5rem;
     cursor: pointer;
 }
@@ -54,6 +54,10 @@
 .login-google-btn:active,
 .login-google-btn:hover {
     background-color: rgb(255 255 255 / 20%);
+}
+
+.login-google-btn:active {
+    transform: scale(0.97);
 }
 
 .login-google-btn__label {
@@ -80,7 +84,7 @@
     border: none;
     background-color: rgb(255 255 255 / 10%);
     padding: 0.6rem;
-    color: var(--text-color);
+    color: var(--font-color);
     font-size: 1.1rem;
 }
 
@@ -92,7 +96,7 @@
 .login-form__forgot {
     margin: 1rem 0;
     text-align: right;
-    color: var(--text-color);
+    color: var(--link-color);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.8rem;
@@ -103,7 +107,7 @@
     border: none;
     padding: 0.6rem;
     background-color: rgb(255 255 255 / 10%);
-    color: var(--text-color);
+    color: var(--font-color);
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
     cursor: pointer;
@@ -115,6 +119,10 @@
     background-color: rgb(255 255 255 / 20%);
 }
 
+.login-form__button:active {
+    transform: scale(0.97);
+}
+
 .login-form__signUP {
     display: flex;
     gap: 0.4rem;
@@ -124,6 +132,6 @@
 
 .login-form__button--signup {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--link-color);
     font-weight: 600;
 }
