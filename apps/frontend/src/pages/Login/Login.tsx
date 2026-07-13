@@ -57,10 +57,6 @@ export const Login = () => {
 
         // check if SafeParse succeed
         if (!rawData.success) {
-            setFormState({
-                status: 'error' as const,
-                message: `Sanitization failed`,
-            });
             // format the errors
             const fieldErrors = z.treeifyError(rawData.error);
 
