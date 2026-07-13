@@ -1,5 +1,4 @@
 import type { SVGProps } from 'react';
-import './Icon.css';
 
 interface IconProps {
     status: string;
