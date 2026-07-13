@@ -178,4 +178,19 @@ describe('login', () => {
         );
         expect(notif).toBeInTheDocument();
     });
+    it('should disable submit button when form is submitted', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementationOnce(
+            () => new Promise((_resolve, _reject) => undefined)
+        );
+        const emailInput = screen.getByPlaceholderText(/Email/i);
+        await userEvent.type(emailInput, 'maria@mail.com');
+        const passwordInput = screen.getByPlaceholderText(/Password/i);
+        await userEvent.type(passwordInput, 'The Burning Phoenix');
+
+        const buttonSubmit = screen.getByRole('button', {
+            name: /login/i,
+        });
+        await userEvent.click(buttonSubmit);
+        expect(buttonSubmit).toBeDisabled();
+    });
 });

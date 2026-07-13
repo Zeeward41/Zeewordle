@@ -220,6 +220,7 @@ export const Register = () => {
                     <button
                         type="submit"
                         className="register-form__button register-form__button--submit"
+                        disabled={formState.status === 'loading'}
                     >
                         {formState.status === 'loading' ? 'loading' : 'Sign Up'}
                     </button>

@@ -304,4 +304,25 @@ describe('register', () => {
         );
         expect(notif).toBeInTheDocument();
     });
+    it('should disable submit button when form is submitted', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementationOnce(
+            () => new Promise((_resolve, _reject) => undefined)
+        );
+        const emailInput = await screen.findByRole('textbox', {
+            name: /email/i,
+        });
+        await userEvent.type(emailInput, 'vanille@mail.com');
+        const usernameInput = screen.getByLabelText(/username/i);
+        await userEvent.type(usernameInput, 'vanille');
+        const passwordInput = screen.getByLabelText(/new password/i);
+        await userEvent.type(passwordInput, 'phoenix');
+        const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
+        await userEvent.type(confirmPasswordInput, 'phoenix');
+
+        const submitButton = await screen.findByRole('button', {
+            name: /Sign Up/i,
+        });
+        await userEvent.click(submitButton);
+        expect(submitButton).toBeDisabled();
+    });
 });
