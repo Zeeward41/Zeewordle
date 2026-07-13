@@ -34,7 +34,7 @@ fileignoreconfig:
 - filename: apps/backend/src/tests/models/user.model.test.ts
   checksum: 4cd9cfea89b9f9fab1bac6bcdf6710d6aa3c350494af6296b49c9813d5ef2885
 - filename: apps/frontend/pnpm-lock.yaml
-  checksum: 48438b239050e2fe4a4e4218ee176a8e828ba6b5dda022331bf5dc13ea194661
+  checksum: abf63d31c032ce855b570a15d9bff98f8f3b780d5c4dab62dd993601c9f3d43b
 - filename: apps/frontend/src/pages/Login/Login.tsx
   checksum: f7097cd1d273e561242778e82b6db5642203188f3e8c679a5490dddeb109db10
 - filename: docs/adr/0003-security-policy-of-secrets.md
