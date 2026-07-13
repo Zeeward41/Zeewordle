@@ -117,7 +117,7 @@ export const Register = () => {
 
             const notifSuccess = {
                 status: 'success' as const,
-                message: 'You have successfully logged in.',
+                message: 'You have successfully registered.',
             };
             setFormState(notifSuccess);
             showNotification(notifSuccess);

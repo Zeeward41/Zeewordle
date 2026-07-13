@@ -274,7 +274,7 @@ describe('register', () => {
         await userEvent.click(submitButton);
 
         const notif = await screen.findByText(
-            'You have successfully logged in.'
+            'You have successfully registered.'
         );
         expect(notif).toBeInTheDocument();
     });
