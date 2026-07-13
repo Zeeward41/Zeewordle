@@ -37,6 +37,14 @@ fileignoreconfig:
   checksum: abf63d31c032ce855b570a15d9bff98f8f3b780d5c4dab62dd993601c9f3d43b
 - filename: apps/frontend/src/pages/Login/Login.tsx
   checksum: f7097cd1d273e561242778e82b6db5642203188f3e8c679a5490dddeb109db10
+- filename: apps/frontend/src/pages/Register/Register.tsx
+  checksum: d8c4c6f09cc6eecb401fd35ac67cd8a078e6f8ee957ba96b4ae4848484b2178c
+- filename: apps/frontend/src/schemas/auth.schema.ts
+  checksum: 0c6157776726067d24812819dc1f91c90ca1ed462f4c585aaf282e0ee6a42d64
+- filename: apps/frontend/src/tests/pages/Login/Login.test.tsx
+  checksum: 015c3daa28eb3eca53ee44bc0dc806cd9e1ae736a3a0667dfe288315ce268c34
+- filename: apps/frontend/src/tests/pages/Register/Register.test.tsx
+  checksum: 9cd8b161b40bd40bc17b42e2d6f70adf6acc117c0a9d09773a3f2d70b6b1d6cd
 - filename: docs/adr/0003-security-policy-of-secrets.md
   checksum: 1e92bbb107ea54cce17e803650d2299bb521239ea2c6b37d0d394a3f1f886ce1
 - filename: docs/adr/0005-CI-Choices.md
