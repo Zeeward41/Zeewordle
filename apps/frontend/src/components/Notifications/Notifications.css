@@ -1,5 +1,5 @@
 .notification {
-    width: 340px;
+    max-width: 290px;
     position: fixed;
     top: 1rem;
     right: 1rem;
@@ -41,4 +41,10 @@
     font-size: 1.2rem;
     color: #9999a8;
     padding-left: 26px;
+}
+
+@media (width >= 400px) {
+    .notification {
+        max-width: 340px;
+    }
 }
