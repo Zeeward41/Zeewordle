@@ -91,6 +91,11 @@ export const Register = () => {
                 ...prev,
                 ...newErrors,
             }));
+
+            setFormState({
+                status: 'idle',
+                message: '',
+            });
             return;
         }
 

@@ -86,6 +86,10 @@ export const Login = () => {
                 ...prev,
                 ...newErrors,
             }));
+            setFormState({
+                status: 'idle',
+                message: '',
+            });
 
             return;
         }
