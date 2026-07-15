@@ -1,8 +1,15 @@
 import './Navbar.css';
 import { useAuth } from '../../hooks/useAuth';
+import { ModalWrapper } from '../ModalWrapper/ModalWrapper';
+import { useState } from 'react';
 
 export const Navbar = () => {
     const { user } = useAuth();
+    const [openModal, setOpenModal] = useState(false);
+
+    const handlerModal = () => {
+        setOpenModal(!openModal);
+    };
 
     return (
         <div className="navbar__wrapper">
@@ -50,7 +57,7 @@ export const Navbar = () => {
                             </svg>
                         </button>
                     )}
-                    <button className="navbar__menu">
+                    <button onClick={handlerModal} className="navbar__menu">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -68,6 +75,9 @@ export const Navbar = () => {
                             <path d="M4 19h16" />
                         </svg>
                     </button>
+                    {openModal && (
+                        <ModalWrapper onClose={() => setOpenModal(false)} />
+                    )}
                 </div>
             </div>
         </div>
