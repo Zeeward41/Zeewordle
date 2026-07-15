@@ -1,8 +1,6 @@
 .register-container {
-    height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
     padding: 1rem;
 }
 
@@ -12,6 +10,7 @@
     max-width: 400px;
     display: flex;
     flex-direction: column;
+    margin-top: 2rem;
 }
 
 .register__title {

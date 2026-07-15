@@ -1,8 +1,14 @@
 /* mobile */
+.login__wrapper {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
 .login {
-    height: 95%;
     justify-items: center;
     align-content: center;
+    width: 100%;
 }
 
 .login__title {

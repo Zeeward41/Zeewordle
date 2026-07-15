@@ -137,68 +137,72 @@ export const Login = () => {
     };
 
     return (
-        <div className="login">
-            <h1 className="login__title">Hi There!</h1>
-            <p className="login__message">Please enter required details</p>
-            <button type="button" className="login-google-btn">
-                <img
-                    src="/google.svg"
-                    alt=""
-                    aria-hidden="true"
-                    className="login-google-btn__logo logo"
-                />
-                <span className="login-google-btn__label">Google</span>
-            </button>
-            <span className="login__separator">Or</span>
-            <form onSubmit={handlerSubmit} className="login-form">
-                <input
-                    className="login-form__input login-form__input--email"
-                    placeholder="Email"
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handlerChange}
-                />
-                {fieldState.email && (
-                    <span className="login-form__error login-form__error--email">
-                        {fieldState.email}
-                    </span>
-                )}
-                <input
-                    className="login-form__input login-form__input--password"
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                    value={form.password}
-                    onChange={handlerChange}
-                />
-                {fieldState.password && (
-                    <span className="login-form__error login-form__error--password">
-                        {fieldState.password}
-                    </span>
-                )}
-                <a
-                    href="https://developer.mozilla.org/fr/docs/Web/CSS"
-                    className="login-form__forgot"
-                >
-                    Forgot Password ?
-                </a>
-                <button
-                    className={`login-form__button ${formState.status === 'loading' ? 'login-form__button--loading' : ''}`}
-                    disabled={formState.status === 'loading'}
-                >
-                    {formState.status === 'loading' ? 'loading...' : 'Login'}
+        <div className="login__wrapper">
+            <div className="login">
+                <h1 className="login__title">Hi There!</h1>
+                <p className="login__message">Please enter required details</p>
+                <button type="button" className="login-google-btn">
+                    <img
+                        src="/google.svg"
+                        alt=""
+                        aria-hidden="true"
+                        className="login-google-btn__logo logo"
+                    />
+                    <span className="login-google-btn__label">Google</span>
                 </button>
-                <div className="login-form__signUP">
-                    <p>Create an account?</p>
-                    <Link
-                        className="login-form__button--signup"
-                        to="/auth/register"
+                <span className="login__separator">Or</span>
+                <form onSubmit={handlerSubmit} className="login-form">
+                    <input
+                        className="login-form__input login-form__input--email"
+                        placeholder="Email"
+                        type="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handlerChange}
+                    />
+                    {fieldState.email && (
+                        <span className="login-form__error login-form__error--email">
+                            {fieldState.email}
+                        </span>
+                    )}
+                    <input
+                        className="login-form__input login-form__input--password"
+                        placeholder="Password"
+                        type="password"
+                        name="password"
+                        value={form.password}
+                        onChange={handlerChange}
+                    />
+                    {fieldState.password && (
+                        <span className="login-form__error login-form__error--password">
+                            {fieldState.password}
+                        </span>
+                    )}
+                    <a
+                        href="https://developer.mozilla.org/fr/docs/Web/CSS"
+                        className="login-form__forgot"
                     >
-                        Sign Up
-                    </Link>
-                </div>
-            </form>
+                        Forgot Password ?
+                    </a>
+                    <button
+                        className={`login-form__button ${formState.status === 'loading' ? 'login-form__button--loading' : ''}`}
+                        disabled={formState.status === 'loading'}
+                    >
+                        {formState.status === 'loading'
+                            ? 'loading...'
+                            : 'Login'}
+                    </button>
+                    <div className="login-form__signUP">
+                        <p>Create an account?</p>
+                        <Link
+                            className="login-form__button--signup"
+                            to="/auth/register"
+                        >
+                            Sign Up
+                        </Link>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
