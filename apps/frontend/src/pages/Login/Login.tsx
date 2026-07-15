@@ -138,14 +138,6 @@ export const Login = () => {
 
     return (
         <div className="login">
-            <div className="login-website">
-                <img
-                    src="/pen-Zeewordle.png"
-                    alt="Zeewordle - Login"
-                    className="login-website__logo logo"
-                />
-                <p className="login-website__name">Zeewordle</p>
-            </div>
             <h1 className="login__title">Hi There!</h1>
             <p className="login__message">Please enter required details</p>
             <button type="button" className="login-google-btn">
