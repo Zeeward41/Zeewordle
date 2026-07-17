@@ -11,6 +11,7 @@ import {
     RouterProvider,
 } from '@tanstack/react-router';
 import { AuthProvider } from '../../../providers/authProvider.tsx';
+import { NotificationsProvider } from '../../../providers/notificationsProvider.tsx';
 
 const MockNavbar = () => {
     const rootRoute = createRootRoute({ component: Navbar });
@@ -20,7 +21,9 @@ const MockNavbar = () => {
     });
     return (
         <AuthProvider>
-            <RouterProvider router={router} />
+            <NotificationsProvider>
+                <RouterProvider router={router} />
+            </NotificationsProvider>
         </AuthProvider>
     );
 };
