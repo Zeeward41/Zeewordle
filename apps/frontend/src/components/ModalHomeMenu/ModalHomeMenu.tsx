@@ -3,11 +3,18 @@ import { Link } from '@tanstack/react-router';
 
 interface ModalHomeMenuProps {
     onClose: () => void;
+    position: {
+        top: number;
+        left: number;
+    };
 }
 
-export const ModalHomeMenu = ({ onClose }: ModalHomeMenuProps) => {
+export const ModalHomeMenu = ({ onClose, position }: ModalHomeMenuProps) => {
     return (
-        <div className="modal-home-menu__container">
+        <div
+            className="modal-home-menu__container"
+            style={{ top: position.top, left: position.left }}
+        >
             <Link
                 to="/auth/login"
                 className="modal-home-menu__link modal-home-menu__link--parameter"

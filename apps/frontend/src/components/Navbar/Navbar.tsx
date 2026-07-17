@@ -3,15 +3,51 @@ import { useAuth } from '../../hooks/useAuth';
 import { ModalWrapper } from '../ModalWrapper/ModalWrapper';
 import { ModalHomeMenu } from '../ModalHomeMenu/ModalHomeMenu';
 import { ModalUserMenu } from '../ModalUserMenu/ModalUserMenu.tsx';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
+interface MenuPositionType {
+    top: number;
+    left: number;
+}
 
 export const Navbar = () => {
     const { user } = useAuth();
     const [openModal, setOpenModal] = useState(false);
+    const navbarRightRef = useRef<HTMLDivElement>(null);
+    const [positionModal, setPositionModal] = useState<MenuPositionType | null>(
+        null
+    );
 
     const handlerModal = () => {
+        if (navbarRightRef.current) {
+            const position = navbarRightRef.current.getBoundingClientRect();
+            setPositionModal({
+                top: position.bottom + 8,
+                left: position.left - 75,
+            });
+        }
         setOpenModal(!openModal);
     };
+
+    useEffect(() => {
+        if (!openModal) return;
+
+        const updatePosition = () => {
+            if (navbarRightRef.current) {
+                const position = navbarRightRef.current.getBoundingClientRect();
+                setPositionModal({
+                    top: position.bottom + 8,
+                    left: position.left - 75,
+                });
+            }
+        };
+
+        window.addEventListener('resize', updatePosition);
+
+        return () => {
+            window.removeEventListener('resize', updatePosition);
+        };
+    }, [openModal]);
 
     return (
         <div className="navbar__wrapper">
@@ -29,7 +65,7 @@ export const Navbar = () => {
                     </a>
                 </div>
                 <span className="navbar__title">Zeewordle</span>
-                <div className="navbar__right">
+                <div className="navbar__right" ref={navbarRightRef}>
                     {user === null ? (
                         <>
                             <a href="/auth/login" className="navbar__login">
@@ -81,16 +117,19 @@ export const Navbar = () => {
                         </svg>
                     </button>
                     {openModal &&
+                        positionModal &&
                         (user ? (
                             <ModalWrapper onClose={() => setOpenModal(false)}>
                                 <ModalUserMenu
                                     onClose={() => setOpenModal(false)}
+                                    position={positionModal}
                                 />
                             </ModalWrapper>
                         ) : (
                             <ModalWrapper onClose={() => setOpenModal(false)}>
                                 <ModalHomeMenu
                                     onClose={() => setOpenModal(false)}
+                                    position={positionModal}
                                 />
                             </ModalWrapper>
                         ))}
