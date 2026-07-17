@@ -17,13 +17,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUser(data);
     };
 
-    const logout = async (): Promise<void> => {
-        const response = await fetch(API_ROUTES.logout, {
-            method: 'POST',
-        });
-        if (response.ok) {
-            setUser(null);
-        }
+    const logout = (): void => {
+        setUser(null);
     };
 
     useEffect(() => {
