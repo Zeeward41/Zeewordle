@@ -5,10 +5,6 @@
     display: none;
 }
 
-.navbar__right {
-    border: blue 1px solid;
-}
-
 .navbar__wrapper {
     /* border: 2px red solid; */
     height: 56px;

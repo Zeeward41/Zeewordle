@@ -7,6 +7,8 @@
     position: fixed;
     display: flex;
     flex-direction: column;
+    border-radius: 7px;
+    padding-left: 0.1rem;
 }
 
 .modal-user-menu__link {
@@ -19,4 +21,5 @@
 .modal-user-menu__link:hover {
     background-color: var(--main-color);
     color: var(--font-color);
+    border-radius: 7px;
 }
