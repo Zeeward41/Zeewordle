@@ -18,7 +18,7 @@ export const Navbar = () => {
         null
     );
 
-    const handlerModal = () => {
+    const modalPosition = () => {
         if (navbarRightRef.current) {
             const position = navbarRightRef.current.getBoundingClientRect();
             setPositionModal({
@@ -26,26 +26,20 @@ export const Navbar = () => {
                 left: position.left - 75,
             });
         }
+    };
+
+    const handlerModal = () => {
+        modalPosition();
         setOpenModal(!openModal);
     };
 
     useEffect(() => {
         if (!openModal) return;
 
-        const updatePosition = () => {
-            if (navbarRightRef.current) {
-                const position = navbarRightRef.current.getBoundingClientRect();
-                setPositionModal({
-                    top: position.bottom + 8,
-                    left: position.left - 75,
-                });
-            }
-        };
-
-        window.addEventListener('resize', updatePosition);
+        window.addEventListener('resize', modalPosition);
 
         return () => {
-            window.removeEventListener('resize', updatePosition);
+            window.removeEventListener('resize', modalPosition);
         };
     }, [openModal]);
 
