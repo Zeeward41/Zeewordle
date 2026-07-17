@@ -17,6 +17,7 @@ export const ModalUserMenu = ({ onClose, position }: ModalUserMenuProps) => {
             {user?.role[0] === 'user' ? (
                 <div
                     className="modal-user-menu__container"
+                    data-testid="modal-user-menu"
                     style={{ top: position.top, left: position.left }}
                 >
                     <Link
@@ -30,6 +31,7 @@ export const ModalUserMenu = ({ onClose, position }: ModalUserMenuProps) => {
             ) : (
                 <div
                     className="modal-user-menu__container"
+                    data-testid="modal-user-menu"
                     style={{ top: position.top, left: position.left }}
                 >
                     <Link

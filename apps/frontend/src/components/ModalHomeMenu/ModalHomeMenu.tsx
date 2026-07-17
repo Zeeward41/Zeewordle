@@ -13,6 +13,7 @@ export const ModalHomeMenu = ({ onClose, position }: ModalHomeMenuProps) => {
     return (
         <div
             className="modal-home-menu__container"
+            data-testid="modal-home-menu"
             style={{ top: position.top, left: position.left }}
         >
             <Link

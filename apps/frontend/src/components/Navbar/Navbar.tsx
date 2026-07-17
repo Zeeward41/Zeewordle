@@ -92,7 +92,11 @@ export const Navbar = () => {
                             </svg>
                         </button>
                     )}
-                    <button onClick={handlerModal} className="navbar__menu">
+                    <button
+                        onClick={handlerModal}
+                        className="navbar__menu"
+                        data-testid="navbar-menu-btn"
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
