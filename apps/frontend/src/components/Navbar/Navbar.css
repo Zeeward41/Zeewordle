@@ -1,22 +1,12 @@
 .navbar__apidoc,
 .navbar__signup,
-.navbar__login {
+.navbar__login,
+.navbar__profile {
     display: none;
 }
 
-.navbar__profile {
-    background-color: transparent;
-    color: var(--font-color);
-    border: none;
-    transform: scale(1.3);
-    cursor: pointer;
-    padding: 0.2rem;
-}
-
-.navbar__profile:hover {
-    background-color: var(--font-color);
-    color: var(--main-color);
-    border-radius: 10px;
+.navbar__right {
+    border: blue 1px solid;
 }
 
 .navbar__wrapper {
@@ -63,6 +53,22 @@
 @media (width >= 540px) {
     .navbar__menu {
         display: none;
+    }
+
+    .navbar__profile {
+        display: block;
+        background-color: transparent;
+        color: var(--font-color);
+        border: none;
+        transform: scale(1.3);
+        cursor: pointer;
+        padding: 0.2rem;
+    }
+
+    .navbar__profile:hover {
+        background-color: var(--font-color);
+        color: var(--main-color);
+        border-radius: 10px;
     }
 
     .navbar__apidoc,

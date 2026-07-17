@@ -1,6 +1,8 @@
 import './Navbar.css';
 import { useAuth } from '../../hooks/useAuth';
 import { ModalWrapper } from '../ModalWrapper/ModalWrapper';
+import { ModalHomeMenu } from '../ModalHomeMenu/ModalHomeMenu';
+import { ModalUserMenu } from '../ModalUserMenu/ModalUserMenu.tsx';
 import { useState } from 'react';
 
 export const Navbar = () => {
@@ -38,7 +40,10 @@ export const Navbar = () => {
                             </a>
                         </>
                     ) : (
-                        <button className="navbar__profile">
+                        <button
+                            onClick={handlerModal}
+                            className="navbar__profile"
+                        >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -75,9 +80,20 @@ export const Navbar = () => {
                             <path d="M4 19h16" />
                         </svg>
                     </button>
-                    {openModal && (
-                        <ModalWrapper onClose={() => setOpenModal(false)} />
-                    )}
+                    {openModal &&
+                        (user ? (
+                            <ModalWrapper onClose={() => setOpenModal(false)}>
+                                <ModalUserMenu
+                                    onClose={() => setOpenModal(false)}
+                                />
+                            </ModalWrapper>
+                        ) : (
+                            <ModalWrapper onClose={() => setOpenModal(false)}>
+                                <ModalHomeMenu
+                                    onClose={() => setOpenModal(false)}
+                                />
+                            </ModalWrapper>
+                        ))}
                 </div>
             </div>
         </div>
