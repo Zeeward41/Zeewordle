@@ -77,6 +77,17 @@ describe('login', () => {
         expect(errorMessagePassword).toBeInTheDocument();
     });
     it('should not display any error message when all fields are valid', async () => {
+        vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+            new Response(
+                JSON.stringify({
+                    id: 122,
+                    email: 'maria@mail.com',
+                    username: 'maria',
+                    role: ['user'],
+                }),
+                { status: 200 }
+            )
+        );
         const emailInput = screen.getByPlaceholderText(/Email/i);
         await userEvent.type(emailInput, 'maria@mail.com');
         const passwordInput = screen.getByPlaceholderText(/Password/i);
@@ -95,6 +106,13 @@ describe('login', () => {
         expect(errorMessagePassword).not.toBeInTheDocument();
     });
     it('should display loading when form is submitted', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementationOnce(
+            () => new Promise(() => undefined)
+        );
+        const emailInput = screen.getByPlaceholderText(/Email/i);
+        await userEvent.type(emailInput, 'maria@mail.com');
+        const passwordInput = screen.getByPlaceholderText(/Password/i);
+        await userEvent.type(passwordInput, 'The Burning Phoenix');
         const submitButton = screen.getByRole('button', {
             name: /login/i,
         });
@@ -180,7 +198,7 @@ describe('login', () => {
     });
     it('should disable submit button when form is submitted', async () => {
         vi.spyOn(globalThis, 'fetch').mockImplementationOnce(
-            () => new Promise((_resolve, _reject) => undefined)
+            () => new Promise(() => undefined)
         );
         const emailInput = screen.getByPlaceholderText(/Email/i);
         await userEvent.type(emailInput, 'maria@mail.com');
