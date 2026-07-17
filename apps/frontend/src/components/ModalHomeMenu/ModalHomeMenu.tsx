@@ -31,7 +31,7 @@ export const ModalHomeMenu = ({ onClose, position }: ModalHomeMenuProps) => {
                 Register
             </Link>
             <Link
-                to="/"
+                to="/api-doc"
                 className="modal-home-menu__link modal-home-menu__link--new-game"
                 onClick={onClose}
             >

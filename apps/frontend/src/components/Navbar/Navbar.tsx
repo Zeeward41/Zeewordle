@@ -4,6 +4,7 @@ import { ModalWrapper } from '../ModalWrapper/ModalWrapper';
 import { ModalHomeMenu } from '../ModalHomeMenu/ModalHomeMenu';
 import { ModalUserMenu } from '../ModalUserMenu/ModalUserMenu.tsx';
 import { useState, useRef, useEffect } from 'react';
+import { Link } from '@tanstack/react-router';
 
 interface MenuPositionType {
     top: number;
@@ -54,9 +55,9 @@ export const Navbar = () => {
                             className="navbar__logo"
                         />
                     </a>
-                    <a href="/" className="navbar__apidoc">
+                    <Link to="/api-doc" className="navbar__apidoc">
                         API DOC
-                    </a>
+                    </Link>
                 </div>
                 <span className="navbar__title">Zeewordle</span>
                 <div className="navbar__right" ref={navbarRightRef}>
