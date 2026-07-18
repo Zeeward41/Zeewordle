@@ -58,16 +58,23 @@ export const ModalUserMenu = ({ onClose, position }: ModalUserMenuProps) => {
                     <Link
                         to="/"
                         className="modal-user-menu__link modal-user-menu__link--parameter"
-                        onClick={handleLogout}
+                        onClick={onClose}
                     >
-                        Logout
+                        Home
                     </Link>
                     <Link
                         to="/api-doc"
                         className="modal-user-menu__link modal-user-menu__link--parameter"
                         onClick={onClose}
                     >
-                        API DOC
+                        Api doc
+                    </Link>
+                    <Link
+                        to="/"
+                        className="modal-user-menu__link modal-user-menu__link--parameter"
+                        onClick={handleLogout}
+                    >
+                        Logout
                     </Link>
                 </div>
             ) : (
