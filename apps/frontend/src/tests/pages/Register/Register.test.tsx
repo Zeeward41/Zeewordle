@@ -200,6 +200,9 @@ describe('register', () => {
         expect(errorMessageUsernameLong).not.toBeInTheDocument();
     });
     it('should display loading when form is submitted', async () => {
+        vi.spyOn(globalThis, 'fetch').mockImplementationOnce(
+            () => new Promise((_resolve, _reject) => undefined)
+        );
         const emailInput = await screen.findByRole('textbox', {
             name: /email/i,
         });
