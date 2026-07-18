@@ -1,3 +1,6 @@
 node_modules
 pnpm-lock.yaml
 dist
+
+# tanstack Router
+**/routeTree.gen.ts

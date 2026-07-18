@@ -1,0 +1,50 @@
+.notification {
+    max-width: 290px;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    background-color: #1c1c1f;
+    border: 0.5px solid #2e2e33;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.notification--success {
+    border-left: 3px solid #1d9e75;
+}
+
+.notification--error {
+    border-left: 3px solid #e24b4a;
+}
+
+.notification--warning {
+    border-left: 3px solid #ef9f27;
+}
+
+.notification__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notification__header--title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--font-color);
+}
+
+.notification__message {
+    font-size: 1.2rem;
+    color: #9999a8;
+    padding-left: 26px;
+}
+
+@media (width >= 400px) {
+    .notification {
+        max-width: 340px;
+    }
+}

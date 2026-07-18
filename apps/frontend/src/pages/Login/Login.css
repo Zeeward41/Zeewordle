@@ -1,0 +1,124 @@
+/* mobile */
+.login__wrapper {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.login {
+    justify-items: center;
+    align-content: center;
+    width: 100%;
+}
+
+.login__title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.login__message {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.login-google-btn {
+    border-radius: 20px;
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 240px;
+    padding: 0.4rem;
+    justify-content: center;
+    background-color: rgb(255 255 255 / 10%);
+    border: none;
+    color: var(--font-color);
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+}
+
+.login-google-btn:active,
+.login-google-btn:hover {
+    background-color: rgb(255 255 255 / 20%);
+}
+
+.login-google-btn:active {
+    transform: scale(0.97);
+}
+
+.login-google-btn__label {
+    font-size: 1.2rem;
+    align-content: center;
+}
+
+.login__separator {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    max-width: 400px;
+    gap: 0.5rem;
+}
+
+.login-form__input {
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(255 255 255 / 10%);
+    padding: 0.6rem;
+    color: var(--font-color);
+    font-size: 1.1rem;
+}
+
+.login-form__error {
+    color: red;
+    font-size: 0.8rem;
+}
+
+.login-form__forgot {
+    margin: 1rem 0;
+    text-align: right;
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.login-form__button {
+    border-radius: 20px;
+    border: none;
+    padding: 0.6rem;
+    background-color: rgb(255 255 255 / 10%);
+    color: var(--font-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.login-form__button:active,
+.login-form__button:hover,
+.login-form__button--loading {
+    background-color: rgb(255 255 255 / 20%);
+}
+
+.login-form__button:active {
+    transform: scale(0.97);
+}
+
+.login-form__signUP {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.login-form__button--signup {
+    text-decoration: none;
+    color: var(--link-color);
+    font-weight: 600;
+}

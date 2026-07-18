@@ -14,7 +14,7 @@ fileignoreconfig:
 - filename: apps/backend/coverage/lcov-report/sorter.js
   checksum: ab12308876d2c2ed6ae4d6bdcc48f80984b8b88deb977d8382e86699149398f2
 - filename: apps/backend/pnpm-lock.yaml
-  checksum: b6770bc918eb8964737a34b245a33ad3cb578d4fc9bb243d4c13183a717aa639
+  checksum: a0843f5eef237f9453e032bcf22cd0f8e515b2eae009bc3944b5b4d60713beed
 - filename: apps/backend/public/docs/index.html
   checksum: 3be6247c10baeb55aaf68ace9bb8a8272490b799ea13b2f13fdecc196b1d1b00
 - filename: apps/backend/reports/mutation/mutation.html
@@ -34,7 +34,23 @@ fileignoreconfig:
 - filename: apps/backend/src/tests/models/user.model.test.ts
   checksum: 4cd9cfea89b9f9fab1bac6bcdf6710d6aa3c350494af6296b49c9813d5ef2885
 - filename: apps/frontend/pnpm-lock.yaml
-  checksum: 00e2353e7fa2e86c6d3a121629b1f9c63ea38f181506dbe0d38425a7bf697d5f
+  checksum: abf63d31c032ce855b570a15d9bff98f8f3b780d5c4dab62dd993601c9f3d43b
+- filename: apps/frontend/public/docs/api-docs.html
+  checksum: 2c81b512438d16cea55243353815471caf3d2a05c74939394dd43f1d6b616880
+- filename: apps/frontend/src/components/ModalWrapper/ModalWrapper.tsx
+  checksum: f04b505723c040067c3647e489f3ad1f6348e3b70c331e97a638c215e12da122
+- filename: apps/frontend/src/pages/Home/Home.tsx
+  checksum: f8ced38fe47f0bd79d49e8f07500690285e3f5b11ca7190a7387f5cb69b7b8fe
+- filename: apps/frontend/src/pages/Login/Login.tsx
+  checksum: f7097cd1d273e561242778e82b6db5642203188f3e8c679a5490dddeb109db10
+- filename: apps/frontend/src/pages/Register/Register.tsx
+  checksum: d8c4c6f09cc6eecb401fd35ac67cd8a078e6f8ee957ba96b4ae4848484b2178c
+- filename: apps/frontend/src/schemas/auth.schema.ts
+  checksum: 0c6157776726067d24812819dc1f91c90ca1ed462f4c585aaf282e0ee6a42d64
+- filename: apps/frontend/src/tests/pages/Login/Login.test.tsx
+  checksum: d9e2c6c79017af0f1458025aa7cd6504c98509d6644c1964f8bdd179617fd658
+- filename: apps/frontend/src/tests/pages/Register/Register.test.tsx
+  checksum: 494bf68ef88b5fba4481f1262afcface00d909c9e0d6283bf8947c01e6c0aef1
 - filename: docs/adr/0003-security-policy-of-secrets.md
   checksum: 1e92bbb107ea54cce17e803650d2299bb521239ea2c6b37d0d394a3f1f886ce1
 - filename: docs/adr/0005-CI-Choices.md
