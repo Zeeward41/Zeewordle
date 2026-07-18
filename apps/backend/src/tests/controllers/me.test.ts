@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { me } from '../../controllers/me.ts';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Request, Response, NextFunction } from 'express';
 import { getUserById } from '../../models/user.model.ts';
 
@@ -51,12 +51,10 @@ describe('me route', () => {
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledOnce();
         expect(res.json).toHaveBeenCalledWith({
-            user: {
-                id: 122,
-                email: 'alice@mail.com',
-                username: 'alice',
-                role: ['user'],
-            },
+            id: 122,
+            email: 'alice@mail.com',
+            username: 'alice',
+            role: ['user'],
         });
     });
     it('should return a 401 status if the ID does not exist', async () => {
