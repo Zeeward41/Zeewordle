@@ -6,7 +6,7 @@ import type {
     LoginBodyByEmail,
 } from '../types/auth.types.ts';
 import ErrorResponse from '../utils/errorResponse.ts';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 // @desc        Register User
 // @route       POST /api/v1/auth/register

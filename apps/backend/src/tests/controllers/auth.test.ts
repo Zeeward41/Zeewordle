@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { register, login, logout } from '../../controllers/auth.ts';
 import type { Request, Response, NextFunction } from 'express';
 import { createUser, getUserByEmail } from '../../models/user.model.ts';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import ErrorResponse from '../../utils/errorResponse.ts';
 
 vi.mock('../../models/user.model.ts', () => ({
