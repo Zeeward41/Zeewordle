@@ -64,7 +64,7 @@ if (process.env['NODE_ENV'] === 'development') {
 // express-openapi-validator
 app.use(
     OpenApiValidator.middleware({
-        apiSpec: path.resolve('../../docs/api/openapi.yaml'),
+        apiSpec: path.resolve('./api/openapi.yaml'),
         validateRequests: true,
         validateResponses: true,
     })
