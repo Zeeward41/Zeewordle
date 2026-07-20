@@ -1,6 +1,2 @@
 allowBuilds:
-  bcrypt: false
-  core-js: false
-  esbuild: false
-  protobufjs: false
-  vue-demi: set this to true or false
+  esbuild: true
