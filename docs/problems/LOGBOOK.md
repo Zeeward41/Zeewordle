@@ -11,3 +11,4 @@ Chronological journal of technical issues encountered during development.
 | [0004](./0004-SonarCloud-Fails-to-Detect-the-Main-Branch.md) | 31/05/2026 | SonarCloud Fails to Detect the Main Branch | ✅ Resolved | |
 | [0005](./0005-Backend-Environment-Conflict-with-Vite.md) | 20/06/2026 | Backend Environment Conflict with Vite | ✅ Resolved | |
 | [0006](./0006-React-hydration-error-when-building-OpenAPI-documentation.md) | 12/07/2026 | React hydration error when building OpenAPI documentation | ✅ Resolved | |
+| [0007](./0007-Replacing-bcrypt-with-bcryptjs.md) | 20/07/2026 | Replacing-bcrypt-with-bcryptjs | ✅ Resolved | |
