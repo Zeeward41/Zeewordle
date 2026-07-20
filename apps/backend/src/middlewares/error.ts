@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import ErrorResponse from '../utils/errorResponse';
+import ErrorResponse from '../utils/errorResponse.ts';
 
 interface OpenApiValidator extends Error {
     name: string;
