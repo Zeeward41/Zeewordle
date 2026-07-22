@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 sed -i "s|\${VITE_API_URL}|$VITE_API_URL|g" dist/config.js
 
