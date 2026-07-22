@@ -36,7 +36,7 @@ fileignoreconfig:
 - filename: apps/frontend/.env.example
   checksum: 34ff13ed09f3a062d64f67c0ef105bc6f075f97506f27fa2f58dd0be6543236c
 - filename: apps/frontend/pnpm-lock.yaml
-  checksum: abf63d31c032ce855b570a15d9bff98f8f3b780d5c4dab62dd993601c9f3d43b
+  checksum: 5cf59a8d80453947cda892c9428b66387e04bbfa4044f8cfb74c87454e3cf1dd
 - filename: apps/frontend/public/docs/api-docs.html
   checksum: 2c81b512438d16cea55243353815471caf3d2a05c74939394dd43f1d6b616880
 - filename: apps/frontend/src/components/ModalWrapper/ModalWrapper.tsx
@@ -53,6 +53,8 @@ fileignoreconfig:
   checksum: d9e2c6c79017af0f1458025aa7cd6504c98509d6644c1964f8bdd179617fd658
 - filename: apps/frontend/src/tests/pages/Register/Register.test.tsx
   checksum: 494bf68ef88b5fba4481f1262afcface00d909c9e0d6283bf8947c01e6c0aef1
+- filename: apps/frontend/src/types/global.d.ts
+  checksum: 0d36f943df7bcc0a360bab1e85e7b2a851a1e2fbad20df908c87c38227d0fe49
 - filename: docs/adr/0003-security-policy-of-secrets.md
   checksum: 1e92bbb107ea54cce17e803650d2299bb521239ea2c6b37d0d394a3f1f886ce1
 - filename: docs/adr/0005-CI-Choices.md
