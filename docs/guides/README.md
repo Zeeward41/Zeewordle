@@ -9,3 +9,4 @@ Welcome to the guides section. Here you will find all step-by-step instructions 
 - [How to restrict GITHUB_TOKEN](./0003-Token-Restriction-Guide.md)
 - [How to Activate Dependabot and Dependency graph](./0004-How-to-Activate-Dependabot-and-Dependency-graph.md)
 - [Configuration SonarQubeCloud](./internal/0005-sonar-cloud-guide.md) - How to setup SonarQube Cloud and sonarQube Actions (workflow).
+- [How to setup env files](./0005-Managing-env-Files-&-Secrets-with-SOPS-Age-(Frontend-&-Backend).md) - Managing .env Files & Secrets with SOPS + Age (Frontend & Backend).

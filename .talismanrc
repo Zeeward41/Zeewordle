@@ -33,6 +33,8 @@ fileignoreconfig:
   checksum: a4f8ca2a75c0af069fde03ee3a3b83da7cf415598cc56db3a2ee9ad0638d1b0f
 - filename: apps/backend/src/tests/models/user.model.test.ts
   checksum: 4cd9cfea89b9f9fab1bac6bcdf6710d6aa3c350494af6296b49c9813d5ef2885
+- filename: apps/frontend/.env.example
+  checksum: 34ff13ed09f3a062d64f67c0ef105bc6f075f97506f27fa2f58dd0be6543236c
 - filename: apps/frontend/pnpm-lock.yaml
   checksum: abf63d31c032ce855b570a15d9bff98f8f3b780d5c4dab62dd993601c9f3d43b
 - filename: apps/frontend/public/docs/api-docs.html
@@ -69,6 +71,8 @@ fileignoreconfig:
   checksum: 6e2d456a4e04116bc9e9d85ac48aa113a3b7ad1bdd0e2e2043609b2a2f099da3
 - filename: docs/guides/0002-config-sonarQubeCloud.md
   checksum: 61f44cbfc27573784500af5546c8c7b7c448a9dc623bbb32e943ec02dda6a3f7
+- filename: docs/guides/0005-Managing-env-Files-&-Secrets-with-SOPS-Age-(Frontend-&-Backend).md
+  checksum: 47459455608dfbde08fc96b9e5dbeb2112da3cfe1961a02caeacf0ba17f97a75
 - filename: docs/guides/internal/0005-sonar-cloud-guide.md
   checksum: aec338514ca74e6af42626f0e1f1327ba813eda481fbd5668eb2b9daba30a1bf
 - filename: docs/problems/0004-SonarCloud-Fails-to-Detect-the-Main-Branch.md
