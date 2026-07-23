@@ -14,7 +14,7 @@ Update the existing `env.auto.tfvars` file and fill in your specific AWS values 
 
 ### Step 2: Create the S3 Bucket locally
 
-1. Open your configuration file (e.g., `main.tf` or `provider.tf`) and **temporarily comment out** the `backend "s3"` block:
+1. Open your configuration file (`main.tf`) and **temporarily comment out** the `backend "s3"` block:
 
 ```hcl
 terraform {
