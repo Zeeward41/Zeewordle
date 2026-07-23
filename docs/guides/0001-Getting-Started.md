@@ -32,3 +32,10 @@ Several security tools in our workflow require specific GitHub features to be en
 This token is mandatory for the CI workflow (`.github/workflows/ci.yaml`) to run successfully. SonarQube Cloud requires it to authenticate and publish code quality reports.
 To use the SonarQube token securely without hardcoding it, you must save it as an encrypted GitHub Actions Secret.
 👉 [SonarQube Token Creation Guide](./0002-How-to-Setup-SonarQube.md)
+
+### 5. Configure SOPS & Age Secrets for Backend Environment Variables
+
+The backend uses SOPS and Age to securely encrypt environment variables directly in the repository.
+To allow continuous deployment or CI workflows to decrypt these secrets properly, you must store your private key securely in GitHub Actions.
+👉 [Managing .env Files & Secrets Guide](../guides/0006-Managing-env-Files-&-Secrets-with-SOPS-Age-(Frontend-&-Backend).md)
+

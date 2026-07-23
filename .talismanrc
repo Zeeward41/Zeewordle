@@ -67,6 +67,8 @@ fileignoreconfig:
   checksum: 5c9c4f4fd0fa5a4bac5ac7ac86821007cc916ab7a5e96f53ee039183c0d7e19d
 - filename: docs/api/paths/authRegister.yaml
   checksum: 3b42955a303621af9cfd5f9d86dc1ac7f9d5b5776ffae4289496caa106582f8d
+- filename: docs/guides/0001-Getting-Started.md
+  checksum: 1faf810c6a632df448488498a4869f3e4cd090ab3b8e3637810abece055152dd
 - filename: docs/guides/0002-How-to-Setup-SonarQube-Token.md
   checksum: f8aad979c4bd7614896909cf80d9be17db5db9895ab8f4c60c266c8e2059554b
 - filename: docs/guides/0002-How-to-Setup-SonarQube.md

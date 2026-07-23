@@ -37,12 +37,7 @@ age-keygen -o key.txt
 
 This generates a key file containing both a public and a private key:
 
-```text
-# created: 2026-07-22T01:27:00Z
-# public key: age1z9y3pvw7x3q09k2k4l8mf49842uqlxuvn304y8h6zls532x703qseff2d4
-AGE-SECRET-KEY-108D468GHPLL09P0XNZL4SXZS6205XYUVR667P89J9L3P99LK489S683Q9P
-
-```
+![Image - key file](../../images/0006-Managing-env-Files-&-Secrets-with-SOPS-Age-(Frontend-&-Backend)/2026-07-23-14-20-21.png)
 
 ⚠️ **Important:** Move your `key.txt` file to the default SOPS directory (e.g., `~/.config/sops/age/keys.txt` on Linux/macOS or `%AppData%\sops\age\keys.txt` on Windows),
 or export its path via the `SOPS_AGE_KEY_FILE` environment variable:
@@ -58,12 +53,7 @@ export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
 
 To avoid passing the public key manually with every command, a `.sops.yaml` configuration file is placed at the root of the project.
 
-```yaml
-creation_rules:
-  - path_regex: .*\.enc\.env$
-    age: 'age1z9y3pvw7x3q09k2k4l8mf49842uqlxuvn304y8h6zls532x703qseff2d4...'
-
-```
+![Image - 2 - configuring sops](../../images/0006-Managing-env-Files-&-Secrets-with-SOPS-Age-(Frontend-&-Backend)/2026-07-23-14-24-42.png)
 
 **Tip:** The `path_regex` rule automatically applies this Age public key to any file ending with `.enc.env`. This clearly distinguishes encrypted files from plain text files.
 
