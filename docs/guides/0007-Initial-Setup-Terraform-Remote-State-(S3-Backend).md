@@ -6,7 +6,13 @@ When deploying this project for the **very first time**, you need to follow a qu
 
 Terraform evaluates the `backend "s3"` configuration **before** running any code. On a fresh environment, the bucket hasn't been created yet, so `terraform init` will fail if the remote backend is active right away.
 
-### Step 1: Create the S3 Bucket locally
+### Step 1: Configure Variables
+
+1. Set up your environment variables:
+
+Update the existing `env.auto.tfvars` file and fill in your specific AWS values (region, bucket name, project tags, etc.):
+
+### Step 2: Create the S3 Bucket locally
 
 1. Open your configuration file (e.g., `main.tf` or `provider.tf`) and **temporarily comment out** the `backend "s3"` block:
 
@@ -35,7 +41,7 @@ terraform apply -target=aws_s3_bucket.terraform_state
 
 💡 **Note:** The `-target` flag ensures Terraform ignores all other resources (databases, networking, servers, etc.) and provisions only the bucket.
 
-### Step 2: Migrate State to S3 & Deploy Infrastructure
+### Step 3: Migrate State to S3 & Deploy Infrastructure
 
 1. **Uncomment** the `backend "s3"` block in your code.
 
