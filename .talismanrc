@@ -77,6 +77,8 @@ fileignoreconfig:
   checksum: 61f44cbfc27573784500af5546c8c7b7c448a9dc623bbb32e943ec02dda6a3f7
 - filename: docs/guides/0005-Managing-env-Files-&-Secrets-with-SOPS-Age-(Frontend-&-Backend).md
   checksum: 47459455608dfbde08fc96b9e5dbeb2112da3cfe1961a02caeacf0ba17f97a75
+- filename: docs/guides/0007-Initial-Setup-Terraform-Remote-State-(S3-Backend).md
+  checksum: 9eb822d715cac75e5975458f0a8c01fdd7656065d37867e4c3205b41740d4e31
 - filename: docs/guides/internal/0005-sonar-cloud-guide.md
   checksum: aec338514ca74e6af42626f0e1f1327ba813eda481fbd5668eb2b9daba30a1bf
 - filename: docs/problems/0004-SonarCloud-Fails-to-Detect-the-Main-Branch.md

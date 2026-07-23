@@ -38,4 +38,8 @@ To use the SonarQube token securely without hardcoding it, you must save it as a
 The backend uses SOPS and Age to securely encrypt environment variables directly in the repository.
 To allow continuous deployment or CI workflows to decrypt these secrets properly, you must store your private key securely in GitHub Actions.
 👉 [Managing .env Files & Secrets Guide](../guides/0006-Managing-env-Files-&-Secrets-with-SOPS-Age-(Frontend-&-Backend).md)
+### 6. Configure S3 Remote Backend for Terraform State
 
+Terraform requires a remote S3 bucket to securely store and share its state file across team members and CI/CD pipelines.
+Because the backend S3 bucket cannot exist prior to its deployment, you must follow a 2-step bootstrap process when setting up the environment for the first time.
+👉 [Initial Setup: Terraform Remote State (S3 Backend)](./0007-Initial-Setup-Terraform-Remote-State-(S3%20Backend).md)
