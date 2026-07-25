@@ -1,70 +1,69 @@
-# Initial Setup: Terraform Remote State (S3 Backend)
+# Initial Setup: Infrastructure Deployment
 
-When deploying this project for the **very first time**, you need to follow a quick 2-step bootstrapping process. This avoids a classic "chicken-and-egg" issue: Terraform cannot read or store state in an S3 bucket that doesn't exist yet.
+When deploying this project for the **very first time**, you need to follow a 2-step process to set up the infrastructure. This avoids the classic "chicken-and-egg" issue: Terraform cannot store state in an S3 bucket that doesn't exist yet.
 
-### Why is this necessary?
+To solve this, the architecture is split into two folders:
 
-Terraform evaluates the `backend "s3"` configuration **before** running any code. On a fresh environment, the bucket hasn't been created yet, so `terraform init` will fail if the remote backend is active right away.
+* `00_bootstrap`: Provisions the remote S3 backend bucket.
+* `showcase`: Deploys the main application infrastructure using the newly created S3 backend.
 
-### Step 1: Configure Variables
+---
 
-1. Set up your environment variables:
+## Step 1: Bootstrap the S3 Backend (`00_bootstrap`)
 
-Update the existing `env.auto.tfvars` file and fill in your specific AWS values (region, bucket name, project tags, etc.):
+1. Navigate to the bootstrap directory:
 
-### Step 2: Create the S3 Bucket locally
+```bash
+cd 00_bootstrap
+```
 
-1. Open your configuration file (`main.tf`) and **temporarily comment out** the `backend "s3"` block:
+2. Fill in the `env.auto.tfvars` file with your configuration values (such as the name, region, and project_name tags).
+3. Initialize and apply the bootstrap configuration to create the S3 state bucket:
+
+```bash
+terraform init
+terraform apply
+```
+
+---
+
+## Step 2: Deploy Main Infrastructure (`showcase`)
+
+1. Navigate to the main project directory:
+
+```bash
+cd ../showcase
+```
+
+2. Fill in the `env.auto.tfvars` file with your configuration values (such as the name, region, and project_name tags).
+
+3. Open `main.tf` and update the `backend "s3"` block with the exact bucket name configured in `00_bootstrap`:
 
 ```hcl
 terraform {
-  # backend "s3" {
-  #   bucket       = "zeewordle-tfstate-zeeward41"
-  #   key          = "terraform/state"
-  #   region       = "eu-west-3"
-  #   encrypt      = true
-  #   use_lockfile = true
-  # }
+  backend "s3" {
+    bucket       = "zeewordle-tfstate-zeeward41" # Match your bootstrap bucket name
+    key          = "terraform/state"
+    region       = "eu-west-3"
+    encrypt      = true
+    use_lockfile = true
+  }
 }
 
 ```
 
-2. Initialize Terraform locally:
+4. Initialize Terraform to connect to the remote S3 backend:
+
 ```bash
 terraform init
+
 ```
 
-3. Create **only** the S3 state bucket without deploying the rest of the infrastructure:
-```bash
-terraform apply -target=aws_s3_bucket.terraform_state
-```
-
-💡 **Note:** The `-target` flag ensures Terraform ignores all other resources (databases, networking, servers, etc.) and provisions only the bucket.
-
-### Step 3: Migrate State to S3 & Deploy Infrastructure
-
-1. **Uncomment** the `backend "s3"` block in your code.
-
-2. Re-initialize Terraform to connect to the newly created S3 bucket:
-```bash
-terraform init
-```
-
-3. **Confirm the migration:** Terraform will detect your local `terraform.tfstate` file and ask:
-*Do you want to copy existing state to the new backend?*
-
-Type **`yes`** to confirm.
-
-4. **Clean up local state files:** Once the state is safely migrated to S3, delete the leftover local state files to prevent sensitive data leaks:
-```bash
-rm terraform.tfstate terraform.tfstate.backup
-```
-
-5. Deploy the rest of your architecture safely:
+5. Deploy the infrastructure:
 
 ```bash
 terraform apply
+
 ```
 
 Your infrastructure state is now securely stored and locked in Amazon S3!
-
