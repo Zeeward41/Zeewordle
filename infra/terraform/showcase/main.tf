@@ -26,8 +26,9 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Creator = var.name
-      Project = var.project_name
+      Creator       = var.name
+      Project       = var.project_name
+      Environnement = var.environnement
     }
   }
 }

@@ -19,3 +19,7 @@ variable "ami_id" {
   default     = "ami-0e1c4170d9c01184b"
 }
 
+variable "environnement" {
+  description = "The deployment environment (e.g., dev, staging, prod)"
+  type        = string
+}
