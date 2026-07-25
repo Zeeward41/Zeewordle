@@ -83,6 +83,8 @@ fileignoreconfig:
   checksum: aec338514ca74e6af42626f0e1f1327ba813eda481fbd5668eb2b9daba30a1bf
 - filename: docs/problems/0004-SonarCloud-Fails-to-Detect-the-Main-Branch.md
   checksum: b50b2edb468bf658b9d2cb90bb015679a22bd72367e6226d5f48b02064518c78
+- filename: infra/terraform/00_bootstrap/.terraform.lock.hcl
+  checksum: df8e17744d216c7081e917bd208ee0a9298f54273c7cf3afb92f49f040394b7f
 - filename: infra/terraform/showcase/.terraform.lock.hcl
   checksum: d8629f45dd94fb6613d6125bbce2e1097be7dabd733e8c5221dd21a304b377eb
 - filename: infra/terraform/showcase/main.tf
