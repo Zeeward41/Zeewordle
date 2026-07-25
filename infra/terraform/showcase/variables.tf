@@ -13,3 +13,9 @@ variable "project_name" {
   type        = string
 }
 
+variable "ami_id" {
+  description = "Amazon Linux 2 AMI ID for eu-west-3 (Paris) region"
+  type        = string
+  default     = "ami-0e1c4170d9c01184b"
+}
+
