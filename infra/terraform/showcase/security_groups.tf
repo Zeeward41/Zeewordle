@@ -33,3 +33,14 @@ resource "aws_vpc_security_group_egress_rule" "allow_ssm_https_outbound" {
   from_port   = 443
   to_port     = 443
 }
+
+# Allow outbound HTTP traffic for SSM Agent to communicate with AWS SSM endpoints
+resource "aws_vpc_security_group_egress_rule" "allow_ssm_http_outbound" {
+  security_group_id = aws_security_group.ssm_instances_sg.id
+  description       = "Allow outbound HTTP traffic for SSM Agent communication"
+
+  cidr_ipv4   = "0.0.0.0/0"
+  ip_protocol = "tcp"
+  from_port   = 80
+  to_port     = 80
+}
