@@ -27,5 +27,9 @@ locals {
 # ==============================================================================
 
 locals {
-  ec2_type = "t3.nano"
+  ec2_type_monitoring_proxy = "t3.micro"
+}
+
+locals {
+  ec2_type_app = "t3.nano"
 }
