@@ -23,6 +23,7 @@ resource "aws_instance" "instance_1" {
 
   tags = {
     Name = "ssm-spot-instance-1"
+    Role = "monitoring_proxy"
   }
 }
 
@@ -46,5 +47,6 @@ resource "aws_instance" "instance_2" {
 
   tags = {
     Name = "ssm-spot-instance-2"
+    Role = "app"
   }
 }
