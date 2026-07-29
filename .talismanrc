@@ -88,9 +88,11 @@ fileignoreconfig:
 - filename: infra/terraform/00_bootstrap/.terraform.lock.hcl
   checksum: df8e17744d216c7081e917bd208ee0a9298f54273c7cf3afb92f49f040394b7f
 - filename: infra/terraform/showcase/.terraform.lock.hcl
-  checksum: 33b66fb4aa08930c2ad35e95a3f4fdb1a1acbdafbeb8f9285b784544b7c2fd8d
+  checksum: 64f7c2c530dd5a1ed5182c6d342d52c6a147ecb1ff8f8d9a727306c5f1695952
 - filename: infra/terraform/showcase/main.tf
   checksum: 5dd03eff9e45a577b5506478e41341fe3aeea5bbb4af6e586caa08e0e75f8e8d
+- filename: infra/terraform/showcase/ssh_over_ssm.tf
+  checksum: 85291930787d9e0e5b73c38d64aff40a8b4dd2b41dbb1463272f57e149b32c8b
 - filename: sonar-project.properties
   checksum: 86620bfa078d27a1bd306026e94e5bfa1209033cfcb730e32b7d872f00ad3c50
 version: "1.0"
