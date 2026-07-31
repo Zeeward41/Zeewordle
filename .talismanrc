@@ -90,7 +90,7 @@ fileignoreconfig:
 - filename: infra/terraform/showcase/.terraform.lock.hcl
   checksum: 64f7c2c530dd5a1ed5182c6d342d52c6a147ecb1ff8f8d9a727306c5f1695952
 - filename: infra/terraform/showcase/ec2.tf
-  checksum: d3863ff0ad4a1d7a04f241d10bdd2f07139199006ed9dae342c284fb569fcf8a
+  checksum: e8d59dfc30f04077b4e3bc09af09676ae1abf14ef0e9f2766ab30d6d9beeb420
 - filename: infra/terraform/showcase/main.tf
   checksum: 5dd03eff9e45a577b5506478e41341fe3aeea5bbb4af6e586caa08e0e75f8e8d
 - filename: infra/terraform/showcase/ssh_over_ssm.tf
