@@ -1,0 +1,24 @@
+---
+# ===============================================================
+# Monitoring Server - Install Prometheus
+# ===============================================================
+- hosts: all
+  gather_facts: true
+
+- name: Install and configure Prometheus
+  hosts: role_monitoring_proxy
+  become: true
+  roles:
+    - role: prometheus.prometheus.prometheus
+      vars:
+        prometheus_config_file: "{{ playbook_dir }}/templates/prometheus.yaml.j2"
+
+        prometheus_external_labels:
+          environment: "showcase"
+          prometheus_host: "{{ inventory_hostname }}"
+
+        prometheus_targets:
+          node:
+            - targets: "{{ groups['role_app'] | map('extract', hostvars, ['private_ip_address']) | map('regex_replace', '$', ':9100') | list }}"
+              labels:
+                environment: "showcase"
