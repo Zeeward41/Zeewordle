@@ -31,5 +31,5 @@ locals {
 }
 
 locals {
-  ec2_type_app = "t3.nano"
+  ec2_type_app = "t3.micro"
 }
