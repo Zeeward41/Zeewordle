@@ -12,3 +12,4 @@ Chronological journal of technical issues encountered during development.
 | [0005](./0005-Backend-Environment-Conflict-with-Vite.md) | 20/06/2026 | Backend Environment Conflict with Vite | ✅ Resolved | |
 | [0006](./0006-React-hydration-error-when-building-OpenAPI-documentation.md) | 12/07/2026 | React hydration error when building OpenAPI documentation | ✅ Resolved | |
 | [0007](./0007-Replacing-bcrypt-with-bcryptjs.md) | 20/07/2026 | Replacing-bcrypt-with-bcryptjs | ✅ Resolved | |
+| [0008](./0008-Sudo-Privilege-with-aws_ssm.md) | 01/08/2026 | Sudo Privilege with aws_ssm | ✅ Resolved | |

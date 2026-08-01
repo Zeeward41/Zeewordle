@@ -83,6 +83,8 @@ fileignoreconfig:
   checksum: aec338514ca74e6af42626f0e1f1327ba813eda481fbd5668eb2b9daba30a1bf
 - filename: docs/problems/0004-SonarCloud-Fails-to-Detect-the-Main-Branch.md
   checksum: b50b2edb468bf658b9d2cb90bb015679a22bd72367e6226d5f48b02064518c78
+- filename: docs/problems/0008-Sudo-Privilege-with-aws_ssm.md
+  checksum: feb189bd8e340ffad7198fdb3aab3fb814bc351a572bbd16b408a4ee94449cbd
 - filename: infra/ansible/inventories/showcase/aws_ec2.yml
   checksum: b1cd1b2143b4d2cca1ce25198c532997b720730cc6764099afd8f64e70f9935d
 - filename: infra/ansible/inventories/showcase/inv_aws_ec2.yml
