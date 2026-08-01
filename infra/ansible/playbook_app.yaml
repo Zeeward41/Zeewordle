@@ -1,0 +1,9 @@
+---
+# ===============================================================
+# App Server - Install Docker
+# ===============================================================
+- name: Install and configure Docker
+  hosts: role_app
+  become: true
+  roles:
+    - name: geerlingguy.docker
