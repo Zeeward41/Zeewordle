@@ -16,3 +16,7 @@ Each file follows the standard format (Context, Decision, Consequences).
 | [0009](./0009-Backend-Execution-Environment-with-Nodemon-and-TSX.md) | 20/06/2026 | Backend Execution Environment with Nodemon and TSX | ✅ Accepted |
 | [0010](./0010-Choice-of-Zod-and-express-openapi-validator.md) | 22/06/2026 | Choice of Zod and express openapi validator |  ✅ Accepted |
 | [0011](./0011-Choice-of-Sessions-and-Cookies.md) | 04/07/2026 | Choice of Sessions and Cookies |  ✅ Accepted |
+| [0012](./0012-Selecting-TanStack-Router-as-the-Primary-Router.md) | 20/07/2026 | Selecting TanStack Router as the Primary Router | ✅ Accepted |
+| [0013](./0013-Showcase-Environment-Strategy.md) | 25/07/2026 | Showcase Environment Strategy | ✅ Accepted |
+| [0014](./0014-ssh-over-ssm.md) | 27/07/2026 | SSH over SSM | ✅ Accepted |
+| [0015](./0015-Public-IP-Instances-(showcase-Environment).md) | 29/07/2026 | Public IP Instances (showcase Environment) | ✅ Accepted |
