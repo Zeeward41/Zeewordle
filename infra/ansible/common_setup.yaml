@@ -1,0 +1,24 @@
+---
+# ===============================================================
+# Common Setup - Update System and Install node_exporter
+# ===============================================================
+- name: Common Setup - Update System and Install node_exporter on all servers
+  hosts: env_showcase
+  gather_facts: true
+  become: true
+  roles:
+    - prometheus.prometheus.node_exporter
+
+  tasks:
+    - name: Update System
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: safe
+
+    - name: Install vim
+      ansible.builtin.apt:
+        name:
+          - vim
+        state: present
+        update_cache: true
+  
