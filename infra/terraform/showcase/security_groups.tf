@@ -66,7 +66,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_node_exporter_outbound" {
   security_group_id = aws_security_group.monitoring_proxy.id
   description       = "Allow outbound traffic to Node Exporter target"
 
-  referenced_security_group_id = aws_security_group.app-sg.id
+  referenced_security_group_id = aws_security_group.app.id
   ip_protocol                  = "tcp"
   from_port                    = 9100
   to_port                      = 9100
