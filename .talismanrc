@@ -61,6 +61,8 @@ fileignoreconfig:
   checksum: 059ffbc4610f99a06346bab45c91cbe623a5c752fb75762a28d10a30015dceda
 - filename: docs/adr/0009-Backend-Execution-Environment-with-Nodemon-and-TSX.md
   checksum: 5d7dc7364ae728201935b72b77374a679b87fb54a5ab8210ac66e6e0bc1f5d8d
+- filename: docs/adr/0014-ssh-over-ssm.md
+  checksum: 718ec60c3da60ad11e4bc78772d7761cb5d2dd9ce0225867f61570d52bd1fb5e
 - filename: docs/api/index.html
   checksum: 51b80681ac4f9f97b4b1a99cf996ca484dc10645d0bdc9198282bb8a920f4fd3
 - filename: docs/api/paths/authLogin.yaml
