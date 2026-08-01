@@ -13,15 +13,15 @@ resource "aws_security_group" "ssm_instances_sg" {
   }
 }
 
-# ==============================================================================
+# ====================================================
 # SECURITY GROUP RULES - INBOUND
-# ==============================================================================
+# ====================================================
 
 # No inbound rules required. SSM operates via outbound HTTPS polling.
 
-# ==============================================================================
+# ====================================================
 # SECURITY GROUP RULES - OUTBOUND
-# ==============================================================================
+# ====================================================
 
 # Allow outbound HTTPS traffic for SSM Agent to communicate with AWS SSM endpoints
 resource "aws_vpc_security_group_egress_rule" "allow_ssm_https_outbound" {
@@ -45,9 +45,9 @@ resource "aws_vpc_security_group_egress_rule" "allow_ssm_http_outbound" {
   to_port     = 80
 }
 
-# ===============================================================
+# ==============================================================================
 # Security Group for Proxy & Monitoring Host (Nginx + Prometheus)
-# ===============================================================
+# ==============================================================================
 
 resource "aws_security_group" "monitoring_proxy" {
   name        = "monitoring-proxy-sg"
@@ -58,10 +58,23 @@ resource "aws_security_group" "monitoring_proxy" {
     Name = "monitoring-proxy-sg"
   }
 }
+# ====================================================
+# Egress Rules (Outbound Traffic)
+# ====================================================
+# Allow outbound traffic to Node Exporter (port 9100) on target SG
+resource "aws_vpc_security_group_egress_rule" "allow_node_exporter_outbound" {
+  security_group_id = aws_security_group.monitoring_proxy.id
+  description       = "Allow outbound traffic to Node Exporter target"
 
-# ---------------------------------------------------------------
+  referenced_security_group_id = aws_security_group.app-sg.id
+  ip_protocol                  = "tcp"
+  from_port                    = 9100
+  to_port                      = 9100
+}
+
+# ====================================================
 # Ingress Rules (Inbound Traffic)
-# ---------------------------------------------------------------
+# ====================================================
 
 # Allow Web UI access to Prometheus
 resource "aws_vpc_security_group_ingress_rule" "allow_prometheus_ui_inbound" {
@@ -74,9 +87,9 @@ resource "aws_vpc_security_group_ingress_rule" "allow_prometheus_ui_inbound" {
   to_port     = 9090
 }
 
-# ===============================================================
+# ==============================================================================
 # Security Group for APP (Frontend, Backend, DB)
-# ===============================================================
+# ==============================================================================
 
 resource "aws_security_group" "app" {
   name        = "app-sg"
@@ -88,11 +101,11 @@ resource "aws_security_group" "app" {
   }
 }
 
-# ---------------------------------------------------------------
+# ====================================================
 # Ingress Rules (Inbound Traffic)
-# ---------------------------------------------------------------
+# ====================================================
 
-# Allow Web UI access to Prometheus
+# Allow Allow Node Exporter
 resource "aws_vpc_security_group_ingress_rule" "allow_node_exporter_from_monitoring" {
   security_group_id = aws_security_group.app.id
   description       = "Allow inbound traffic from monitoring_proxy on Port 9100 (Node Exporter)"
@@ -102,6 +115,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_node_exporter_from_monitor
   from_port                    = 9100
   to_port                      = 9100
 }
+
 resource "aws_vpc_security_group_ingress_rule" "allow_http_from_proxy" {
   security_group_id = aws_security_group.app.id
   description       = "Allow inbound HTTP traffic from monitoring_proxy"
