@@ -10,7 +10,7 @@ vi.mock('../../models/user.model.ts', () => ({
     getUserByEmail: vi.fn(),
 }));
 
-vi.mock('bcrypt', () => ({
+vi.mock('bcryptjs', () => ({
     default: {
         hash: vi.fn(),
         compare: vi.fn(),
