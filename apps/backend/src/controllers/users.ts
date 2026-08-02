@@ -26,7 +26,7 @@ export const getProfile = async (
             username: result.username,
             role: result.role,
         };
-        res.status(200).json(user);
+        res.status(200).json({ user });
     } catch (err) {
         next(err);
     }

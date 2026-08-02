@@ -43,3 +43,16 @@ export const getUserById = async (id: number): Promise<DBUser | undefined> => {
 
     return user;
 };
+
+export const deleteUserById = async (
+    id: number
+): Promise<DBUser | undefined> => {
+    const result = await pool.query<DBUser>(
+        `DELETE FROM users WHERE id = $1 RETURNING *`,
+        [id]
+    );
+
+    const user = result.rows[0];
+
+    return user;
+};
