@@ -2,85 +2,85 @@
 # User Responses
 # ----------------------------------------------------
 me:
-  description: "Successfully retrieved the authenticated user's profile data."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/users.yaml#/userSummary"
-      examples:
-        meResponse:
-          summary: "Standard User Profile"
-          description: "Example of a successful response for a standard user account."
-          value:
-            email: "milenia@test.com"
-            id: 1
-            username: "milenia"
-            role: ["user"]
+    description: "Successfully retrieved the authenticated user's profile data."
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/users.yaml#/userSummary'
+            examples:
+                meResponse:
+                    summary: 'Standard User Profile'
+                    description: 'Example of a successful response for a standard user account.'
+                    value:
+                        email: 'milenia@test.com'
+                        id: 1
+                        username: 'milenia'
+                        role: ['user']
 
 # ----
 
 userDelete:
-  description: "The user account was successfully deleted from the system."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/datas.yaml#/actionStatusResponse"
-      examples:
-        deleteUser:
-          summary: "User successfully deleted."
-          description: "Example of a successful response when an administrator deletes a user account. Returns a confirmation message."
-          value:
-            data: "User deleted"
+    description: 'The user account was successfully deleted from the system.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/datas.yaml#/actionStatusResponse'
+            examples:
+                deleteUser:
+                    summary: 'User successfully deleted.'
+                    description: 'Example of a successful response when an administrator deletes a user account. Returns a confirmation message.'
+                    value:
+                        data: 'User deleted'
 
 # ----
 
 getUser:
-  description: "Successfully retrieved the current user's profile information."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/users.yaml#/userResponse"
-      examples:
-        getUser:
-          summary: "Standard user profile response"
-          description: "Example of a successful response returning the core profile data for the authenticated session."
-          value:
-            user:
-              email: "miliena@test.com"
-              id: 1
-              username: "milenia"
-              role: ["user"]
+    description: "Successfully retrieved the current user's profile information."
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/users.yaml#/userResponse'
+            examples:
+                getUser:
+                    summary: 'Standard user profile response'
+                    description: 'Example of a successful response returning the core profile data for the authenticated session.'
+                    value:
+                        user:
+                            email: 'miliena@test.com'
+                            id: 1
+                            username: 'milenia'
+                            role: ['user']
 
 # ----
 
 statsDelete:
-  description: "Successfully reset or deleted the user's statistics."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/datas.yaml#/actionStatusResponse"
-      examples:
-        deleteUser:
-          summary: "Statistics successfully deleted"
-          description: "Example of a successful response when a user clears their gameplay and performance data."
-          value:
-            data: "Stats deleted"
+    description: "Successfully reset or deleted the user's statistics."
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/datas.yaml#/actionStatusResponse'
+            examples:
+                deleteUser:
+                    summary: 'Statistics successfully deleted'
+                    description: 'Example of a successful response when a user clears their gameplay and performance data.'
+                    value:
+                        data: 'Stats deleted'
 
 # ----
 
 getStats:
-  description: "Successfully retrieved the user's statistics."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/stats.yaml#/statsResponse"
-      examples:
-        getUser:
-          summary: "User statistics overview"
-          description: "Example of a successful response returning the detailed gameplay history and streaks for the user."
-          value:
-            stats:
-              games_played: 2
-              wins: 1
-              current_streak: 1
-              best_streak: 1
+    description: "Successfully retrieved the user's statistics."
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/stats.yaml#/statsResponse'
+            examples:
+                getUser:
+                    summary: 'User statistics overview'
+                    description: 'Example of a successful response returning the detailed gameplay history and streaks for the user.'
+                    value:
+                        stats:
+                            games_played: 2
+                            wins: 1
+                            current_streak: 1
+                            best_streak: 1

@@ -6,8 +6,8 @@ get:
     description: 'Retrieves the profile data of the currently authenticated user based on the active session cookie.'
     responses:
         '200':
-            $ref: "../components/responses/usersResponses.yaml#/me"
+            $ref: '../components/responses/usersResponses.yaml#/me'
         '401':
-            $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
+            $ref: '../components/responses/globalResponses.yaml#/unauthorizedError'
         '500':
-            $ref: "../components/responses/globalResponses.yaml#/serverError"
+            $ref: '../components/responses/globalResponses.yaml#/serverError'
