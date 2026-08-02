@@ -51,10 +51,12 @@ describe('getProfile route', () => {
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledOnce();
         expect(res.json).toHaveBeenCalledWith({
-            id: 122,
-            email: 'alice@mail.com',
-            username: 'alice',
-            role: ['user'],
+            user: {
+                id: 122,
+                email: 'alice@mail.com',
+                username: 'alice',
+                role: ['user'],
+            },
         });
     });
     it('should return a 401 status if the ID does not exist', async () => {
