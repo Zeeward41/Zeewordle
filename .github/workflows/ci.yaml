@@ -15,9 +15,6 @@ on:
 jobs:
   check-credentials-leak:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # mandatory for oidc
-      contents: read # require for checkout code
 
     steps:
       - name: Get the source code
@@ -70,6 +67,7 @@ jobs:
       contents: write           # Required to read the code and SBOM
       actions: read             # Required by SBOM
       security-events: write   # REQUIRED to upload the SARIF report
+      id-token: write # mandatory for oidc
     defaults:
       run:
         # Make sure we run command in the right directory
