@@ -3,6 +3,7 @@ import {
     createUser,
     getUserByEmail,
     getUserById,
+    deleteUserById,
 } from '../../models/user.model.ts';
 import pool from '../../config/db.ts';
 import type { QueryResult } from 'pg';
@@ -167,7 +168,7 @@ describe('getUserByEmail', () => {
 // getUserById
 // --------------
 
-describe(getUserById, () => {
+describe('getUserById', () => {
     beforeEach(() => {
         vi.clearAllMocks();
     });
@@ -213,6 +214,61 @@ describe(getUserById, () => {
         expect(mockQuery).toHaveBeenCalledOnce();
         expect(mockQuery).toHaveBeenCalledWith(
             'SELECT * FROM users WHERE id = $1',
+            [id]
+        );
+    });
+});
+
+// --------------
+// deleteUserById
+// --------------
+
+describe('deleteUserById', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+    it('should have a function name deleteUserById', () => {
+        expect(typeof deleteUserById).toBe('function');
+    });
+
+    it('should receive 1 arguments', () => {
+        expect(deleteUserById).toHaveLength(1);
+    });
+    it('should return a user when a valid user is deleted', async () => {
+        const id = 32;
+
+        const mockQuery = vi.mocked(
+            pool.query as unknown as () => Promise<QueryResult>
+        );
+
+        mockQuery.mockResolvedValue({
+            rows: [
+                {
+                    id: 32,
+                    email: 'alice@mail.com',
+                    username: 'alice',
+                    password_hash: 'SuperHash',
+                    role: ['user'],
+                    created_at: new Date('2026-07-01T15:13:00.077Z'),
+                },
+            ],
+        } as unknown as QueryResult);
+
+        const result = await deleteUserById(id);
+
+        expect(result).toEqual({
+            id: 32,
+            email: 'alice@mail.com',
+            username: 'alice',
+            password_hash: 'SuperHash',
+            role: ['user'],
+            created_at: new Date('2026-07-01T15:13:00.077Z'),
+        });
+
+        //pool.query must be bound to its object to avoid unintentional `this` scoping (unbound-method)
+        expect(mockQuery).toHaveBeenCalledOnce();
+        expect(mockQuery).toHaveBeenCalledWith(
+            'DELETE FROM users WHERE id = $1 RETURNING *',
             [id]
         );
     });
