@@ -32,7 +32,7 @@ fileignoreconfig:
 - filename: apps/backend/src/tests/controllers/me.test.ts
   checksum: a4f8ca2a75c0af069fde03ee3a3b83da7cf415598cc56db3a2ee9ad0638d1b0f
 - filename: apps/backend/src/tests/controllers/users.test.ts
-  checksum: ee8cb49c6658d60484bd8ea92b134cc65ad660201a15f4647b8e9aae10a30f7d
+  checksum: d2dfbd5c82ee78fc2748ebaeb55ab4b2f5f02e056a00660099c7c3a0c87e822c
 - filename: apps/backend/src/tests/models/user.model.test.ts
   checksum: 4cd9cfea89b9f9fab1bac6bcdf6710d6aa3c350494af6296b49c9813d5ef2885
 - filename: apps/frontend/.env.example
