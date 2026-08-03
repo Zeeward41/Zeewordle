@@ -12,12 +12,12 @@ on:
     branches:
       - main
   workflow_dispatch:
-permissions:
-  id-token: write # mandatory for oidc
-  contents: read # require for checkout code
 jobs:
   check-credentials-leak:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # mandatory for oidc
+      contents: read # require for checkout code
 
     steps:
       - name: Get the source code
