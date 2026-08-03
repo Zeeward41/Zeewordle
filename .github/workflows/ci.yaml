@@ -1,5 +1,5 @@
----
 name: CI
+---
 # Global Variables
 env:
   BETTERLEAKS_URL: 'https://github.com/betterleaks/betterleaks/releases/download/v1.3.1/betterleaks_1.3.1_linux_x64.tar.gz'
@@ -73,12 +73,13 @@ jobs:
         working-directory: apps/${{ matrix.changes }}
 
     # Only run if the previous job detected relevant file changes
-    if: ${{ needs.detect-Change.outputs.changes != '[]' && needs.detect-Change.outputs.changes != '' }}
+    #if: ${{ needs.detect-Change.outputs.changes != '[]' && needs.detect-Change.outputs.changes != '' }} 🐼
     needs: detect-Change
     strategy:
       # Dynamically spawn parallel jobs for each modified application
       matrix:
-        changes: ${{ fromJSON(needs.detect-Change.outputs.changes) }}
+        #changes: ${{ fromJSON(needs.detect-Change.outputs.changes) }} 🐼
+        changes: ['frontend', 'backend']
     steps:
       - name: Get the source code
         uses: actions/checkout@v6
