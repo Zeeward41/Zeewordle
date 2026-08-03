@@ -112,6 +112,20 @@ jobs:
         run: |
           ## Unit Test
           pnpm run test
+
+      - name: Mutation Testing
+        if: ${{ matrix.changes == 'backend' }}
+        run: |
+          pnpm run test:mutation
+
+      - name: Upload Mutation Report Artifact
+        uses: actions/upload-artifact@7
+        if: ${{ matrix.changes == 'backend' && always() }}
+        with:
+          name: stryker-mutation-report
+          path: apps/backend/reports/mutation/mutation.html
+          retention-days: 10
+
       - name: Run SonarQube Analysis
         uses: sonarsource/sonarqube-scan-action@v8.1.0
         env:
