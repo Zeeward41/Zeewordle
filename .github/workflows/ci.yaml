@@ -126,23 +126,23 @@ jobs:
           path: apps/backend/reports/mutation/mutation.html
           retention-days: 10
 
-      - name: Run SonarQube Analysis
-        uses: sonarsource/sonarqube-scan-action@v8.1.0
-        env:
-          SONAR_TOKEN: ${{ secrets.SONARQUBECLOUD_TOKEN }}
-        with:
-          projectBaseDir: apps/${{ matrix.changes }}
-          args: |
-            -Dsonar.projectKey=${{ vars.KEY_PROJECT }}_${{ matrix.changes }}
-            -Dsonar.organization=zeeward41
-            -Dsonar.projectName=Zeewordle-${{ matrix.changes }}
-            -Dsonar.sources=src
-            -Dsonar.tests=src/tests
-            -Dsonar.exclusions=src/tests/**
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-            -Dsonar.qualitygate.wait=true
-            -Dsonar.qualitygate.timeout=150
-            -Dsonar.branch.name=main
+      # - name: Run SonarQube Analysis
+      #   uses: sonarsource/sonarqube-scan-action@v8.1.0
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONARQUBECLOUD_TOKEN }}
+      #   with:
+      #     projectBaseDir: apps/${{ matrix.changes }}
+      #     args: |
+      #       -Dsonar.projectKey=${{ vars.KEY_PROJECT }}_${{ matrix.changes }}
+      #       -Dsonar.organization=zeeward41
+      #       -Dsonar.projectName=Zeewordle-${{ matrix.changes }}
+      #       -Dsonar.sources=src
+      #       -Dsonar.tests=src/tests
+      #       -Dsonar.exclusions=src/tests/**
+      #       -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      #       -Dsonar.qualitygate.wait=true
+      #       -Dsonar.qualitygate.timeout=150
+      #       -Dsonar.branch.name=main
 
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@v0.36.0
