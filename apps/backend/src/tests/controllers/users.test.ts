@@ -107,7 +107,9 @@ describe('deleteAccount route', () => {
         req = {
             session: {
                 userId: 122,
-                destroy: vi.fn(cb => cb(null)),
+                destroy: vi.fn((cb: (err: unknown) => void) => {
+                    cb(null);
+                }),
             },
         } as unknown as Request;
 
