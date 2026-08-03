@@ -6,11 +6,15 @@ env:
   BETTERLEAKS_ARCHIVE_NAME: 'betterleaks_1.3.1_linux_x64.tar.gz'
   PNPM_VERSION: '11.2.2'
   NODE_VERSION: '25.0.0'
+  REGION: 'eu-west-3'
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+permissions:
+  id-token: write # mandatory for oidc
+  contents: read # require for checkout code
 jobs:
   check-credentials-leak:
     runs-on: ubuntu-latest
@@ -82,6 +86,12 @@ jobs:
     steps:
       - name: Get the source code
         uses: actions/checkout@v6
+
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::585355206799:role/Zeeworlde_github-actions-infrastructure-role
+          aws-region: ${{ env.REGION }}
 
       - name: Install pnpm
         uses: pnpm/action-setup@v6
@@ -157,7 +167,7 @@ jobs:
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: 'trivy-results-${{ matrix.changes }}.sarif'
+          sarif_file: 'apps/${{ matrix.changes }}/trivy-results-${{ matrix.changes }}.sarif'
           category: '${{ matrix.changes }}'
 
       - name: Run SBOM scan (And upload on Github for dependency graph)
@@ -167,3 +177,42 @@ jobs:
           artifact-name: 'sbom-${{ matrix.changes }}.spdx.json'
           path: .
 
+      - name: Fetch secrets from AWS Parameter Store
+        run: |
+          # 1. Get Secrets
+          NVD_KEY=$(aws ssm get-parameter \
+            --name "/zeewordle/secrets/nvd_api_key" \
+            --with-decryption \
+            --query "Parameter.Value" \
+            --output text)
+
+          # 2. Masquage dans les logs de GitHub Actions
+          echo "::add-mask::$NVD_KEY"
+
+          # 3. Export to environment variables for subsequent steps
+          echo "NVD_API_KEY=$NVD_KEY" >> $GITHUB_ENV
+
+      - name: Cache NVD Database
+        uses: actions/cache@v6
+        with:
+          path: ${{ github.workspace }}/data
+          key: dependency-check-nvd-${{ runner.os }}-${{ hashFiles('apps/*/pnpm-lock.yaml') }}
+          restore-keys: |
+            dependency-check-nvd-${{ runner.os }}-
+
+      - name: OWASP Dependency-Check Scan
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: 'Zeewordle-${{ matrix.changes }}'
+          path: '.'
+          format: 'SARIF'
+          out: 'reports'
+          args: >
+            --nvdApiKey ${{ env.NVD_API_KEY }}
+
+      - name: Upload OWASP SARIF result to GitHub Security
+        uses: github/codeql-action/upload-sarif@v4
+        if: always()
+        with:
+          sarif_file: 'apps/${{ matrix.changes }}/reports/dependency-check-report.sarif'
+          category: 'owasp-${{ matrix.changes }}'
