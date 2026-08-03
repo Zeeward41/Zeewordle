@@ -210,9 +210,10 @@ jobs:
           path: '.'
           format: 'SARIF'
           out: 'reports'
-          args: >
+          noupdate: 'false'
+          args: >-
             --nvdApiKey ${{ env.NVD_API_KEY }}
-            --data ${{ github.workspace }}/data
+            --data /github/workspaces/data
 
       - name: Upload OWASP SARIF result to GitHub Security
         uses: github/codeql-action/upload-sarif@v4
