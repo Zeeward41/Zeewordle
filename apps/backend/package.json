@@ -11,8 +11,8 @@
         "lint": "eslint src",
         "test": "vitest run --coverage.enabled=true --coverage.reporter=lcov",
         "test:mutation": "stryker run",
-        "api:lint": "redocly lint ../../docs/api/openapi.yaml",
-        "api:preview": "pnpm exec redocly build-docs ../../docs/api/openapi.yaml -o ../frontend/public/docs/api-docs.html --theme.openapi.hideDownloadButton"
+        "api:lint": "redocly lint api/openapi.yaml",
+        "api:preview": "pnpm exec redocly build-docs api/openapi.yaml -o ../frontend/public/docs/api-docs.html --theme.openapi.hideDownloadButton"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
