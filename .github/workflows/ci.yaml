@@ -195,13 +195,13 @@ jobs:
         run: |
           echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-      - name: Cache NVD Database
-        uses: actions/cache@v6
-        with:
-          path: ${{ github.workspace }}/data
-          key: dependency-check-nvd-${{ runner.os }}-${{ steps.get-date.outputs.date }}
-          restore-keys: |
-            dependency-check-nvd-${{ runner.os }}-
+      # - name: Cache NVD Database
+      #   uses: actions/cache@v6
+      #   with:
+      #     path: ${{ github.workspace }}/data
+      #     key: dependency-check-nvd-${{ runner.os }}-${{ steps.get-date.outputs.date }}
+      #     restore-keys: |
+      #       dependency-check-nvd-${{ runner.os }}-
 
       - name: OWASP Dependency-Check Scan
         uses: dependency-check/Dependency-Check_Action@main
@@ -212,7 +212,6 @@ jobs:
           out: 'reports'
           args: >-
             --nvdApiKey ${{ env.NVD_API_KEY }}
-            --data /github/workspace/data
 
       - name: Upload OWASP SARIF result to GitHub Security
         uses: github/codeql-action/upload-sarif@v4
