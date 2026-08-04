@@ -218,3 +218,7 @@ jobs:
         with:
           sarif_file: 'reports/dependency-check-report.sarif'
           category: 'owasp-${{ matrix.changes }}'
+
+      - name: Build OpenAPI Doc
+        run: |
+          pnpm run api:preview
