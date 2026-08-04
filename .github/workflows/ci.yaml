@@ -210,7 +210,6 @@ jobs:
           path: '.'
           format: 'SARIF'
           out: 'reports'
-          noupdate: 'false'
           args: >-
             --nvdApiKey ${{ env.NVD_API_KEY }}
             --data /github/workspaces/data
