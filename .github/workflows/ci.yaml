@@ -220,5 +220,6 @@ jobs:
           category: 'owasp-${{ matrix.changes }}'
 
       - name: Build OpenAPI Doc
+        if: ${{ matrix.changes == 'backend'}}
         run: |
           pnpm run api:preview
