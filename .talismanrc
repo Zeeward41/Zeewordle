@@ -101,6 +101,8 @@ fileignoreconfig:
   checksum: 64f7c2c530dd5a1ed5182c6d342d52c6a147ecb1ff8f8d9a727306c5f1695952
 - filename: infra/terraform/showcase/ec2.tf
   checksum: e8d59dfc30f04077b4e3bc09af09676ae1abf14ef0e9f2766ab30d6d9beeb420
+- filename: infra/terraform/showcase/env.auto.tfvars
+  checksum: 1d8a00e6d1e61d7d79eeed4f4e24bacdb3afdc7a0f8e0e6c8f8fd3d7de0d1203
 - filename: infra/terraform/showcase/main.tf
   checksum: 5dd03eff9e45a577b5506478e41341fe3aeea5bbb4af6e586caa08e0e75f8e8d
 - filename: infra/terraform/showcase/ssh_over_ssm.tf
