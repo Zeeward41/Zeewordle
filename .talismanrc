@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: .github/workflows/ci.yaml
-  checksum: 6e1a144a37044fa9af41a6b34fa381f65131eb4b03c5bd91535ffec72f06cdc0
+  checksum: 4fa7ac653cd7d2540dd449d21af6b34295780d55a4bdbbef227ef02dd051ad19
 - filename: .sops.yaml
   checksum: 2f644260f3e3a1b36a28b4964044c874c0a88a0740fe6badd50c613275d75cfb
 - filename: apps/backend/config/development.enc.env

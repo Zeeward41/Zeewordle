@@ -184,10 +184,10 @@ jobs:
             --query "Parameter.Value" \
             --output text)
 
-          # 2. Masquage dans les logs de GitHub Actions
+          # 2. Mask sensitive values in GitHub Actions logs
           echo "::add-mask::$NVD_KEY"
 
-          # 3. Export to environment variables for subsequent steps
+          # 3. Export as environment variables for later steps
           echo "NVD_API_KEY=$NVD_KEY" >> $GITHUB_ENV
 
       - name: Get current date
@@ -223,3 +223,61 @@ jobs:
         if: ${{ matrix.changes == 'backend'}}
         run: |
           pnpm run api:preview
+
+
+  Build-scan-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # mandatory for oidc
+    defaults:
+      run:
+        # Make sure we run command in the right directory
+        working-directory: apps/${{ matrix.changes }}
+
+    # Only run if the previous job detected relevant file changes
+    #if: ${{ needs.detect-Change.outputs.changes != '[]' && needs.detect-Change.outputs.changes != '' }} 🐼
+    needs: [detect-Change, settings-CI]
+    strategy:
+      # Dynamically spawn parallel jobs for each modified application
+      matrix:
+        #changes: ${{ fromJSON(needs.detect-Change.outputs.changes) }} 🐼
+        changes: ['frontend', 'backend']
+    steps:
+      - name: Get the source code
+        uses: actions/checkout@v6
+
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::585355206799:role/Zeeworlde_github-actions-infrastructure-role
+          aws-region: ${{ env.REGION }}
+
+      
+      - name: Fetch Docker credentials from AWS Parameter Store
+        run: |
+          DOCKER_USER=$(aws ssm get-parameter --name "/zeewordle/secrets/dockerUsername" --with-decryption --query "Parameter.Value" --output text)
+          DOCKER_PASS=$(aws ssm get-parameter --name "/zeewordle/secrets/dockerPassword" --with-decryption --query "Parameter.Value" --output text)
+
+          # Mask sensitive values in GitHub Actions logs
+          echo "::add-mask::$DOCKER_USER"
+          echo "::add-mask::$DOCKER_PASS"
+
+          # Export as environment variables for later steps
+          echo "DOCKER_USER=$DOCKER_USER" >> $GITHUB_ENV
+          echo "DOCKER_PASS=$DOCKER_PASS" >> $GITHUB_ENV
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ env.DOCKER_USER }}
+          password: ${{ env.DOCKER_PASS }}
+
+      - name: Build Docker Image
+        run: |
+          echo "Build de l'image Docker pour : ${{ matrix.changes }}"
+          docker build -t zeewordle-${{ matrix.changes }}:latest .
+      
+      - name: Push Docker Image
+        run: |
+          docker push ${{ env.DOCKER_USER }}/zeewordle-${{ matrix.changes }}:latest
