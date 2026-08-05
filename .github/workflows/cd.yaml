@@ -57,7 +57,7 @@ jobs:
       - name: Install Ansible requirements
         working-directory: infra/ansible
         run: |
-          ansible-galaxy install -r requirements.yml
+          ansible-galaxy install -r requirements.yaml
 
       - name: Install common setup
         working-directory: infra/ansible
