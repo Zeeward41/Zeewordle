@@ -230,6 +230,7 @@ jobs:
     permissions:
       contents: read
       id-token: write # mandatory for oidc
+      security-events: write # upload-sarif
     defaults:
       run:
         # Make sure we run command in the right directory
