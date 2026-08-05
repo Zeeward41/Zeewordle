@@ -276,7 +276,7 @@ jobs:
       - name: Build Docker Image
         run: |
           echo "Build de l'image Docker pour : ${{ matrix.changes }}"
-          docker build -t zeewordle-${{ matrix.changes }}:latest .
+          docker build -t ${{ env.DOCKER_USER }}/zeewordle-${{ matrix.changes }}:latest .
       
       - name: Push Docker Image
         run: |
