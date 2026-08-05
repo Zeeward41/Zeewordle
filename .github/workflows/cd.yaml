@@ -1,0 +1,84 @@
+name: CD
+env:
+  REGION: 'eu-west-3'
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  provision-infrastructure:
+    permissions:
+      contents: read
+      id-token: write # mandatory for oidc
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get the source code
+        uses: actions/checkout@v6
+
+
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::585355206799:role/Zeeworlde_github-actions-infrastructure-role
+          aws-region: ${{ env.REGION }}
+
+      - name: Install AWS Session Manager Plugin
+        run: |
+          curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+          sudo dpkg -i session-manager-plugin.deb
+          rm session-manager-plugin.deb
+
+      - name: Install Ansible and dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible-core boto3 botocore
+          ansible-galaxy collection install amazon.aws
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.9.0'
+
+      - name: Terraform Init & Apply
+        working-directory: infra/terraform/showcase
+        run: |
+          terraform init
+          terraform apply -auto-approve
+
+      - name: Copy public key in runner 
+        working-directory: infra/terraform/showcase
+        run: |
+          mkdir -p ~/.ssh
+          cp ansible_ssh_over_ssm ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Wait for EC2 & SSM initialization
+        run: sleep 60
+
+      - name: Install Ansible requirements
+        working-directory: infra/ansible
+        run: |
+          ansible-galaxy install -r requirements.yml
+
+      - name: Install common setup
+        working-directory: infra/ansible
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'False'
+        run: |
+          ansible-playbook -i inventories/showcase/inv_aws_ec2.yml common_setup.yaml
+
+      - name: Install monitoring setup
+        working-directory: infra/ansible
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'False'
+        run: |
+          ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_monitoring.yaml
+        
+      - name: Install app setup
+        working-directory: infra/ansible
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'False'
+        run: |
+          ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_app.yaml

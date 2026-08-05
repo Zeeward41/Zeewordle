@@ -1,4 +1,6 @@
 fileignoreconfig:
+- filename: .github/workflows/cd.yaml
+  checksum: 55289eac22807ea8d435000dbebd3a732fa90246541e4184283a27000587bf4f
 - filename: .github/workflows/ci.yaml
   checksum: 4fa7ac653cd7d2540dd449d21af6b34295780d55a4bdbbef227ef02dd051ad19
 - filename: .sops.yaml
