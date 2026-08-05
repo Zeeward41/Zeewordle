@@ -12,6 +12,7 @@ resource "aws_instance" "instance_1" {
   user_data                   = local.user_data_script
   key_name                    = aws_key_pair.ansible.key_name
   associate_public_ip_address = true
+  depends_on                  = [aws_internet_gateway.this]
   vpc_security_group_ids = [
     aws_security_group.ssm_instances_sg.id,
     aws_security_group.monitoring_proxy.id
@@ -36,6 +37,7 @@ resource "aws_instance" "instance_2" {
   iam_instance_profile        = aws_iam_instance_profile.ssm_instance_profile.name
   user_data                   = local.user_data_script
   associate_public_ip_address = true
+  depends_on                  = [aws_internet_gateway.this]
 
   vpc_security_group_ids = [
     aws_security_group.ssm_instances_sg.id,

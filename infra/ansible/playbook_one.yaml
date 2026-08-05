@@ -1,0 +1,37 @@
+---
+- name: Setting Servers
+  hosts: role_monitoring_proxy
+  gather_facts: false
+  become: true
+  tasks:
+
+    - name: Update System
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: safe
+
+    - name: Installation nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    # - name: Configure nginx
+    #   ansible.builtin.copy:
+    #     src: files/nginx.conf
+    #     des: /etc/nginx/nginx.conf
+    #     mode: '0644'
+    #   notify: 'Restart nginx'
+
+    - name: Ensure nginx is started and enabled
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+
+
+  handlers:
+    - name: 'Restart nginx'
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
