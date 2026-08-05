@@ -277,6 +277,21 @@ jobs:
         run: |
           echo "Build de l'image Docker pour : ${{ matrix.changes }}"
           docker build -t ${{ env.DOCKER_USER }}/zeewordle-${{ matrix.changes }}:latest .
+
+      - name: Run Trivy vulnerability scanner on Docker Image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: '${{ env.DOCKER_USER }}/zeewordle-${{ matrix.changes }}:latest'
+          format: 'sarif'
+          output: 'trivy-image-results-${{ matrix.changes }}.sarif'
+          severity: 'MEDIUM,HIGH,CRITICAL'
+          version: 'v0.70.0'
+
+      - name: Upload Trivy Image scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: 'trivy-image-results-${{ matrix.changes }}.sarif'
+          category: 'docker-image-${{ matrix.changes }}'
       
       - name: Push Docker Image
         run: |
