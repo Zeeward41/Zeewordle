@@ -95,6 +95,8 @@ fileignoreconfig:
   checksum: b1cd1b2143b4d2cca1ce25198c532997b720730cc6764099afd8f64e70f9935d
 - filename: infra/ansible/inventories/showcase/inv_aws_ec2.yml
   checksum: e8732e507e57d2959280abfc41a62a548dd0122051da5fcf08e5503284cc3971
+- filename: infra/ansible/playbook_app.yaml
+  checksum: c43017396d02ca23d10b783e793c493de59057887c42d15d1c02d29d0448aa7d
 - filename: infra/terraform/00_bootstrap/.terraform.lock.hcl
   checksum: df8e17744d216c7081e917bd208ee0a9298f54273c7cf3afb92f49f040394b7f
 - filename: infra/terraform/showcase/.terraform.lock.hcl

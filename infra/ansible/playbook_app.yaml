@@ -1,9 +1,57 @@
 ---
 # ===============================================================
-# App Server - Install Docker
+# App Server - Install Docker, Configure and run
 # ===============================================================
-- name: Install and configure Docker
+- name: Install and configure Docker and run app containers
   hosts: role_app
   become: true
   roles:
     - name: geerlingguy.docker
+  vars:
+    db_user: "{{ lookup('amazon.aws.aws_ssm', '/zeewordle/secrets/postgresUsername', region='eu-west-3') }}"
+    db_name: "{{ lookup('amazon.aws.aws_ssm', '/zeewordle/secrets/postgresDB', region='eu-west-3') }}"
+    db_password: "{{ lookup('amazon.aws.aws_ssm', '/zeewordle/secrets/postgresPassword', region='eu-west-3', decrypt=True) }}"
+  tasks:
+    - name: Ensure Python Docker SDK is installed
+      ansible.builtin.pip:
+        name: docker
+        state: present
+
+    - name: Ensure Docker volume exists
+      community.docker.docker_volume:
+        name: postgres_data
+        state: present
+
+    - name: Start PostgreSQL Container
+      community.docker.docker_container:
+        name: zeewordle_db
+        image: postgres:14.23-alpine3.24
+        state: started
+        restart_policy: always
+        shm_size: 128mb
+        published_ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: "{{ db_user }}"
+          POSTGRES_PASSWORD: "{{ db_password }}"
+          POSTGRES_DB: "{{ db_name }}"
+        volumes:
+          - postgres_data:/var/lib/postgresql/data
+
+    - name: Start First Container
+      community.docker.docker_container:
+        name: backend
+        image: zeeward41/zeewordle-backend:latest
+        state: started
+        restart_policy: always
+        published_ports:
+          - "5000:5000"
+
+    - name: Start Second Container
+      community.docker.docker_container:
+        name: frontend
+        image: zeeward41/zeewordle-frontend:latest
+        state: started
+        restart_policy: always
+        published_ports:
+          - "3000:3000"
