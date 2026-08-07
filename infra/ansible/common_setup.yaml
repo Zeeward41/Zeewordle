@@ -15,10 +15,11 @@
         update_cache: true
         upgrade: safe
 
-    - name: Install vim
+    - name: Install vim and pip
       ansible.builtin.apt:
         name:
           - vim
+          - python3-docker
         state: present
         update_cache: true
   
