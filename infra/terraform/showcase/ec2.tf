@@ -18,9 +18,9 @@ resource "aws_instance" "instance_1" {
     aws_security_group.monitoring_proxy.id
   ]
 
-  instance_market_options {
-    market_type = "spot"
-  }
+  # instance_market_options {
+  #   market_type = "spot"
+  # }
 
   tags = {
     Name = "ssm-spot-instance-1"
@@ -44,9 +44,9 @@ resource "aws_instance" "instance_2" {
     aws_security_group.app.id
   ]
 
-  instance_market_options {
-    market_type = "spot"
-  }
+  # instance_market_options {
+  #   market_type = "spot"
+  # }
 
   tags = {
     Name = "ssm-spot-instance-2"
