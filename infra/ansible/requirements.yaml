@@ -4,3 +4,4 @@ roles:
 
 collections:
   - name: prometheus.prometheus
+  - name: community.docker
