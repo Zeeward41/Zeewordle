@@ -51,6 +51,23 @@ jobs:
           cp ansible_ssh_over_ssm ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
+          
+
+      - name: Config ssh
+        run: |
+          cat << 'EOF' >> ~/.ssh/config
+          Host i-* mi-*
+           User ubuntu
+           IdentityFile ~/.ssh/id_rsa
+           StrictHostKeyChecking no
+           UserKnownHostsFile /dev/null
+           ProxyCommand sh -c "aws ssm start-session --target %h --document-name AWS-StartSSHSession --parameters 'portNumber=%p'"
+          EOF
+          
+          chmod 600 ~/.ssh/config
+          
+
+
       - name: Wait for EC2 & SSM initialization
         run: sleep 60
 
