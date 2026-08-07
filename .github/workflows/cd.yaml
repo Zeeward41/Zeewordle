@@ -78,25 +78,6 @@ jobs:
         run: |
           ansible-galaxy install -r requirements.yaml
 
-      - name: Debug SSH Over SSM Connection
-        working-directory: infra/ansible
-        run: |
-          # 1. Vérifier que la clé privée SSH est lisible par OpenSSH
-          echo "=== Verification de la cle privée ==="
-          ssh-keygen -l -f ~/.ssh/id_rsa || echo "ERREUR: La clé SSH privée n'est pas valide !"
-
-          # 2. Récupérer un ID d'instance EC2 généré par l'inventaire
-          INSTANCE_ID=$(ansible-inventory -i inventories/showcase/inv_aws_ec2.yml --list | grep -o 'i-[a-z0-9]*' | head -n 1)
-          echo "Test sur l'instance : $INSTANCE_ID"
-
-          # 3. Tester la connexion SSM brute via la CLI AWS
-          echo "=== Test de connexion SSM directe via AWS CLI ==="
-          aws ssm describe-instance-information --region ${{ env.REGION }}
-
-          # 4. Tester la connexion SSH avec les logs détaillés (-vvv)
-          echo "=== Test SSH verbeux (-vvv) ==="
-          ssh -vvv -i ~/.ssh/id_rsa ubuntu@$INSTANCE_ID "echo 'Connexion SSH reussie !'"
-
       - name: Install common setup
         working-directory: infra/ansible
         env:
