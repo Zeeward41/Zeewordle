@@ -23,7 +23,7 @@
         image: postgres:14.23-alpine3.24
         state: started
         restart_policy: always
-        shm_size: 128mb
+        shm_size: 128MB
         published_ports:
           - "5432:5432"
         env:
