@@ -67,7 +67,7 @@ jobs:
           chmod 600 ~/.ssh/config
 
           ## DEBUG
-          cat << EOF >> ~/.ssh/config
+          cat ~/.ssh/config
           
 
       - name: Wait for EC2 & SSM initialization
