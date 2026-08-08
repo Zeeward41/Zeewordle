@@ -99,12 +99,16 @@ fileignoreconfig:
   checksum: c43017396d02ca23d10b783e793c493de59057887c42d15d1c02d29d0448aa7d
 - filename: infra/terraform/00_bootstrap/.terraform.lock.hcl
   checksum: df8e17744d216c7081e917bd208ee0a9298f54273c7cf3afb92f49f040394b7f
+- filename: infra/terraform/showcase/.sops.yaml
+  checksum: a634342930778e0614b8ccdf4820419b2f57c728be0cff48208bba2ef8bd65de
 - filename: infra/terraform/showcase/.terraform.lock.hcl
   checksum: 64f7c2c530dd5a1ed5182c6d342d52c6a147ecb1ff8f8d9a727306c5f1695952
 - filename: infra/terraform/showcase/ec2.tf
   checksum: e8d59dfc30f04077b4e3bc09af09676ae1abf14ef0e9f2766ab30d6d9beeb420
 - filename: infra/terraform/showcase/env.auto.tfvars
   checksum: 1d8a00e6d1e61d7d79eeed4f4e24bacdb3afdc7a0f8e0e6c8f8fd3d7de0d1203
+- filename: infra/terraform/showcase/env.enc.tfvars
+  checksum: c4a2fd607af7ec29ddcf44bb0cdb61ccce9fcb669197aadd093fb809cd4d5482
 - filename: infra/terraform/showcase/main.tf
   checksum: 5dd03eff9e45a577b5506478e41341fe3aeea5bbb4af6e586caa08e0e75f8e8d
 - filename: infra/terraform/showcase/ssh_over_ssm.tf

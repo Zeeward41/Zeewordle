@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: .*\.tfvars$
+    age: "age1zl42k6w8t258dhmne88akxn7dspj4sltzzpge86cx55mc9xhzcsshurnmy" # Remplace par ta clé publique age
