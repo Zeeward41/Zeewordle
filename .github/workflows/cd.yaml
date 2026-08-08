@@ -1,6 +1,7 @@
 name: CD
 env:
   REGION: 'eu-west-3'
+  SOPS_VERSION: '3.13.3'
 on:
   workflow_dispatch:
 jobs:
@@ -13,7 +14,6 @@ jobs:
     steps:
       - name: Get the source code
         uses: actions/checkout@v6
-
 
       - name: Configure AWS Credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v6
@@ -33,6 +33,29 @@ jobs:
           pip install ansible-core boto3 botocore
           ansible-galaxy collection install amazon.aws
 
+      - name: Install SOPS and age
+        run: |
+          # Age installation
+          sudo apt update && sudo apt install -y age
+
+          # Sops Installation
+          curl -LO https://github.com/getsops/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.amd64
+          sudo mv sops-v${SOPS_VERSION}.linux.amd64 /usr/local/bin/sops
+          sudo chmod +x /usr/local/bin/sops
+
+      - name: Fetch age key & Decrypt Terraform vars
+        working-directory: infra/terraform/showcase
+        run: |
+          # 1. get age key
+          export SOPS_AGE_KEY=$(aws ssm get-parameter \
+            --name "/zeewordle/secrets/age_private_key" \
+            --with-decryption \
+            --query "Parameter.Value" \
+            --output text)
+
+          # 2. env.auto.tfvars
+          sops -d env.enc.tfvars > env.auto.tfvars
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
@@ -44,14 +67,12 @@ jobs:
           terraform init
           terraform apply -auto-approve
 
-      - name: Copy public key in runner 
+      - name: Copy public key in runner
         working-directory: infra/terraform/showcase
         run: |
           mkdir -p ~/.ssh
           cp ansible_ssh_over_ssm ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-
-          
 
       - name: Config ssh
         run: |
@@ -98,3 +119,7 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
         run: |
           ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_app.yaml
+
+      - name: Cleanup secrets
+        if: always()
+        run: rm -f infra/terraform/showcase/env.auto.tfvars
