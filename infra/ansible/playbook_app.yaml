@@ -63,7 +63,6 @@
         owner: root
         group: root
         mode: '0600'
-        no_log: true
 
     - name: copy db.yaml file to server (app)
       ansible.builtin.copy:
@@ -72,7 +71,6 @@
         owner: root
         group: root
         mode: '0600'
-        no_log: true
 
     - name: Start First Container (backend)
       community.docker.docker_container:
