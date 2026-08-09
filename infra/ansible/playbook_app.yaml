@@ -7,12 +7,14 @@
   become: true
   roles:
     - name: geerlingguy.docker
-  vars:
-    db_user: "{{ lookup('amazon.aws.aws_ssm', '/zeewordle/secrets/postgresUsername', region='eu-west-3') }}"
-    db_name: "{{ lookup('amazon.aws.aws_ssm', '/zeewordle/secrets/postgresDB', region='eu-west-3') }}"
-    db_password: "{{ lookup('amazon.aws.aws_ssm', '/zeewordle/secrets/postgresPassword', region='eu-west-3', decrypt=True) }}"
+  environment:
+    SOPS_AGE_KEY: "{{ lookup('amazon.aws.aws_ssm', '/zeewordle/secrets/age_private_key', region='eu-west-3') }}"
   tasks:
-    - name: Ensure Docker volume exists
+    - name: Load database encrypted variables
+      ansible.builtin.set_fact:
+        db_vars: "{{ lookup('community.sops.sops', 'apps/backend/config/db.enc.yaml') | from_yaml }}"
+
+    - name: Ensure Docker volume exists (postgres_data)
       community.docker.docker_volume:
         name: postgres_data
         state: present
@@ -25,15 +27,48 @@
         restart_policy: always
         shm_size: 128MB
         published_ports:
-          - "5432:5432"
+          - "{{ db_vars.DB_PORT }}:5432"
         env:
-          POSTGRES_USER: "{{ db_user }}"
-          POSTGRES_PASSWORD: "{{ db_password }}"
-          POSTGRES_DB: "{{ db_name }}"
+          POSTGRES_USER: "{{ db_vars.DB_USER }}"
+          POSTGRES_PASSWORD: "{{ db_vars.DB_PASSWORD }}"
+          POSTGRES_DB: "{{ db_vars.DB_NAME }}"
+        no_log: true
         volumes:
           - postgres_data:/var/lib/postgresql/data
 
-    - name: Start First Container
+    - name: Get container information (postgresql)
+      docker_container_info:
+        name: zeewordle_db
+      register: container_status_postgresql
+      until: container_status_postgresql.container.State.Status == "running"
+      retries: 5
+      delay: 5
+
+    - name: Assert container postgresql is running
+      assert:
+        that:
+          - container_status_postgresql.container.State.Status == "running"
+        fail_msg: "Container 'zeewordle_db' is not running (status: {{ container_status_postgresql.container.State.Status }})"
+
+
+    - name: Ensure config directory exists on the server (app)
+      ansible.builtin.file:
+        path: "/opt/zeewordle/config"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Decrypt and copy env file to server (app)
+      ansible.builtin.copy:
+        content: "{{ lookup('community.sops.sops', '../../apps/backend/config/development.enc.env') }}"
+        dest: /opt/zeewordle/config/development.env
+        owner: root
+        group: root
+        mode: '0600'
+        no_log: true
+
+    - name: Start First Container (backend)
       community.docker.docker_container:
         name: backend
         image: zeeward41/zeewordle-backend:latest
@@ -41,8 +76,24 @@
         restart_policy: always
         published_ports:
           - "5000:5000"
+        volumes:
+          - /opt/zeewordle/config/development.env:/app/config/development.env
 
-    - name: Start Second Container
+    - name: Get container information (backend)
+      docker_container_info:
+        name: backend
+      register: container_status_backend
+      until: container_status_backend.container.State.Status == "running"
+      retries: 5
+      delay: 5
+
+    - name: Assert container backend is running
+      assert:
+        that:
+          - container_status_backend.container.State.Status == "running"
+        fail_msg: "Container 'backend' is not running (status: {{ container_status_backend.container.State.Status }})"
+
+    - name: Start Second Container (frontend)
       community.docker.docker_container:
         name: frontend
         image: zeeward41/zeewordle-frontend:latest
@@ -50,3 +101,18 @@
         restart_policy: always
         published_ports:
           - "3000:3000"
+
+    - name: Get container information (frontend)
+      docker_container_info:
+        name: frontend
+      register: container_status_frontend
+      until: container_status_frontend.container.State.Status == "running"
+      retries: 5
+      delay: 5
+
+    - name: Assert container frontend is running
+      assert:
+        that:
+          - container_status_frontend.container.State.Status == "running"
+        fail_msg: "Container 'frontend' is not running (status: {{ container_status_frontend.container.State.Status }})"
+
