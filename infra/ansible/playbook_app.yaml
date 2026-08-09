@@ -8,15 +8,28 @@
   roles:
     - name: geerlingguy.docker
   tasks:
-    - name: Get age key from SSM
+    - name: Get age key from SSM (and store it in momery of the runner (ansible process))
       ansible.builtin.set_fact:
         age_key: "{{ lookup('amazon.aws.aws_ssm', '/zeewordle/secrets/age_private_key', region='eu-west-3') | trim }}"
 
+    - name: Create temporary age key file (on runner)
+      ansible.builtin.copy:
+        content: "{{ age_key | trim }}\n"
+        dest: "/tmp/age_key.txt"
+        mode: '0600'
+      delegate_to: localhost
+      become: false
+
     - name: Load database encrypted variables
       ansible.builtin.set_fact:
-        db_vars: "{{ lookup('community.sops.sops', '../../apps/backend/config/db.enc.yaml', sops_age_key=age_key) | from_yaml }}"
-      environment:
-        SOPS_AGE_KEY: "{{ age_key }}"
+        db_vars: "{{ lookup('community.sops.sops', '../../apps/backend/config/db.enc.yaml', sops_age_key_file='/tmp/age_key.txt') | from_yaml }}"
+
+    - name: Remove temporary age key file
+      ansible.builtin.file:
+        path: "/tmp/age_key.txt"
+        state: absent
+      delegate_to: localhost
+      become: false
 
     - name: Ensure Docker volume exists (postgres_data)
       community.docker.docker_volume:
