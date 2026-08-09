@@ -60,7 +60,7 @@ jobs:
           sops -d apps/backend/config/development.enc.env > apps/backend/config/development.env
 
           # 4. Convert db.yaml > db.env
-          yq -r eval 'to_entries | .[] | .key + "=" + .value' apps/backend/config/db.yaml > apps/backend/config/db.env
+          yq -r 'to_entries | .[] | .key + "=" + .value' apps/backend/config/db.yaml > apps/backend/config/db.env
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
