@@ -5,8 +5,12 @@ fileignoreconfig:
   checksum: 4fa7ac653cd7d2540dd449d21af6b34295780d55a4bdbbef227ef02dd051ad19
 - filename: .sops.yaml
   checksum: 2f644260f3e3a1b36a28b4964044c874c0a88a0740fe6badd50c613275d75cfb
+- filename: apps/backend/config/.sops.yaml
+  checksum: feee1bca6cb4ce37f288684f11563e2aa5a23732ca3c891721260c4c8f85b606
+- filename: apps/backend/config/db.enc.yaml
+  checksum: ba3c392f943bec2874d5b82c9099f9d8cb2f3ec5f9c6fa16400bc48f83b3b943
 - filename: apps/backend/config/development.enc.env
-  checksum: 02b15301e00fecf28edd6cb3ed03521e5e5ebe1c3dc054f3a79b24f8744eae93
+  checksum: 1057b76b682673ae7d7e17fabc7ab0021fb21992917efaba98b9fec073796fc6
 - filename: apps/backend/coverage/lcov-report/base.css
   checksum: 2ebd1655da04e0b972db9241ac3bb99bb057f3aeb90578957a6c570249b229c2
 - filename: apps/backend/coverage/lcov-report/block-navigation.js

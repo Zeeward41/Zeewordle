@@ -25,6 +25,7 @@ dist-ssr
 
 # Environnement
 config/development.env
+config/db.env
 docker-compose.yml
 
 # stryker temp files
