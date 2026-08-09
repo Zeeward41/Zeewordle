@@ -36,7 +36,7 @@ jobs:
       - name: Install SOPS and age
         run: |
           # Age installation
-          sudo apt update && sudo apt install -y age
+          sudo apt update && sudo apt install -y age yq
 
           # Sops Installation
           curl -LO https://github.com/getsops/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.amd64
@@ -58,6 +58,9 @@ jobs:
           # 3. Backend files
           sops -d apps/backend/config/db.enc.yaml > apps/backend/config/db.yaml
           sops -d apps/backend/config/development.enc.env > apps/backend/config/development.env
+
+          # 4. Convert db.yaml > db.env
+          yq -r eval 'to_entries | .[] | .key + "=" + .value' apps/backend/config/db.yaml > apps/backend/config/db.env
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -125,4 +128,6 @@ jobs:
 
       - name: Cleanup secrets
         if: always()
-        run: rm -f infra/terraform/showcase/env.auto.tfvars
+        run: |
+          rm -f infra/terraform/showcase/env.auto.tfvars
+          rm -f apps/backend/config/*

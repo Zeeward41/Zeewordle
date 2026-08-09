@@ -30,7 +30,6 @@
           POSTGRES_USER: "{{ db_vars.DB_USER }}"
           POSTGRES_PASSWORD: "{{ db_vars.DB_PASSWORD }}"
           POSTGRES_DB: "{{ db_vars.DB_NAME }}"
-        no_log: true
         volumes:
           - postgres_data:/var/lib/postgresql/data
 
@@ -68,8 +67,8 @@
 
     - name: copy db.yaml file to server (app)
       ansible.builtin.copy:
-        src: "../../apps/backend/config/db.yaml"
-        dest: /opt/zeewordle/config/db.yaml
+        src: "../../apps/backend/config/db.env"
+        dest: /opt/zeewordle/config/db.env
         owner: root
         group: root
         mode: '0600'
