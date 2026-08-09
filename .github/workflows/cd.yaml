@@ -57,7 +57,7 @@ jobs:
 
           # 3. Backend files
           sops -d apps/backend/config/db.enc.yaml > apps/backend/config/db.yaml
-          sops -d apps/backend/development.enc.env > apps/backend/config/development.env
+          sops -d apps/backend/config/development.enc.env > apps/backend/config/development.env
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
