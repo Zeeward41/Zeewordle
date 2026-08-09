@@ -8,28 +8,9 @@
   roles:
     - name: geerlingguy.docker
   tasks:
-    - name: Get age key from SSM (and store it in momery of the runner (ansible process))
+    - name: Load database variables
       ansible.builtin.set_fact:
-        age_key: "{{ lookup('amazon.aws.aws_ssm', '/zeewordle/secrets/age_private_key', region='eu-west-3') | trim }}"
-
-    - name: Create temporary age key file (on runner)
-      ansible.builtin.copy:
-        content: "{{ age_key | trim }}\n"
-        dest: "/tmp/age_key.txt"
-        mode: '0600'
-      delegate_to: localhost
-      become: false
-
-    - name: Load database encrypted variables
-      ansible.builtin.set_fact:
-        db_vars: "{{ lookup('community.sops.sops', '../../apps/backend/config/db.enc.yaml', sops_age_key_file='/tmp/age_key.txt') | from_yaml }}"
-
-    - name: Remove temporary age key file
-      ansible.builtin.file:
-        path: "/tmp/age_key.txt"
-        state: absent
-      delegate_to: localhost
-      become: false
+        db_vars: "{{ lookup('ansible.builtin.file', '../../apps/backend/config/db.yaml') | from_yaml }}"
 
     - name: Ensure Docker volume exists (postgres_data)
       community.docker.docker_volume:
@@ -76,10 +57,19 @@
         group: root
         mode: '0755'
 
-    - name: Decrypt and copy env file to server (app)
+    - name: copy development.env file to server (app)
       ansible.builtin.copy:
-        content: "{{ lookup('community.sops.sops', '../../apps/backend/config/development.enc.env') }}"
+        src: "../../apps/backend/config/development.env"
         dest: /opt/zeewordle/config/development.env
+        owner: root
+        group: root
+        mode: '0600'
+        no_log: true
+
+    - name: copy db.yaml file to server (app)
+      ansible.builtin.copy:
+        src: "../../apps/backend/config/db.yaml"
+        dest: /opt/zeewordle/config/db.yaml
         owner: root
         group: root
         mode: '0600'
@@ -94,7 +84,7 @@
         published_ports:
           - "5000:5000"
         volumes:
-          - /opt/zeewordle/config/development.env:/app/config/development.env
+          - /opt/zeewordle/config/:/app/config/
 
     - name: Get container information (backend)
       docker_container_info:

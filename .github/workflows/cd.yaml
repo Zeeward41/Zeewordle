@@ -43,8 +43,7 @@ jobs:
           sudo mv sops-v${SOPS_VERSION}.linux.amd64 /usr/local/bin/sops
           sudo chmod +x /usr/local/bin/sops
 
-      - name: Fetch age key & Decrypt Terraform vars
-        working-directory: infra/terraform/showcase
+      - name: Fetch age key & Decrypt Terraform vars and Backend config files
         run: |
           # 1. get age key
           export SOPS_AGE_KEY=$(aws ssm get-parameter \
@@ -54,7 +53,11 @@ jobs:
             --output text)
 
           # 2. env.auto.tfvars
-          sops -d env.enc.tfvars > env.auto.tfvars
+          sops -d infra/terraform/showcase/env.enc.tfvars > infra/terraform/showcase/env.auto.tfvars
+
+          # 3. Backend files
+          sops -d apps/backend/config/db.enc.yaml > apps/backend/config/db.yaml
+          sops -d apps/backend/development.enc.env > apps/backend/config/development.env
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -112,7 +115,7 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
         run: |
           ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_monitoring.yaml
-        
+
       - name: Install app setup
         working-directory: infra/ansible
         env:
