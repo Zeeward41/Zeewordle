@@ -19,3 +19,10 @@ resource "local_file" "ansible_private_key" {
   file_permission = "0600"
 }
 
+# 4. Save the private key in SSM Parameter Store (eu-west-3)
+resource "aws_ssm_parameter" "ansible_private_key" {
+  name        = "/zeewordle/secrets/sshKey"
+  description = "Ansible SSH private key for SSH over SSM"
+  type        = "SecureString"
+  value       = tls_private_key.ansible.private_key_openssh
+}
