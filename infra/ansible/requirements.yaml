@@ -5,3 +5,4 @@ roles:
 collections:
   - name: prometheus.prometheus
   - name: community.docker
+  - name: community.sops
