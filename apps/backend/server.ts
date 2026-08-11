@@ -28,7 +28,7 @@ const app: Application = express();
 // CORS
 app.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: process.env['IP_FRONTEND'],
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
         allowedHeaders: ['Content-type', 'Authorization'],

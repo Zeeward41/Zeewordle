@@ -72,6 +72,15 @@
         group: root
         mode: '0644'
 
+    - name: Set IP_FRONTEND in development environment file
+      ansible.builtin.lineinfile:
+        path: /opt/zeewordle/config/development.env
+        regexp: '^IP_FRONTEND='
+        line: "IP_FRONTEND=http://{{ hostvars[groups['role_monitoring_proxy'][0]]['public_ip_address'] }}"
+        owner: root
+        group: root
+        mode: '0644'
+
     - name: Start First Container (backend)
       community.docker.docker_container:
         name: backend
