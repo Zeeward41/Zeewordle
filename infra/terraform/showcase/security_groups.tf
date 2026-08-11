@@ -105,8 +105,8 @@ resource "aws_vpc_security_group_ingress_rule" "allow_http_inbound_to_nginx" {
 
   cidr_ipv4   = "0.0.0.0/0"
   ip_protocol = "tcp"
-  from_port   = 80
-  to_port     = 80
+  from_port   = 0
+  to_port     = 65535
 }
 
 # ==============================================================================
@@ -156,4 +156,14 @@ resource "aws_vpc_security_group_ingress_rule" "allow_traffic_from_proxy_on_fron
   ip_protocol                  = "tcp"
   from_port                    = 3000
   to_port                      = 3000
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_backend_api_inbound" {
+  security_group_id = aws_security_group.app.id
+  description       = "Allow inbound HTTP traffic from web browsers to Backend API"
+
+  cidr_ipv4   = "0.0.0.0/0"
+  ip_protocol = "tcp"
+  from_port   = 5000
+  to_port     = 5000
 }
