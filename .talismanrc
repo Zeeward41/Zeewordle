@@ -102,7 +102,7 @@ fileignoreconfig:
 - filename: infra/ansible/playbook_app.yaml
   checksum: eea88675d0f8f7a4a49996429be9b4b557695d6714ffaf47cbe60abbeca9d21a
 - filename: infra/ansible/templates/nginx.conf.j2
-  checksum: 7078989df33612eff92ad5a3633b70c7f64b92d45b07657138661b46e4797771
+  checksum: 780778c5f8f9e8fd9abdb9e6da39f60d18a0b2a4281c70d704ae39cda759fc2a
 - filename: infra/terraform/00_bootstrap/.terraform.lock.hcl
   checksum: df8e17744d216c7081e917bd208ee0a9298f54273c7cf3afb92f49f040394b7f
 - filename: infra/terraform/showcase/.sops.yaml

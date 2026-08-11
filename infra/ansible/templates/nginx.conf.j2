@@ -15,7 +15,7 @@ http {
         listen 80;
         server_name {{ ansible_host }};
         location / {
-            proxy_pass http://{{ hostvars[groups['role_app'][0]]['aws_private_ip_address'] }}:3000;
+            proxy_pass http://{{ hostvars[groups['role_app'][0]]['private_ip_address'] }}:3000;
         }
     }
 }
