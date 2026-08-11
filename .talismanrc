@@ -8,7 +8,7 @@ fileignoreconfig:
 - filename: apps/backend/config/.sops.yaml
   checksum: feee1bca6cb4ce37f288684f11563e2aa5a23732ca3c891721260c4c8f85b606
 - filename: apps/backend/config/db.enc.yaml
-  checksum: 14af631324df1396ed1217a7d5ba4c8174b93586a1e18ff2c5e9c9b2dc679849
+  checksum: 7e644a095c222c2ab180e22625b1da28bcf09896875d44606fa3d06c379169a5
 - filename: apps/backend/config/development.enc.env
   checksum: ba8ad824ed5df7695a5c450b41fc409f519dd96d79dd0674ad66fc126b35d770
 - filename: apps/backend/coverage/lcov-report/base.css

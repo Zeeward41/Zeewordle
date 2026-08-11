@@ -17,6 +17,10 @@
         name: postgres_data
         state: present
 
+    - name: Create Docker Network
+      community.docker.docker_network:
+        name: zeewordle_net
+
     - name: Start PostgreSQL Container
       community.docker.docker_container:
         name: zeewordle_db
@@ -26,6 +30,8 @@
         shm_size: 128MB
         published_ports:
           - "{{ db_vars.DB_PORT }}:5432"
+        networks:
+          - name: zeewordle_net
         env:
           POSTGRES_USER: "{{ db_vars.DB_USER }}"
           POSTGRES_PASSWORD: "{{ db_vars.DB_PASSWORD }}"
@@ -87,6 +93,8 @@
         image: zeeward41/zeewordle-backend:latest
         state: started
         restart_policy: always
+        networks:
+          - name: zeewordle_net
         published_ports:
           - "5000:5000"
         volumes:
@@ -111,6 +119,8 @@
         name: frontend
         image: zeeward41/zeewordle-frontend:latest
         state: started
+        networks:
+          - name: zeewordle_net
         restart_policy: always
         published_ports:
           - "3000:3000"
@@ -124,7 +134,6 @@
       until: container_status_frontend.container.State.Status == "running"
       retries: 5
       delay: 5
-        #line: "IP_FRONTEND=http://{{ hostvars[groups['role_monitoring_proxy'][0]]['public_ip_address'] }}"
 
     - name: Assert container frontend is running
       assert:
