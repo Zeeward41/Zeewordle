@@ -114,7 +114,9 @@
         restart_policy: always
         published_ports:
           - "3000:3000"
-
+        env:
+          VITE_API_URL: "http://{{ hostvars[groups['role_app'][0]]['public_ip_address'] }}:5000"
+    
     - name: Get container information (frontend)
       docker_container_info:
         name: frontend
@@ -122,6 +124,7 @@
       until: container_status_frontend.container.State.Status == "running"
       retries: 5
       delay: 5
+        #line: "IP_FRONTEND=http://{{ hostvars[groups['role_monitoring_proxy'][0]]['public_ip_address'] }}"
 
     - name: Assert container frontend is running
       assert:
