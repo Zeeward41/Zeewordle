@@ -118,6 +118,7 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
         run: |
           ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_monitoring.yaml
+          ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_nginx.yaml
 
       - name: Install app setup
         working-directory: infra/ansible
