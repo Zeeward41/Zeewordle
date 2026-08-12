@@ -125,7 +125,7 @@
         published_ports:
           - "3000:3000"
         env:
-          VITE_API_URL: "http://{{ hostvars[groups['role_app'][0]]['public_ip_address'] }}:5000"
+          VITE_API_URL: "http://{{ hostvars[groups['role_monitoring_proxy'][0]]['public_ip_address'] }}"
     
     - name: Get container information (frontend)
       docker_container_info:
