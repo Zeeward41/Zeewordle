@@ -72,15 +72,26 @@ resource "aws_vpc_security_group_egress_rule" "allow_node_exporter_outbound" {
   to_port                      = 9100
 }
 
-resource "aws_vpc_security_group_egress_rule" "allow_outbound_traffic_to_app" {
+resource "aws_vpc_security_group_egress_rule" "allow_outbound_traffic_to_app_frontend" {
   # Allow outbound traffic to APP (port 3000) on target SG
   security_group_id = aws_security_group.monitoring_proxy.id
-  description       = "Allow outbound traffic to APP"
+  description       = "Allow outbound traffic to APP on Frontend"
 
   referenced_security_group_id = aws_security_group.app.id
   ip_protocol                  = "tcp"
   from_port                    = 3000
   to_port                      = 3000
+}
+
+resource "aws_vpc_security_group_egress_rule" "allow_outbound_traffic_to_app_backend" {
+  # Allow outbound traffic to APP (port 5000) on target SG
+  security_group_id = aws_security_group.monitoring_proxy.id
+  description       = "Allow outbound traffic to APP on backend"
+
+  referenced_security_group_id = aws_security_group.app.id
+  ip_protocol                  = "tcp"
+  from_port                    = 5000
+  to_port                      = 5000
 }
 
 # ====================================================
@@ -162,8 +173,8 @@ resource "aws_vpc_security_group_ingress_rule" "allow_backend_api_inbound" {
   security_group_id = aws_security_group.app.id
   description       = "Allow inbound HTTP traffic from web browsers to Backend API"
 
-  cidr_ipv4   = "0.0.0.0/0"
-  ip_protocol = "tcp"
-  from_port   = 5000
-  to_port     = 5000
+  referenced_security_group_id = aws_security_group.monitoring_proxy.id
+  ip_protocol                  = "tcp"
+  from_port                    = 5000
+  to_port                      = 5000
 }
