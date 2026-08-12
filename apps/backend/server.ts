@@ -45,7 +45,7 @@ app.use(
             httpOnly: true,
             //secure: process.env['NODE_ENV'] === 'development' ? false : true,
             secure: false,
-            sameSite: 'strict',
+            sameSite: 'lax',
             maxAge: 1000 * 60 * 30, // 30 minutes
         },
     })
