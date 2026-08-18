@@ -140,7 +140,7 @@ jobs:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
         run: |
           ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_app.yaml \
-      --extra-vars "db_vars_initial_hash='$POSTGRES_PASSWORD_HASH' db_vars_initial_email='$POSTGRES_EMAIL'"
+            --extra-vars "db_vars_initial_hash='$POSTGRES_PASSWORD_HASH' db_vars_initial_email='$POSTGRES_EMAIL'"
 
       - name: Cleanup secrets
         if: always()
