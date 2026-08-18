@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: .github/workflows/cd.yaml
-  checksum: 766777326c0a22dab988a5179fc133f747d0a34d52cffee6e3f9ce7b62caebcb
+  checksum: a01adc95d86c5ed87a64a785627d4611f953d7923744c164035dd9a72c2368e2
 - filename: .github/workflows/ci.yaml
   checksum: 4fa7ac653cd7d2540dd449d21af6b34295780d55a4bdbbef227ef02dd051ad19
 - filename: .sops.yaml
@@ -100,7 +100,11 @@ fileignoreconfig:
 - filename: infra/ansible/inventories/showcase/inv_aws_ec2.yml
   checksum: e8732e507e57d2959280abfc41a62a548dd0122051da5fcf08e5503284cc3971
 - filename: infra/ansible/playbook_app.yaml
-  checksum: eea88675d0f8f7a4a49996429be9b4b557695d6714ffaf47cbe60abbeca9d21a
+  checksum: c43876e910e2fd6cf3859bb683632ac9d2da574944e23c94a0df7a36be4af569
+- filename: infra/ansible/templates/01_create-tables.sql.j2
+  checksum: 9bffd5f5fa0905253b4425cdac6b01c8845d2a846fcbf2c17eb8086373f48a08
+- filename: infra/ansible/templates/02_insert-seed-data.sql.j2
+  checksum: e8c5f10ee860f3f6883720c637642d49ef773425331207923daf8593ecf99aeb
 - filename: infra/ansible/templates/nginx.conf.j2
   checksum: 8e400696eeb52586fd4c83d6cd81dbb67d18b53caa1b7560196af5c60b54ff7d
 - filename: infra/terraform/00_bootstrap/.terraform.lock.hcl

@@ -120,12 +120,27 @@ jobs:
           ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_monitoring.yaml
           ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_nginx.yaml
 
+
+      - name: Fetch Docker Postgres credentials from AWS Parameter Store
+        run: |
+          POSTGRES_PASSWORD_HASH=$(aws ssm get-parameter --name "/zeewordle/secrets/postgresPasswordHash" --with-decryption --query "Parameter.Value" --output text)
+          POSTGRES_EMAIL=$(aws ssm get-parameter --name "/zeewordle/secrets/postgresEmail" --with-decryption --query "Parameter.Value" --output text)
+
+          # Mask sensitive values in GitHub Actions logs
+          echo "::add-mask::$POSTGRES_PASSWORD_HASH"
+          echo "::add-mask::$POSTGRES_EMAIL"
+
+          # Export as environment variables for later steps
+          echo "POSTGRES_PASSWORD_HASH=$POSTGRES_PASSWORD_HASH" >> $GITHUB_ENV
+          echo "POSTGRES_EMAIL=$POSTGRES_EMAIL" >> $GITHUB_ENV
+
       - name: Install app setup
         working-directory: infra/ansible
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'False'
         run: |
-          ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_app.yaml
+          ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_app.yaml \
+      --extra-vars "db_vars_initial_hash='$POSTGRES_PASSWORD_HASH' db_vars_initial_email='$POSTGRES_EMAIL'"
 
       - name: Cleanup secrets
         if: always()

@@ -12,6 +12,10 @@
       ansible.builtin.set_fact:
         db_vars: "{{ lookup('ansible.builtin.file', '../../apps/backend/config/db.yaml') | from_yaml }}"
 
+    - name: Enrich db_vars with dynamic secrets from CI/CD
+      ansible.builtin.set_fact:
+        db_vars: "{{ db_vars | combine({ 'INITIAL_USER_EMAIL': db_vars_initial_email | default(''),'INITIAL_USER_PASSWORD_HASH': db_vars_initial_hash | default('') }) }}"
+
     - name: Ensure Docker volume exists (postgres_data)
       community.docker.docker_volume:
         name: postgres_data
@@ -20,6 +24,24 @@
     - name: Create Docker Network
       community.docker.docker_network:
         name: zeewordle_net
+
+    - name: Create the directory for database initialization scripts
+      ansible.builtin.file:
+        path: /opt/zeewordle/init-db
+        state: directory
+        mode: '0755'
+
+    - name: Générer le script de création de table
+      ansible.builtin.template:
+        src: 01-create-tables.sql.j2
+        dest: /opt/zeewordle/init-db/01-create-tables.sql
+        mode: '0644'
+
+    - name: Générer le script d'insertion de données
+      ansible.builtin.template:
+        src: 02-insert-seed-data.sql.j2
+        dest: /opt/zeewordle/init-db/02-insert-seed-data.sql
+        mode: '0644'
 
     - name: Start PostgreSQL Container
       community.docker.docker_container:
@@ -38,6 +60,7 @@
           POSTGRES_DB: "{{ db_vars.DB_NAME }}"
         volumes:
           - postgres_data:/var/lib/postgresql/data
+          - /opt/zeewordle/init-db:/docker-entrypoint-initdb.d:ro
 
     - name: Get container information (postgresql)
       docker_container_info:
