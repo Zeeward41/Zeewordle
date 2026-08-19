@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import errorHandler from './src/middlewares/error.ts';
 import OpenApiValidator from 'express-openapi-validator';
 import session from 'express-session';
+import client from 'prom-client';
 
 // Route files
 import auth from './src/routes/auth.ts';
@@ -24,6 +25,14 @@ if (!process.env['SESSION_SECRET']) {
 }
 
 const app: Application = express();
+
+// prom-client
+client.collectDefaultMetrics();
+
+app.get('/metrics', async (_req, res) => {
+    res.set('Content-Type', client.register.contentType);
+    res.end(await client.register.metrics());
+});
 
 // CORS
 app.use(
