@@ -21,3 +21,4 @@ Each file follows the standard format (Context, Decision, Consequences).
 | [0014](./0014-ssh-over-ssm.md) | 27/07/2026 | SSH over SSM | ✅ Accepted |
 | [0015](./0015-Public-IP-Instances-(showcase-Environment).md) | 29/07/2026 | Public IP Instances (showcase Environment) | ✅ Accepted |
 | [0016](./0016-Observability-Strategy-for-System-and-Application-Metrics.md) | 19/08/2026 | Observability Stragegy | ✅ Accepted |
+| [0017](./0017-Database-Persistence-and-Backup-Strategy.md) | 19/08/2026 | Database Persistence and Backup Strategy | ✅ Accepted |
