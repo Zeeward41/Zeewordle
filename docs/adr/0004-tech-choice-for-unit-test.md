@@ -1,4 +1,4 @@
-# ADR 0004: Technology Choice for Unit Testing and Quality Metrics
+# ADR 0004: Technology Choice for Unit Testing
 
 Status: ✅ Accepted
 Date: 2026-05-27

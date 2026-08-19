@@ -71,6 +71,8 @@ fileignoreconfig:
   checksum: 5d7dc7364ae728201935b72b77374a679b87fb54a5ab8210ac66e6e0bc1f5d8d
 - filename: docs/adr/0014-ssh-over-ssm.md
   checksum: 718ec60c3da60ad11e4bc78772d7761cb5d2dd9ce0225867f61570d52bd1fb5e
+- filename: docs/adr/0016-Observability-Strategy-for-System-and-Application-Metrics.md
+  checksum: 82a3e6393f4468aa05ea3e3acfea7a725f258c0bcebe532f1402d0500afbfcd4
 - filename: docs/api/index.html
   checksum: 51b80681ac4f9f97b4b1a99cf996ca484dc10645d0bdc9198282bb8a920f4fd3
 - filename: docs/api/paths/authLogin.yaml
@@ -89,6 +91,8 @@ fileignoreconfig:
   checksum: 47459455608dfbde08fc96b9e5dbeb2112da3cfe1961a02caeacf0ba17f97a75
 - filename: docs/guides/0007-Initial-Setup-Terraform-Remote-State-(S3-Backend).md
   checksum: b13b981ff7a76daa588fc13fb1f36eeefc1c8ec1eaa8de7d1ee252567771359e
+- filename: docs/guides/0009-Setting-Up-AWS-SSM-Parameter-Store.md
+  checksum: a6b254e58f1de7f40989c4040c06043772f42d078dfde1f8c05b6f1e491d4e97
 - filename: docs/guides/internal/0005-sonar-cloud-guide.md
   checksum: aec338514ca74e6af42626f0e1f1327ba813eda481fbd5668eb2b9daba30a1bf
 - filename: docs/problems/0004-SonarCloud-Fails-to-Detect-the-Main-Branch.md
