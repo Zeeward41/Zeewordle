@@ -33,15 +33,10 @@
 
     - name: Générer le script de création de table
       ansible.builtin.template:
-        src: 01_create-tables.sql.j2
-        dest: /opt/zeewordle/init-db/01_create-tables.sql
+        src: 01_init-db.sql.j2
+        dest: /opt/zeewordle/init-db/01_init-db.sql
         mode: '0644'
 
-    - name: Générer le script d'insertion de données
-      ansible.builtin.template:
-        src: 02_insert-seed-data.sql.j2
-        dest: /opt/zeewordle/init-db/02_insert-seed-data.sql
-        mode: '0644'
 
     - name: Start PostgreSQL Container
       community.docker.docker_container:

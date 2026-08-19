@@ -121,7 +121,7 @@ jobs:
           ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_nginx.yaml
 
 
-      - name: Fetch Docker Postgres credentials from AWS Parameter Store
+      - name: Fetch Postgres credentials from AWS Parameter Store
         run: |
           POSTGRES_PASSWORD_HASH=$(aws ssm get-parameter --name "/zeewordle/secrets/postgresPasswordHash" --with-decryption --query "Parameter.Value" --output text)
           POSTGRES_EMAIL=$(aws ssm get-parameter --name "/zeewordle/secrets/postgresEmail" --with-decryption --query "Parameter.Value" --output text)
