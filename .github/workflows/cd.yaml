@@ -119,6 +119,7 @@ jobs:
         run: |
           ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_monitoring.yaml
           ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_nginx.yaml
+          ansible-playbook -i inventories/showcase/inv_aws_ec2.yml playbook_grafana.yaml
 
 
       - name: Fetch Postgres credentials from AWS Parameter Store
