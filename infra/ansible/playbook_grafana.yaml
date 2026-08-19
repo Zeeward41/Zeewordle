@@ -1,0 +1,86 @@
+---
+- name: Install and configure Grafana
+  hosts: role_monitoring_proxy
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: Install prerequisite packages
+      ansible.builtin.apt:
+        name:
+          - wget
+          - apt-transport-https
+          - gnupg
+        state: present
+        update_cache: true
+
+    - name: Create directory for GPG keys
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download Grafana GPG key
+      ansible.builtin.get_url:
+        url: https://apt.grafana.com/gpg-full.key
+        dest: /etc/apt/keyrings/grafana.asc
+        mode: '0644'
+
+    - name: Add Grafana repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/grafana.asc] https://apt.grafana.com stable main"
+        state: present
+        filename: grafana
+
+    - name: Install Grafana Enterprise package
+      ansible.builtin.apt:
+        name: grafana-enterprise
+        state: present
+        update_cache: true
+
+    - name: Configure Prometheus datasource in Grafana
+      ansible.builtin.template:
+        src: grafana_prometheus_datasource.yml.j2
+        dest: /etc/grafana/provisioning/datasources/prometheus.yml
+        owner: root
+        group: grafana
+        mode: '0640'
+      notify: Restart Grafana
+
+    - name: Create directory for Grafana dashboards
+      ansible.builtin.file:
+        path: /var/lib/grafana/dashboards
+        state: directory
+        owner: root
+        group: grafana
+        mode: '0755'
+
+    - name: Configure Grafana dashboards provider
+      ansible.builtin.template:
+        src: grafana_dashboards_provider.yaml.j2
+        dest: /etc/grafana/provisioning/dashboards/dashboards.yaml
+        owner: root
+        group: grafana
+        mode: '0640'
+      notify: Restart Grafana
+
+    - name: Copy dashboard JSON files to Grafana
+      ansible.builtin.copy:
+        src: dashboards/
+        dest: /var/lib/grafana/dashboards/
+        owner: root
+        group: grafana
+        mode: '0644'
+      notify: Restart Grafana
+
+    - name: Start and enable Grafana service
+      ansible.builtin.systemd:
+        name: grafana-server
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Restart Grafana
+      ansible.builtin.systemd:
+        name: grafana-server
+        state: restarted

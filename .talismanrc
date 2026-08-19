@@ -101,6 +101,8 @@ fileignoreconfig:
   checksum: e8732e507e57d2959280abfc41a62a548dd0122051da5fcf08e5503284cc3971
 - filename: infra/ansible/playbook_app.yaml
   checksum: c43876e910e2fd6cf3859bb683632ac9d2da574944e23c94a0df7a36be4af569
+- filename: infra/ansible/playbook_grafana.yaml
+  checksum: 21b23cac746a09202a9b9e6292301c8c41a538f3a66decd5c10564736508c450
 - filename: infra/ansible/templates/01_create-tables.sql.j2
   checksum: 9bffd5f5fa0905253b4425cdac6b01c8845d2a846fcbf2c17eb8086373f48a08
 - filename: infra/ansible/templates/01_init-db.sql.j2
