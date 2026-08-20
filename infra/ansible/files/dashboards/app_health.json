@@ -48,7 +48,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "builder",
-                        "expr": "up{job=\"node-backend\", instance=\"10.10.10.21:5000\"}",
+                        "expr": "up{job=\"node-backend\"}",
                         "legendFormat": "__auto",
                         "range": true
                       },
