@@ -171,7 +171,7 @@
       "timezone": "browser",
       "to": "now"
     },
-    "title": "New dashboard",
+    "title": "App (express) Health",
     "variables": []
   }
 }
