@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: .github/workflows/cd.yaml
-  checksum: f57fef285e4a42769cbbabfb9766a649b25cb759d96d3d34da315dc2ea3cbba9
+  checksum: 6320ea05a87e2f80fb205e92c5e0e46434d9f8277371338a69523be332e56a06
 - filename: .github/workflows/ci.yaml
   checksum: 4fa7ac653cd7d2540dd449d21af6b34295780d55a4bdbbef227ef02dd051ad19
 - filename: .sops.yaml
@@ -106,7 +106,7 @@ fileignoreconfig:
 - filename: infra/ansible/playbook_app.yaml
   checksum: c43876e910e2fd6cf3859bb683632ac9d2da574944e23c94a0df7a36be4af569
 - filename: infra/ansible/playbook_grafana.yaml
-  checksum: 21b23cac746a09202a9b9e6292301c8c41a538f3a66decd5c10564736508c450
+  checksum: 3460211a71f58b961c9f46e86cbee8d51dbd156169219b9e241e77e9f8dd077d
 - filename: infra/ansible/templates/01_create-tables.sql.j2
   checksum: 9bffd5f5fa0905253b4425cdac6b01c8845d2a846fcbf2c17eb8086373f48a08
 - filename: infra/ansible/templates/01_init-db.sql.j2
