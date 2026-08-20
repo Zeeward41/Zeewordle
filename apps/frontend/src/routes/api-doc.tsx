@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useEffect } from 'react';
+import apiDocsHtml from '../../public/docs/api-docs.html?raw';
 
 export const Route = createFileRoute('/api-doc')({
     component: RouteComponent,
@@ -7,9 +7,10 @@ export const Route = createFileRoute('/api-doc')({
 });
 
 function RouteComponent() {
-    useEffect(() => {
-        window.location.replace('/docs/api-docs.html');
-    }, []);
-
-    return null;
+    return (
+        <div
+            className="api-doc-wrapper"
+            dangerouslySetInnerHTML={{ __html: apiDocsHtml }}
+        />
+    );
 }
