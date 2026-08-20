@@ -10,7 +10,6 @@
       ansible.builtin.set_fact:
         grafana_admin_user: "{{ grafana_admin_user }}"
         grafana_admin_password: "{{ grafana_admin_password }}"
-      no_log: true
 
     - name: Install prerequisite packages
       ansible.builtin.apt:
