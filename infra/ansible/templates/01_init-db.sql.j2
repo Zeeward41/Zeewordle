@@ -13,7 +13,7 @@ VALUES (
     '{{ db_vars.INITIAL_USER_EMAIL }}',
     '{{ db_vars.DB_USER }}',
     '{{ db_vars.INITIAL_USER_PASSWORD_HASH }}',
-    ARRAY['user, admin'],
+    ARRAY['user', 'admin'],
     NOW()
 )
 ON CONFLICT (email) DO NOTHING;
