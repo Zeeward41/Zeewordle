@@ -16,10 +16,11 @@ scrape_configs:
     static_configs:
       - targets:
           - localhost:9090
+
   - job_name: node-backend
     static_configs:
       - targets:
-          - localhost:5000
+          - {{ hostvars[groups['role_app'][0]]['private_ip_address'] }}:5000
   
   - job_name: node
     file_sd_configs:
