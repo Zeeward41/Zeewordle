@@ -40,7 +40,7 @@
 
     - name: Configure Prometheus datasource in Grafana
       ansible.builtin.template:
-        src: grafana_prometheus_datasource.yml.j2
+        src: grafana_prometheus_datasource.yaml.j2
         dest: /etc/grafana/provisioning/datasources/prometheus.yaml
         owner: root
         group: grafana
