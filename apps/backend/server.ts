@@ -9,7 +9,8 @@ import cookieParser from 'cookie-parser';
 import errorHandler from './src/middlewares/error.ts';
 import OpenApiValidator from 'express-openapi-validator';
 import session from 'express-session';
-import client from 'prom-client';
+import { myRegister } from './src/metrics/registry.ts';
+import metricsMiddleware from './src/middlewares/metrics.middleware.ts';
 
 // Route files
 import auth from './src/routes/auth.ts';
@@ -27,11 +28,11 @@ if (!process.env['SESSION_SECRET']) {
 const app: Application = express();
 
 // prom-client
-client.collectDefaultMetrics();
+app.use(metricsMiddleware);
 
 app.get('/metrics', async (_req, res) => {
-    res.set('Content-Type', client.register.contentType);
-    res.end(await client.register.metrics());
+    res.set('Content-Type', myRegister.contentType);
+    res.send(await myRegister.metrics());
 });
 
 // CORS
