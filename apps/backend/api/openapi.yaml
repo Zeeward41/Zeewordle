@@ -23,36 +23,34 @@ tags:
       description: 'Operations related to user account management, profile updates, preferences, and account retrieval.'
     - name: Game
       description: 'Core game mechanics, matchmaking, state updates, leaderboards, and real-time interaction endpoints.'
-security:
-    - SessionAuth: []
 paths:
     /auth/login:
-        $ref: "./paths/authLogin.yaml"
+        $ref: './paths/authLogin.yaml'
     /auth/register:
-        $ref: "./paths/authRegister.yaml"
+        $ref: './paths/authRegister.yaml'
     /auth/logout:
-        $ref: "./paths/authLogout.yaml"
+        $ref: './paths/authLogout.yaml'
     /admin/users:
-        $ref: "./paths/adminListUsers.yaml"
+        $ref: './paths/adminListUsers.yaml'
     /admin/users/{id}:
-        $ref: "./paths/adminUser.yaml"
+        $ref: './paths/adminUser.yaml'
     /me:
-        $ref: "./paths/me.yaml"
+        $ref: './paths/me.yaml'
     /users:
-        $ref: "./paths/users.yaml"
+        $ref: './paths/users.yaml'
     /users/profile:
-        $ref: "./paths/usersProfile.yaml"
+        $ref: './paths/usersProfile.yaml'
     /users/stats:
-        $ref: "./paths/usersStats.yaml"
+        $ref: './paths/usersStats.yaml'
     /game/{id}:
-        $ref: "./paths/gameById.yaml"
+        $ref: './paths/gameById.yaml'
     /game/{id}/guess:
-        $ref: "./paths/gameGuess.yaml"
+        $ref: './paths/gameGuess.yaml'
     /game/{id}/stop:
-        $ref: "./paths/gameStop.yaml"
+        $ref: './paths/gameStop.yaml'
     /game/current:
-        $ref: "./paths/gameCurrent.yaml"
+        $ref: './paths/gameCurrent.yaml'
 
 components:
     securitySchemes:
-        $ref: "./components/securitySchemes.yaml"
+        $ref: './components/securitySchemes.yaml'
