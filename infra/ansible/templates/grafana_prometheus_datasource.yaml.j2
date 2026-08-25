@@ -5,6 +5,7 @@ datasources:
     type: prometheus
     access: proxy
     url: {{ prometheus_url | default('http://localhost:9090') }}
+    uid: my_prometheus_uid
     isDefault: true
     jsonData:
       httpMethod: POST

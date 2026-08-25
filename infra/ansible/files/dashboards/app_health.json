@@ -42,7 +42,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "Prometheus"
+                        "name": "my_prometheus_uid"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
