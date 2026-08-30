@@ -8,4 +8,5 @@ export const API_ROUTES = {
     login: `${API_URL}/api/v1/auth/login`,
     logout: `${API_URL}/api/v1/auth/logout`,
     register: `${API_URL}/api/v1/auth/register`,
+    profile: `${API_URL}/api/v1/users/profile`,
 };
