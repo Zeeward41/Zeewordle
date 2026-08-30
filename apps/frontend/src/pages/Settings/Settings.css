@@ -1,0 +1,120 @@
+.settings_container {
+    color: var(--font-color);
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    height: 95%;
+}
+
+.settings {
+    width: 100%;
+    min-width: 0;
+    max-width: 400px;
+    flex-direction: column;
+}
+
+.settings__title {
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    padding-bottom: 2rem;
+}
+
+.settings__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.settings__label {
+    font-size: 1rem;
+}
+
+.settings__input {
+    margin-top: 0.3rem;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(255 255 255 / 10%);
+    padding: 0.6rem;
+    color: var(--font-color);
+    font-size: 1rem;
+}
+
+.settings__button {
+    margin-top: 0.5rem;
+    cursor: pointer;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(240 92 62 / 70%);
+    padding: 0.6rem;
+    color: var(--font-color);
+    font-size: 1rem;
+    width: 100%;
+}
+
+.settings__button:active {
+    transform: scale(0.97);
+}
+
+/* modal
+├── modal__title
+├── modal__text
+├── modal__actions
+└── modal__button
+    ├── modal__button--cancel
+    └── modal__button--confirm */
+.modal {
+    width: 400px;
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-ink);
+}
+
+.modal__text {
+    margin: 0;
+    color: var(--color-ink);
+    line-height: 1.5;
+    font-size: 0.8rem;
+}
+
+.modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.modal__button {
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.modal__button--cancel {
+    background-color: #e5e5e5;
+    color: #222;
+}
+
+.modal__button--confirm {
+    background-color: #d32f2f;
+    color: #fff;
+}
+
+.modal__button:active {
+    transform: scale(0.97);
+}
