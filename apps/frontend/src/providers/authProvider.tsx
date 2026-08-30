@@ -12,6 +12,7 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<userSummaryType | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const login = (data: userSummaryType): void => {
         setUser(data);
@@ -40,12 +41,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
             } catch (err) {
                 console.error(err);
                 setUser(null);
+            } finally {
+                setIsLoading(false);
             }
         };
         void checkAuthStatus();
     }, []);
 
     return (
-        <AuthContext value={{ user, login, logout }}>{children}</AuthContext>
+        <AuthContext value={{ user, login, logout, isLoading }}>
+            {children}
+        </AuthContext>
     );
 }

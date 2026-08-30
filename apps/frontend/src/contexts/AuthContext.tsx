@@ -5,6 +5,7 @@ interface AuthContextType {
     user: userSummaryType | null;
     login: (data: userSummaryType) => void;
     logout: () => void;
+    isLoading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
