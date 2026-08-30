@@ -57,13 +57,6 @@
     transform: scale(0.97);
 }
 
-/* modal
-├── modal__title
-├── modal__text
-├── modal__actions
-└── modal__button
-    ├── modal__button--cancel
-    └── modal__button--confirm */
 .modal {
     width: 400px;
     padding: 24px;
@@ -78,12 +71,12 @@
     margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--color-ink);
+    color: var(--main-color);
 }
 
 .modal__text {
     margin: 0;
-    color: var(--color-ink);
+    color: var(--main-color);
     line-height: 1.5;
     font-size: 0.8rem;
 }
