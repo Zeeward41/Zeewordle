@@ -1,10 +1,9 @@
-import { expect, it, describe, beforeEach, afterEach, vi } from 'vitest';
-import { render, screen, cleanup, waitFor } from '@testing-library/react';
+import { expect, it, describe, beforeEach, vi } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import type * as reactRouter from '@tanstack/react-router';
 import { useAuth } from '../../../hooks/useAuth.ts';
 import { useNotification } from '../../../hooks/useNotifications.ts';
-import { useNavigate } from '@tanstack/react-router';
 
 import { Settings } from '../../../pages/Settings/Settings.tsx';
 
