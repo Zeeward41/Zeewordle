@@ -4,34 +4,26 @@ post:
         - Game
     summary: 'Submit a word guess'
     description: 'Submits a 5-letter word guess for the active game, returning the letter evaluation and updated game status.'
-    parameters:
-      - name: id
-        in: path
-        description: 'The unique identifier of the game.'
-        required: true
-        schema:
-            type: integer
-        example: 2
     requestBody:
         required: true
         content:
             application/json:
                 schema:
-                    $ref: "../components/schemas/game.yaml#/gameGuess"
+                    $ref: '../components/schemas/game.yaml#/gameGuess'
                 examples:
                     submitGuess:
                         summary: 'Valid word submission'
                         description: 'Example of a player submitting the word "CRANE".'
                         value:
-                          word: "CRANE"
+                            word: 'CRANE'
     responses:
-      '200':
-        $ref: "../components/responses/gameResponses.yaml#/gameGuess"
-      '400':
-        $ref: "../components/responses/gameResponses.yaml#/gameBadRequest"
-      '401':
-        $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
-      '404':
-        $ref: "../components/responses/gameResponses.yaml#/gameNotFound"
-      '500':
-        $ref: "../components/responses/globalResponses.yaml#/serverError"
+        '200':
+            $ref: '../components/responses/gameResponses.yaml#/gameGuess'
+        '400':
+            $ref: '../components/responses/gameResponses.yaml#/gameBadRequest'
+        '401':
+            $ref: '../components/responses/globalResponses.yaml#/unauthorizedError'
+        '404':
+            $ref: '../components/responses/gameResponses.yaml#/gameNotFound'
+        '500':
+            $ref: '../components/responses/globalResponses.yaml#/serverError'

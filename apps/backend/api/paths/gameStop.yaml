@@ -4,22 +4,12 @@ post:
         - Game
     summary: 'Forcibly stop a game'
     description: 'Ends the specified active game session immediately, changing its status to LOST'
-    parameters:
-      - name: id
-        in: path
-        description: 'The unique identifier of the game to be stopped.'
-        required: true
-        schema:
-            type: integer
-        example: 2
     responses:
-      '200':
-        $ref: "../components/responses/gameResponses.yaml#/gameStop"
-      '400':
-        $ref: "../components/responses/gameResponses.yaml#/gameAlreadyFinished"
-      '401':
-        $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
-      '404':
-        $ref: "../components/responses/gameResponses.yaml#/gameNotFound"
-      '500':
-        $ref: "../components/responses/globalResponses.yaml#/serverError"
+        '200':
+            $ref: '../components/responses/gameResponses.yaml#/gameStop'
+        '401':
+            $ref: '../components/responses/globalResponses.yaml#/unauthorizedError'
+        '404':
+            $ref: '../components/responses/gameResponses.yaml#/gameNotFound'
+        '500':
+            $ref: '../components/responses/globalResponses.yaml#/serverError'

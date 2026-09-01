@@ -2,149 +2,188 @@
 # Game Responses
 # ----------------------------------------------------
 gameInfo:
-  description: "Successfully retrieved the game details."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/game.yaml#/gameResponse"
-      examples:
-        gameInfo:
-          summary: "Active game details"
-          description: "Example of a response returning the full state of an ongoing word puzzle game."
-          value:
-            game:
-              id: 1
-              user_id: 1
-              word: "CRANE"
-              attempts:
-                - word: "SMART"
-                  result: ["CORRECT", "WRONG", "CORRECT", "CORRECT", "WRONG"]
-              status: "IN_PROGRESS"
-              created_at: "2026-06-17T15:30:00Z"
+    description: 'Successfully retrieved the game details.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/game.yaml#/gameResponse'
+            examples:
+                gameInfo:
+                    summary: 'Active game details'
+                    description: 'Example of a response returning the full state of an ongoing word puzzle game.'
+                    value:
+                        game:
+                            id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'
+                            userId: 1
+                            wordLength: 5
+                            maxAttempts: 6
+                            guesses:
+                                - word: 'SMART'
+                                  result:
+                                      [
+                                          'CORRECT',
+                                          'WRONG',
+                                          'CORRECT',
+                                          'CORRECT',
+                                          'WRONG',
+                                      ]
+                            status: 'IN_PROGRESS'
+                            createdAt: '2026-06-17T15:30:00Z'
+                            updatedAt: '2026-06-17T15:30:00Z'
 
 # ----
 
 gameNotFound:
-  description: "Not Found. No game was found with the provided ID, or it does not belong to the authenticated user."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/errorResponse.yaml"
-      examples:
-        gameNotFound:
-          summary: "Game not found."
-          description: "Example of an error response when the requested game ID does not exist or access is denied."
-          value:
-            success: false
-            message: "Game not found or access denied"
+    description: 'Not Found. No game was found with the provided ID, or it does not belong to the authenticated user.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/errorResponse.yaml'
+            examples:
+                gameNotFound:
+                    summary: 'Game not found.'
+                    description: 'Example of an error response when the requested game ID does not exist or access is denied.'
+                    value:
+                        success: false
+                        message: 'Game not found or access denied'
 
 # ----
 
 gameAlreadyFinished:
-  description: "Bad Request. The action cannot be performed because the game has already ended."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/errorResponse.yaml"
-      examples:
-        gameBadRequest:
-          summary: "Game already finished"
-          description: "Triggered when a player attempts to submit a new word after reaching the maximum number of attempts or having already guessed the correct word."
-          value:
-            success: false
-            message: "Cannot submit a word. This game is already finished."
+    description: 'Bad Request. The action cannot be performed because the game has already ended.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/errorResponse.yaml'
+            examples:
+                gameBadRequest:
+                    summary: 'Game already finished'
+                    description: 'Triggered when a player attempts to submit a new word after reaching the maximum number of attempts or having already guessed the correct word.'
+                    value:
+                        success: false
+                        message: 'Cannot submit a word. This game is already finished.'
 
 # ----
 
 gameBadRequest:
-  description: "Bad Request. The submitted word is missing, has an incorrect length, contains invalid characters, or the game is already finished."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/errorResponse.yaml"
-      examples:
-        gameBadRequest:
-          summary: "Invalid word submission"
-          description: "Example of an error response when the player submits a word that does not meet the 5-letter requirement."
-          value:
-            success: false
-            message: "The submitted word must be exactly 5 letters long."
+    description: 'Bad Request. The submitted word is missing, has an incorrect length, contains invalid characters, or the game is already finished.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/errorResponse.yaml'
+            examples:
+                gameBadRequest:
+                    summary: 'Invalid word submission'
+                    description: 'Example of an error response when the player submits a word that does not meet the 5-letter requirement.'
+                    value:
+                        success: false
+                        message: 'The submitted word must be exactly 5 letters long.'
 
 # ----
 
 gameGuess:
-  description: "Guess processed successfully. Returns the updated game state with color feedback for the grid."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/game.yaml#/gameResponse"
-      examples:
-        gameGuessSuccess:
-          summary: "Successful guess result"
-          description: "Example of a response after evaluating a valid submission."
-          value:
-            game:
-              id: 1
-              user_id: 1
-              word: "CRANE"
-              attempts:
-                - word: "SHEEP"
-                  result: ["WRONG", "WRONG", "MISPLACED", "WRONG", "WRONG"]
-              status: "IN_PROGRESS"
-              created_at: "2026-06-17T15:30:00Z"
-
-gameStop:
-  description: "The game was successfully stopped. Returns the final state of the game session."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/game.yaml#/gameResponse"
-      examples:
-        gameStop:
-          summary: "Successful game termination"
-          description: "Example response after a player forces the game to stop. The final status is updated."
-          value:
-            game:
-              id: 1
-              user_id: 1
-              word: "CRANE"
-              attempts:
-                - word: "SHEEP"
-                  result: ["WRONG", "WRONG", "MISPLACED", "WRONG", "WRONG"]
-              status: "LOST"
-              created_at: "2026-06-17T15:30:00Z"
+    description: 'Guess processed successfully. Returns the updated game state with color feedback for the grid.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/game.yaml#/gameResponse'
+            examples:
+                gameGuessSuccess:
+                    summary: 'Successful guess result'
+                    description: 'Example of a response after evaluating a valid submission.'
+                    value:
+                        game:
+                            id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'
+                            userId: 1
+                            wordLength: 5
+                            maxAttempts: 6
+                            guesses:
+                                - word: 'SHEEP'
+                                  result:
+                                      [
+                                          'WRONG',
+                                          'WRONG',
+                                          'MISPLACED',
+                                          'WRONG',
+                                          'WRONG',
+                                      ]
+                            status: 'IN_PROGRESS'
+                            createdAt: '2026-06-17T15:30:00Z'
+                            updatedAt: '2026-06-17T15:31:00Z'
 
 # ----
 
+gameStop:
+    description: 'The game was successfully stopped. Returns the final state of the game session.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/game.yaml#/gameResponse'
+            examples:
+                gameStop:
+                    summary: 'Successful game termination'
+                    description: 'Example response after a player forces the game to stop. The final status is updated.'
+                    value:
+                        game:
+                            id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'
+                            userId: 1
+                            wordLength: 5
+                            maxAttempts: 6
+                            guesses:
+                                - word: 'SHEEP'
+                                  result:
+                                      [
+                                          'WRONG',
+                                          'WRONG',
+                                          'MISPLACED',
+                                          'WRONG',
+                                          'WRONG',
+                                      ]
+                            status: 'ABANDONED'
+                            createdAt: '2026-06-17T15:30:00Z'
+                            updatedAt: '2026-06-17T15:32:00Z'
+
+# ----
 
 gameCurrent:
-  description: "Successful response containing the active game state. It either returns an ongoing game session or a newly initialized one if none existed."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/game.yaml#/gameResponse"
-      examples:
-        gameCurrent:
-          summary: "Retrieved an ongoing game."
-          description: "The user had an active session in progress. Returns the current game state including all previous attempts."
-          value:
-            game:
-              id: 1
-              user_id: 1
-              word: "CRANE"
-              attempts:
-                - word: "SMART"
-                  result: ["CORRECT", "WRONG", "CORRECT", "CORRECT", "WRONG"]
-              status: "IN_PROGRESS"
-              created_at: "2026-06-17T15:30:00Z"
-        gameCreate:
-          summary: "Created a brand new game."
-          description: "No active session was found for the user. A new game has been generated and initialized with zero attempts."
-          value:
-            game:
-              id: 2
-              user_id: 1
-              word: "CRANE"
-              attempts: []
-              status: "IN_PROGRESS"
-              created_at: "2026-06-17T15:30:00Z"
+    description: 'Successful response containing the active game state. It either returns an ongoing game session or a newly initialized one if none existed.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/game.yaml#/gameResponse'
+            examples:
+                gameCurrent:
+                    summary: 'Retrieved an ongoing game.'
+                    description: 'The user had an active session in progress. Returns the current game state including all previous attempts.'
+                    value:
+                        game:
+                            id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11'
+                            userId: 1
+                            wordLength: 5
+                            maxAttempts: 6
+                            guesses:
+                                - word: 'SMART'
+                                  result:
+                                      [
+                                          'CORRECT',
+                                          'WRONG',
+                                          'CORRECT',
+                                          'CORRECT',
+                                          'WRONG',
+                                      ]
+                            status: 'IN_PROGRESS'
+                            createdAt: '2026-06-17T15:30:00Z'
+                            updatedAt: '2026-06-17T15:30:00Z'
+                gameCreate:
+                    summary: 'Created a brand new game.'
+                    description: 'No active session was found for the user. A new game has been generated and initialized with zero attempts.'
+                    value:
+                        game:
+                            id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479'
+                            userId: 1
+                            wordLength: 5
+                            maxAttempts: 6
+                            guesses: []
+                            status: 'IN_PROGRESS'
+                            createdAt: '2026-06-17T15:30:00Z'
+                            updatedAt: '2026-06-17T15:30:00Z'

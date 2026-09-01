@@ -44,9 +44,9 @@ paths:
         $ref: './paths/usersStats.yaml'
     /game/{id}:
         $ref: './paths/gameById.yaml'
-    /game/{id}/guess:
+    /game/guess:
         $ref: './paths/gameGuess.yaml'
-    /game/{id}/stop:
+    /game/stop:
         $ref: './paths/gameStop.yaml'
     /game/current:
         $ref: './paths/gameCurrent.yaml'

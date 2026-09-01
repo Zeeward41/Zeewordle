@@ -1,13 +1,13 @@
-post:
+get:
     operationId: gameCurrent
     tags:
         - Game
     summary: 'Get or create the current active game.'
     description: 'Retrieves the ongoing active game session for the authenticated user. If no active game exists, a brand new game session is automatically created and initialized.'
     responses:
-      '200':
-        $ref: "../components/responses/gameResponses.yaml#/gameCurrent"
-      '401':
-        $ref: "../components/responses/globalResponses.yaml#/unauthorizedError"
-      '500':
-        $ref: "../components/responses/globalResponses.yaml#/serverError"
+        '200':
+            $ref: '../components/responses/gameResponses.yaml#/gameCurrent'
+        '401':
+            $ref: '../components/responses/globalResponses.yaml#/unauthorizedError'
+        '500':
+            $ref: '../components/responses/globalResponses.yaml#/serverError'
