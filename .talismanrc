@@ -35,6 +35,8 @@ fileignoreconfig:
   checksum: f02cc3f3a6d1a2627e63cfdcdd3485ed1cc141cfe89b27ea3c2fe94929abd3b1
 - filename: apps/backend/src/tests/controllers/auth.test.ts
   checksum: 92b2b646ec88da4cf661143688f4e55ebb97f9bd14addb9225e5f4c337d21ebf
+- filename: apps/backend/src/tests/controllers/games.test.ts
+  checksum: 24cc7ab84095296286079881b560e1c02a41e0046fec07dfaddff8dbe1d72a43
 - filename: apps/backend/src/tests/controllers/me.test.ts
   checksum: a4f8ca2a75c0af069fde03ee3a3b83da7cf415598cc56db3a2ee9ad0638d1b0f
 - filename: apps/backend/src/tests/controllers/users.test.ts

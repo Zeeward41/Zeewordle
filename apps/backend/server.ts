@@ -16,6 +16,7 @@ import metricsMiddleware from './src/middlewares/metrics.middleware.ts';
 import auth from './src/routes/auth.ts';
 import me from './src/routes/me.ts';
 import users from './src/routes/users.ts';
+import game from './src/routes/games.ts';
 
 // Load env vars
 dotenv.config({ path: './config/development.env' });
@@ -84,6 +85,7 @@ app.use(
 // Mount routers
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/users', users);
+app.use('/api/v1/game', game);
 app.use('/api/v1', me);
 
 app.use(errorHandler);
