@@ -80,7 +80,7 @@ jobs:
       # Dynamically spawn parallel jobs for each modified application
       matrix:
         changes: ${{ fromJSON(needs.detect-Change.outputs.changes) }}
-        #changes: ['frontend', 'backend']
+        # changes: ['frontend', 'backend']
     steps:
       - name: Get the source code
         uses: actions/checkout@v6
@@ -293,7 +293,7 @@ jobs:
         with:
           sarif_file: 'trivy-image-results-${{ matrix.changes }}.sarif'
           category: 'docker-image-${{ matrix.changes }}'
-      
+
       - name: Push Docker Image
         run: |
           docker push ${{ env.DOCKER_USER }}/zeewordle-${{ matrix.changes }}:latest
