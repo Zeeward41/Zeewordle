@@ -112,7 +112,7 @@ fileignoreconfig:
 - filename: infra/ansible/templates/01_create-tables.sql.j2
   checksum: 9bffd5f5fa0905253b4425cdac6b01c8845d2a846fcbf2c17eb8086373f48a08
 - filename: infra/ansible/templates/01_init-db.sql.j2
-  checksum: cce0159b995ffcb20e33c974230e0544c2e9769076be4f719bfea7dae4156deb
+  checksum: 8f647972a9117574e77ef4151feb590227a2a465fc06ed968d0f67fa7a60faf5
 - filename: infra/ansible/templates/02_insert-seed-data.sql.j2
   checksum: e8c5f10ee860f3f6883720c637642d49ef773425331207923daf8593ecf99aeb
 - filename: infra/ansible/templates/nginx.conf.j2

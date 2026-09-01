@@ -17,3 +17,16 @@ VALUES (
     NOW()
 )
 ON CONFLICT (email) DO NOTHING;
+
+CREATE TYPE game_status AS ENUM ('IN_PROGRESS', 'WON', 'LOST', 'ABANDONED');
+
+CREATE TABLE games (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    word_to_guess VARCHAR(10) NOT NULL,
+    max_attempts INT NOT NULL DEFAULT 6,
+    guesses JSONB NOT NULL DEFAULT '[]'::jsonb,
+    status game_status NOT NULL DEFAULT 'IN_PROGRESS',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
