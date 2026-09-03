@@ -49,6 +49,14 @@ fileignoreconfig:
   checksum: 5cf59a8d80453947cda892c9428b66387e04bbfa4044f8cfb74c87454e3cf1dd
 - filename: apps/frontend/public/docs/api-docs.html
   checksum: 2c81b512438d16cea55243353815471caf3d2a05c74939394dd43f1d6b616880
+- filename: apps/frontend/src/components/Grid/Grid.tsx
+  checksum: eb74bdb85ac5a78f52571541b17b2b7b731370c3df8f9d9c2d09ac5456093021
+- filename: apps/frontend/src/components/Keyboard/Keyboard.tsx
+  checksum: 79d03cf13b251ee9aa434658af8a5100c7175313f3fe5b3a627b049a6888a917
+- filename: apps/frontend/src/components/KeyboardKey/KeyboardKey.css
+  checksum: 938d43894589fea04ddc47bf95b0402824ccc6c449d5ba44f722fa62a9a6078c
+- filename: apps/frontend/src/components/KeyboardKey/KeyboardKey.tsx
+  checksum: 43e0ea0c6043d2867ec9539dc390438d592b2de465b38e3f4bcdbdd124cb4f95
 - filename: apps/frontend/src/components/ModalWrapper/ModalWrapper.tsx
   checksum: f04b505723c040067c3647e489f3ad1f6348e3b70c331e97a638c215e12da122
 - filename: apps/frontend/src/pages/Home/Home.tsx

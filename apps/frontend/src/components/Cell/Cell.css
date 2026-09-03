@@ -1,0 +1,23 @@
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: solid 2px black;
+    border-radius: 1rem;
+    font-size: 1.8rem;
+    aspect-ratio: 1/1;
+}
+
+.cell.correct {
+    background-color: #70ac64;
+}
+
+.cell.wrong,
+.cell.empty {
+    background-color: #c0bcbc;
+}
+
+.cell.misplaced {
+    background-color: #d0b45c;
+}

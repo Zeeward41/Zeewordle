@@ -1,0 +1,26 @@
+.keyboardKey {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    color: black;
+    font-size: 1.5rem;
+    border: 1px solid black;
+    cursor: pointer;
+    flex: 1;
+}
+
+.keyboardKey__special {
+    flex: 1.5;
+    min-width: 4rem;
+    max-width: 18.2rem;
+}
+
+.keyboardKey:hover {
+    background-color: gainsboro;
+}
+
+.keyboardKey:active {
+    background-color: darkgray;
+}

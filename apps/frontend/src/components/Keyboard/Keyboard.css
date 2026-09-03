@@ -1,0 +1,12 @@
+.keyboard__container {
+    display: flex;
+    flex-direction: column;
+    max-width: 520px;
+    width: 100%;
+}
+
+.keyboard__line {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
