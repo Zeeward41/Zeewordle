@@ -59,6 +59,8 @@ fileignoreconfig:
   checksum: 43e0ea0c6043d2867ec9539dc390438d592b2de465b38e3f4bcdbdd124cb4f95
 - filename: apps/frontend/src/components/ModalWrapper/ModalWrapper.tsx
   checksum: f04b505723c040067c3647e489f3ad1f6348e3b70c331e97a638c215e12da122
+- filename: apps/frontend/src/pages/Game/Game.tsx
+  checksum: 3710fa98558e1559805ccf7fb9133b300813ced55fbca8b8900806b48c62b224
 - filename: apps/frontend/src/pages/Home/Home.tsx
   checksum: f8ced38fe47f0bd79d49e8f07500690285e3f5b11ca7190a7387f5cb69b7b8fe
 - filename: apps/frontend/src/pages/Login/Login.tsx
