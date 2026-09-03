@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as GameRouteImport } from './routes/game'
 import { Route as ApiDocRouteImport } from './routes/api-doc'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersProfileRouteImport } from './routes/users/profile'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 
+const GameRoute = GameRouteImport.update({
+  id: '/game',
+  path: '/game',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiDocRoute = ApiDocRouteImport.update({
   id: '/api-doc',
   path: '/api-doc',
@@ -44,6 +50,7 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api-doc': typeof ApiDocRoute
+  '/game': typeof GameRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/users/profile': typeof UsersProfileRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api-doc': typeof ApiDocRoute
+  '/game': typeof GameRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/users/profile': typeof UsersProfileRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api-doc': typeof ApiDocRoute
+  '/game': typeof GameRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/users/profile': typeof UsersProfileRoute
@@ -68,15 +77,23 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/api-doc'
+    | '/game'
     | '/auth/login'
     | '/auth/register'
     | '/users/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api-doc' | '/auth/login' | '/auth/register' | '/users/profile'
+  to:
+    | '/'
+    | '/api-doc'
+    | '/game'
+    | '/auth/login'
+    | '/auth/register'
+    | '/users/profile'
   id:
     | '__root__'
     | '/'
     | '/api-doc'
+    | '/game'
     | '/auth/login'
     | '/auth/register'
     | '/users/profile'
@@ -85,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiDocRoute: typeof ApiDocRoute
+  GameRoute: typeof GameRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
   UsersProfileRoute: typeof UsersProfileRoute
@@ -92,6 +110,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/game': {
+      id: '/game'
+      path: '/game'
+      fullPath: '/game'
+      preLoaderRoute: typeof GameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api-doc': {
       id: '/api-doc'
       path: '/api-doc'
@@ -133,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiDocRoute: ApiDocRoute,
+  GameRoute: GameRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   UsersProfileRoute: UsersProfileRoute,

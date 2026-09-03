@@ -38,6 +38,7 @@ describe('Navbar components', () => {
             user: null,
             login: vi.fn(),
             logout: vi.fn(),
+            isLoading: false,
         });
         render(<MockNavbar />);
 
@@ -58,6 +59,7 @@ describe('Navbar components', () => {
             },
             login: vi.fn(),
             logout: vi.fn(),
+            isLoading: false,
         });
         render(<MockNavbar />);
 
