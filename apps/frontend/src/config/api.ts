@@ -9,4 +9,7 @@ export const API_ROUTES = {
     logout: `${API_URL}/api/v1/auth/logout`,
     register: `${API_URL}/api/v1/auth/register`,
     users: `${API_URL}/api/v1/users`,
+    gameCurrent: `${API_URL}/api/v1/game/current`,
+    gameGuess: `${API_URL}/api/v1/game/guess`,
+    gameStop: `${API_URL}/api/v1/game/stop`,
 };

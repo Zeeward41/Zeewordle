@@ -18,7 +18,7 @@ export const Home = () => {
                 <p className="home-page__subtitle">
                     Guess the hidden word in 6 tries.
                 </p>
-                <Link to="/auth/register" className="home-page__cta">
+                <Link to="/game" className="home-page__cta">
                     Start playing
                 </Link>
             </section>

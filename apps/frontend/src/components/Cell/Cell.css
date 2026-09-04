@@ -7,6 +7,7 @@
     border-radius: 1rem;
     font-size: 1.8rem;
     aspect-ratio: 1/1;
+    color: black;
 }
 
 .cell.correct {
@@ -16,6 +17,10 @@
 .cell.wrong,
 .cell.empty {
     background-color: #c0bcbc;
+}
+
+.cell.empty {
+    background-color: #fff;
 }
 
 .cell.misplaced {
