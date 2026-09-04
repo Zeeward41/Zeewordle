@@ -321,35 +321,61 @@ export const Game = () => {
             </div>
             {/*  Victory Modal */}
             {gameStatus === 'WON' && (
-                <ModalWrapper onClose={() => {}}>
+                <ModalWrapper
+                    onClose={() => {
+                        /* No-op */
+                    }}
+                >
                     <div className="modalGame__content modalGame__content--win">
                         <h2 className="modalGame__title">
-                            🏆 Congratulations !
+                            🏆 Congratulations!
                         </h2>
-                        <p className="modalGame__text">You found the word !</p>
-                        <button
-                            className="modalGame__btn modalGame__btn--primary"
-                            onClick={() => void fetchGame()}
-                        >
-                            Play Again
-                        </button>
+                        <p className="modalGame__text">You found the word!</p>
+
+                        <div className="modalGame__actions">
+                            <button
+                                className="modalGame__btn modalGame__btn--secondary"
+                                onClick={() => void navigate({ to: '/' })}
+                            >
+                                Quit
+                            </button>
+                            <button
+                                className="modalGame__btn modalGame__btn--primary"
+                                onClick={() => void fetchGame()}
+                            >
+                                Play Again
+                            </button>
+                        </div>
                     </div>
                 </ModalWrapper>
             )}
             {/*  Lost Modal */}
             {gameStatus === 'LOST' && (
-                <ModalWrapper onClose={() => {}}>
+                <ModalWrapper
+                    onClose={() => {
+                        /* No-op */
+                    }}
+                >
                     <div className="modalGame__content modalGame__content--lost">
                         <h2 className="modalGame__title">💀 Game Over!</h2>
                         <p className="modalGame__text">
                             You did not find the mystery word.
                         </p>
-                        <button
-                            className="modalGame__btn modalGame__btn--primary"
-                            onClick={() => void fetchGame()}
-                        >
-                            Play Again
-                        </button>
+
+                        <div className="modalGame__actions">
+                            <button
+                                className="modalGame__btn modalGame__btn--secondary"
+                                onClick={() => void navigate({ to: '/' })}
+                            >
+                                Quit
+                            </button>
+                            <button
+                                className="modalGame__btn modalGame__btn--primary"
+                                onClick={() => void fetchGame()}
+                            >
+                                Play Again
+                            </button>
+                        </div>
                     </div>
                 </ModalWrapper>
             )}
