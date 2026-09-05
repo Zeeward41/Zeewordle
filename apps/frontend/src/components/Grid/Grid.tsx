@@ -4,7 +4,7 @@ import type { WordleRow, Cell, GridProps } from '../../types/game.types.tsx';
 
 const GridComponent = ({ allLetters }: GridProps) => {
     return (
-        <div className="grid">
+        <div className="grid" role="grid">
             {allLetters.map((word: WordleRow, rowIndex: number) => (
                 <div className="grid__row" key={rowIndex}>
                     {word.map((cell: Cell, colIndex: number) => (

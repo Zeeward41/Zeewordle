@@ -10,7 +10,8 @@ import { useNotification } from '../../hooks/useNotifications.ts';
 import type { WordleRow, WordleGrid } from '../../types/game.types.tsx';
 import { apiResponseSchema } from '../../schemas/game.schema.ts';
 import { ModalWrapper } from '../../components/ModalWrapper/ModalWrapper.tsx';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, Navigate } from '@tanstack/react-router';
+import { useAuth } from '../../hooks/useAuth';
 
 const emptyGuess: WordleRow = [
     { letter: '', status: 'empty' },
@@ -21,6 +22,7 @@ const emptyGuess: WordleRow = [
 ];
 
 export const Game = () => {
+    const { user, isLoading } = useAuth();
     const { showNotification } = useNotification();
     const [guess, setGuess] = useState<WordleGrid>([]);
     const [showCancelModal, setShowCancelModal] = useState(false);
@@ -249,10 +251,6 @@ export const Game = () => {
             const response = await fetch(API_ROUTES.gameStop, {
                 method: 'POST',
                 credentials: 'include',
-                // headers: {
-                //     'Content-Type': 'application/json',
-                // },
-                // body: '{}',
             });
             const json = (await response.json()) as unknown;
             if (!response.ok) {
@@ -306,6 +304,12 @@ export const Game = () => {
         await navigate({ to: '/' });
     };
 
+    if (isLoading) {
+        return <div>LOADING...</div>;
+    }
+    if (user === null) {
+        return <Navigate to="/auth/login" replace />;
+    }
     return (
         <div className="game__container">
             <div className="game">
