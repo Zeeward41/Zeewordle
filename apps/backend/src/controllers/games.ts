@@ -207,13 +207,17 @@ export const gameGuess = async (
                 err.statusCode === 400 &&
                 err.message === 'Word is required'
             ) {
-                zeewordle_game_guess_invalid_input_total.inc();
+                zeewordle_game_guess_invalid_input_total.inc({
+                    reason: 'Word_is_required',
+                });
                 endGuessTimer({ status: '400', reason: 'Word_is_required' });
             } else if (
                 err.statusCode === 400 &&
                 err.message === 'Word must be 5 letters'
             ) {
-                zeewordle_game_guess_invalid_input_total.inc();
+                zeewordle_game_guess_invalid_input_total.inc({
+                    reason: 'Word_must_be_5_letters',
+                });
                 endGuessTimer({
                     status: '400',
                     reason: 'Word_must_be_5_letters',
