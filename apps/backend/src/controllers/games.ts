@@ -25,6 +25,14 @@ import {
     zeewordle_game_winning_attempts,
 } from '../metrics/gameGuess.metrics.ts';
 
+import {
+    zeewordle_game_stop_duration_seconds,
+    zeewordle_game_stop_requests_total,
+    zeewordle_game_stop_unauthorized_total,
+    zeewordle_game_stop_not_found_total,
+    zeewordle_game_abandoned_total,
+} from '../metrics/gameStop.metrics.ts';
+
 // @desc        current Game
 // @route       GET /api/v1/game/current
 // @access      Private
@@ -63,6 +71,8 @@ export const gameStop = async (
     res: Response,
     next: NextFunction
 ) => {
+    const endStopTimer = zeewordle_game_stop_duration_seconds.startTimer();
+    zeewordle_game_stop_requests_total.inc();
     try {
         const userId = req.session.userId;
         if (!userId) {
@@ -75,9 +85,25 @@ export const gameStop = async (
         }
 
         const game = await updateGameStatus(activeGame.id, 'ABANDONED');
+        zeewordle_game_abandoned_total.inc();
 
+        endStopTimer({ status: '200', reason: 'success' });
         res.status(200).json({ game });
     } catch (err) {
+        if (err instanceof ErrorResponse) {
+            if (err.statusCode === 401 && err.message === 'Unauthorized!!') {
+                zeewordle_game_stop_unauthorized_total.inc();
+                endStopTimer({ status: '401', reason: 'Unauthorized' });
+            } else if (
+                err.statusCode === 404 &&
+                err.message === 'Game not found'
+            ) {
+                zeewordle_game_stop_not_found_total.inc();
+                endStopTimer({ status: '404', reason: 'Game_not_found' });
+            }
+        } else {
+            endStopTimer({ status: 500, reason: 'failure' });
+        }
         next(err);
     }
 };
