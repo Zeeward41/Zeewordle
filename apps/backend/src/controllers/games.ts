@@ -33,6 +33,14 @@ import {
     zeewordle_game_abandoned_total,
 } from '../metrics/gameStop.metrics.ts';
 
+import {
+    zeewordle_game_current_duration_seconds,
+    zeewordle_game_current_requests_total,
+    zeewordle_game_current_unauthorized_total,
+    zeewordle_game_dictionary_word_unavailable_total,
+    zeewordle_game_created_total,
+} from '../metrics/gameCurrent.metrics.ts';
+
 // @desc        current Game
 // @route       GET /api/v1/game/current
 // @access      Private
@@ -41,6 +49,9 @@ export const gameCurrent = async (
     res: Response,
     next: NextFunction
 ) => {
+    const endCurrentTimer =
+        zeewordle_game_current_duration_seconds.startTimer();
+    zeewordle_game_current_requests_total.inc();
     try {
         const userId = req.session.userId;
         if (!userId) {
@@ -55,10 +66,28 @@ export const gameCurrent = async (
                 throw new ErrorResponse('no words Available!!', 500);
             }
             game = await createGame(userId, wordToGuess);
+            zeewordle_game_created_total.inc();
         }
-
+        endCurrentTimer({ status: '200', reason: 'success' });
         res.status(200).json({ game });
     } catch (err) {
+        if (err instanceof ErrorResponse) {
+            if (err.statusCode === 401 && err.message === 'Unauthorized!!') {
+                zeewordle_game_current_unauthorized_total.inc();
+                endCurrentTimer({ status: '401', reason: 'Unauthorized' });
+            } else if (
+                err.statusCode === 500 &&
+                err.message === 'no words Available!!'
+            ) {
+                zeewordle_game_dictionary_word_unavailable_total.inc();
+                endCurrentTimer({
+                    status: '500',
+                    reason: 'no_words_Available',
+                });
+            }
+        } else {
+            endCurrentTimer({ status: 500, reason: 'failure' });
+        }
         next(err);
     }
 };
