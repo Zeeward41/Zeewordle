@@ -14,6 +14,17 @@ import type {
 } from '../types/game.types.ts';
 import { evaluateGuess } from '../utils/gameUtils.ts';
 
+import {
+    zeewordle_game_guess_duration_seconds,
+    zeewordle_game_guess_requests_total,
+    zeewordle_game_guess_unauthorized_total,
+    zeewordle_game_guess_not_found_total,
+    zeewordle_game_guess_invalid_input_total,
+    zeewordle_game_guess_submitted_total,
+    zeewordle_game_outcomes_total,
+    zeewordle_game_winning_attempts,
+} from '../metrics/gameGuess.metrics.ts';
+
 // @desc        current Game
 // @route       GET /api/v1/game/current
 // @access      Private
@@ -79,6 +90,8 @@ export const gameGuess = async (
     res: Response,
     next: NextFunction
 ) => {
+    const endGuessTimer = zeewordle_game_guess_duration_seconds.startTimer();
+    zeewordle_game_guess_requests_total.inc();
     try {
         const userId = req.session.userId;
         if (!userId) {
@@ -117,14 +130,52 @@ export const gameGuess = async (
         // Check is the status is WIN or LOST
         let newStatus: GameStatus = 'IN_PROGRESS';
         if (isWon) {
+            zeewordle_game_outcomes_total.inc({ status: 'WON' });
+            zeewordle_game_winning_attempts.observe(
+                activeGame.guesses.length + 1
+            );
             newStatus = 'WON';
         } else if (isLost) {
+            zeewordle_game_outcomes_total.inc({ status: 'LOST' });
             newStatus = 'LOST';
         }
         const game = await updateGameStatus(activeGame.id, newStatus);
-
+        zeewordle_game_guess_submitted_total.inc();
+        endGuessTimer({ status: '200', reason: 'success' });
         res.status(200).json({ game });
     } catch (err) {
+        if (err instanceof ErrorResponse) {
+            if (err.statusCode === 401 && err.message === 'Unauthorized!!') {
+                zeewordle_game_guess_unauthorized_total.inc();
+                endGuessTimer({ status: '401', reason: 'unauthorized' });
+            } else if (
+                err.statusCode === 400 &&
+                err.message === 'Word is required'
+            ) {
+                zeewordle_game_guess_invalid_input_total.inc();
+                endGuessTimer({ status: '400', reason: 'Word_is_required' });
+            } else if (
+                err.statusCode === 400 &&
+                err.message === 'Word must be 5 letters'
+            ) {
+                zeewordle_game_guess_invalid_input_total.inc();
+                endGuessTimer({
+                    status: '400',
+                    reason: 'Word_must_be_5_letters',
+                });
+            } else if (
+                err.statusCode === 404 &&
+                err.message === 'Game not found'
+            ) {
+                zeewordle_game_guess_not_found_total.inc();
+                endGuessTimer({
+                    status: '404',
+                    reason: 'Game_not_found',
+                });
+            }
+        } else {
+            endGuessTimer({ status: 500, reason: 'failure' });
+        }
         next(err);
     }
 };
