@@ -5,6 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "sops -d config/development.enc.env > config/development.env && sops -d --output-type dotenv config/db.enc.yaml > config/db.env && nodemon -L --exec tsx server.ts",
+        "local": "nodemon -L --exec tsx server.ts",
+        "script:eval": "tsx src/utils/gameUtils.ts",
         "build": "tsc",
         "preview": "vite preview",
         "format": "prettier --write .",
@@ -48,6 +50,8 @@
         "express": "^5.2.1",
         "express-openapi-validator": "^5.6.2",
         "express-session": "^1.19.0",
+        "google-auth-library": "^11.0.2",
+        "install": "^0.13.0",
         "morgan": "^1.11.0",
         "pg": "^8.22.0",
         "prom-client": "^15.1.3",
