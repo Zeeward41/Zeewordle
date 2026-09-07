@@ -10,7 +10,7 @@ fileignoreconfig:
 - filename: apps/backend/config/db.enc.yaml
   checksum: 7e644a095c222c2ab180e22625b1da28bcf09896875d44606fa3d06c379169a5
 - filename: apps/backend/config/development.enc.env
-  checksum: ba8ad824ed5df7695a5c450b41fc409f519dd96d79dd0674ad66fc126b35d770
+  checksum: 775f6d7108ca3cc7ac1ff7da71b66eb43010601788697df52daa8951b81716b4
 - filename: apps/backend/coverage/lcov-report/base.css
   checksum: 2ebd1655da04e0b972db9241ac3bb99bb057f3aeb90578957a6c570249b229c2
 - filename: apps/backend/coverage/lcov-report/block-navigation.js
