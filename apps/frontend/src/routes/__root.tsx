@@ -5,14 +5,21 @@ import { AuthProvider } from '../providers/authProvider';
 import { Notifications } from '../components/Notifications/Notifications';
 import { NotificationsProvider } from '../providers/notificationsProvider';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
+const googleClientId =
+    (import.meta.env['VITE_GOOGLE_CLIENT_ID'] as string | undefined) ?? '';
+
 const RootLayout = () => (
-    <AuthProvider>
-        <NotificationsProvider>
-            <MainLayout />
-            <Notifications />
-            <TanStackRouterDevtools />
-        </NotificationsProvider>
-    </AuthProvider>
+    <GoogleOAuthProvider clientId={googleClientId}>
+        <AuthProvider>
+            <NotificationsProvider>
+                <MainLayout />
+                <Notifications />
+                <TanStackRouterDevtools />
+            </NotificationsProvider>
+        </AuthProvider>
+    </GoogleOAuthProvider>
 );
 
 export const Route = createRootRoute({ component: RootLayout });
