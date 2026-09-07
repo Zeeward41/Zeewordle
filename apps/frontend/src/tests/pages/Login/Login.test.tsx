@@ -1,5 +1,5 @@
 import { expect, it, describe, beforeEach, afterEach, vi } from 'vitest';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Login } from '../../../pages/Login/Login.tsx';
 import { userEvent } from '@testing-library/user-event';
 import {
@@ -11,6 +11,11 @@ import {
 import { NotificationsProvider } from '../../../providers/notificationsProvider.tsx';
 import { Notifications } from '../../../components/Notifications/Notifications.tsx';
 import { AuthProvider } from '../../../providers/authProvider.tsx';
+import { useGoogleLogin } from '@react-oauth/google';
+
+vi.mock('@react-oauth/google', () => ({
+    useGoogleLogin: vi.fn(() => vi.fn()),
+}));
 
 const MockLogin = () => {
     const rootRoute = createRootRoute({ component: Login });
@@ -33,7 +38,7 @@ describe('login', () => {
         render(<MockLogin />);
     });
     afterEach(() => {
-        cleanup();
+        vi.clearAllMocks();
     });
     it('should update email field when user types', async () => {
         const emailInput = screen.getByPlaceholderText(/Email/i);
@@ -210,5 +215,24 @@ describe('login', () => {
         });
         await userEvent.click(buttonSubmit);
         expect(buttonSubmit).toBeDisabled();
+    });
+    it('should trigger Google login when the Google button is clicked', async () => {
+        const googleLoginMock = vi.mocked(useGoogleLogin);
+        const googleButton = screen.getByRole('button', { name: /google/i });
+        await userEvent.click(googleButton);
+        expect(googleLoginMock).toHaveBeenCalled();
+    });
+    it('should display an error notification when Google authentication fails', async () => {
+        const googleLoginMock = vi.mocked(useGoogleLogin);
+
+        const options = googleLoginMock.mock.calls[0]?.[0];
+
+        options?.onError?.({});
+
+        expect(
+            await screen.findByText(
+                'Google Sign-In was unsuccessful. Try again.'
+            )
+        ).toBeInTheDocument();
     });
 });

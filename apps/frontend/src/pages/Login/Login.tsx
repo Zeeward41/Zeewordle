@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate, Link } from '@tanstack/react-router';
 import type { loginInput } from '../../schemas/auth.schema.ts';
 import {
@@ -36,6 +37,69 @@ export const Login = () => {
     const [fieldState, setFieldState] = useState<FieldState>({
         email: '',
         password: '',
+    });
+
+    const handleGoogleSuccess = async (idToken: string) => {
+        setFormState({ status: 'loading', message: '' });
+
+        try {
+            const response = await fetch(API_ROUTES.google, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ idToken }),
+                credentials: 'include',
+            });
+
+            const json = (await response.json()) as unknown;
+
+            if (!response.ok) {
+                const data = errorResponseSchema.parse(json);
+                const notifErr = {
+                    status: 'error' as const,
+                    message: data.message,
+                };
+                setFormState(notifErr);
+                showNotification(notifErr);
+                return;
+            }
+
+            const userData =
+                json && typeof json === 'object' && 'user' in json
+                    ? json.user
+                    : json;
+            const data = userSummarySchema.parse(userData);
+            login(data);
+
+            const notifSuccess = {
+                status: 'success' as const,
+                message: 'You have successfully logged in with Google.',
+            };
+            setFormState(notifSuccess);
+            showNotification(notifSuccess);
+            await navigate({ to: '/' });
+        } catch {
+            const notifErrNet = {
+                status: 'error' as const,
+                message: 'Network error, please try again.',
+            };
+            setFormState(notifErrNet);
+            showNotification(notifErrNet);
+        }
+    };
+    const triggerGoogleLogin = useGoogleLogin({
+        onSuccess: async tokenResponse => {
+            if (tokenResponse.access_token) {
+                await handleGoogleSuccess(tokenResponse.access_token);
+            }
+        },
+        onError: () => {
+            const notifErr = {
+                status: 'error' as const,
+                message: 'Google Sign-In was unsuccessful. Try again.',
+            };
+            setFormState(notifErr);
+            showNotification(notifErr);
+        },
     });
 
     const handlerSubmit = async (
@@ -141,7 +205,12 @@ export const Login = () => {
             <div className="login">
                 <h1 className="login__title">Hi There!</h1>
                 <p className="login__message">Please enter required details</p>
-                <button type="button" className="login-google-btn">
+                <button
+                    type="button"
+                    className="login-google-btn"
+                    onClick={() => triggerGoogleLogin()}
+                    disabled={formState.status === 'loading'}
+                >
                     <img
                         src="/google.svg"
                         alt=""
