@@ -1,0 +1,32 @@
+post:
+    operationId: googleAuthUser
+    tags:
+        - Authentication
+    summary: 'Google OAuth2 login route'
+    description: 'Authenticates user via Google OAuth2 idToken, links account if email matches or creates a new user.'
+    security: []
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    $ref: '../components/schemas/users.yaml#/googleAuthRequest'
+                examples:
+                    googleAuthExample:
+                        summary: 'Google authentication with idToken'
+                        description: 'Google Identity Services credential token string'
+                        value:
+                            idToken: 'eyJhbGciOiJSUzI1NiIsImtpZCI6...'
+    responses:
+        '200':
+            $ref: '../components/responses/authResponses.yaml#/loginSuccess'
+        '400':
+            $ref: '../components/responses/authResponses.yaml#/loginBadRequest'
+        '401':
+            $ref: '../components/responses/authResponses.yaml#/loginUnauthorized'
+        '500':
+            description: 'Something wrong happened'
+            content:
+                application/json:
+                    schema:
+                        $ref: '../components/schemas/errorResponse.yaml'

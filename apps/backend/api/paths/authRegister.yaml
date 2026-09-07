@@ -10,26 +10,26 @@ post:
         content:
             application/json:
                 schema:
-                    $ref: "../components/schemas/users.yaml#/registerRequest"
+                    $ref: '../components/schemas/users.yaml#/registerRequest'
                 examples:
                     registerUser:
                         summary: 'User Register with email, username and password.'
-                        description: "User give an email 'marc@test.com', username and a password 'water'."
+                        description: "User give an email 'milenia@test.com', username and a password 'water'."
                         value:
                             email: 'milenia@test.com'
                             password: 'water'
                             username: 'milenia'
     responses:
         '201':
-            $ref: "../components/responses/authResponses.yaml#/registerSuccess"
+            $ref: '../components/responses/authResponses.yaml#/registerSuccess'
         '400':
-            $ref: "../components/responses/authResponses.yaml#/registerBadRequest"
+            $ref: '../components/responses/authResponses.yaml#/registerBadRequest'
         '409':
-            $ref: "../components/responses/authResponses.yaml#/registerConflict"
+            $ref: '../components/responses/authResponses.yaml#/registerConflict'
         '500':
             #$ref: "../components/responses/globalResponses.yaml#/serverError"
-            description: "Something wrong happened"
+            description: 'Something wrong happened'
             content:
                 application/json:
                     schema:
-                        $ref: "../components/schemas/errorResponse.yaml"
+                        $ref: '../components/schemas/errorResponse.yaml'

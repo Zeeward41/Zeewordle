@@ -30,6 +30,8 @@ paths:
         $ref: './paths/authRegister.yaml'
     /auth/logout:
         $ref: './paths/authLogout.yaml'
+    /auth/google:
+        $ref: './paths/authGoogle.yaml'
     /admin/users:
         $ref: './paths/adminListUsers.yaml'
     /admin/users/{id}:

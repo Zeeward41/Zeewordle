@@ -2,51 +2,51 @@
 # Login Responses
 # ----------------------------------------------------
 loginSuccess:
-  description: "Authentication successful. Returns the authenticated user's profile data."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/users.yaml#/userSummary"
-      examples:
-        loginUserResponse:
-          summary: "Standard User Profile"
-          description: "Example of a successful response for a standard user account."
-          value:
-            email: "milenia@test.com"
-            id: 1
-            username: "milenia"
-            role: ["user"]
+    description: "Authentication successful. Returns the authenticated user's profile data."
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/users.yaml#/userSummary'
+            examples:
+                loginUserResponse:
+                    summary: 'Standard User Profile'
+                    description: 'Example of a successful response for a standard user account.'
+                    value:
+                        email: 'milenia@test.com'
+                        id: 1
+                        username: 'milenia'
+                        role: ['user']
 
 #----
 
 loginUnauthorized:
-  description: "The user gave a wrong email or password"
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/errorResponse.yaml"
-      examples:
-        wrongLoginError:
-          description: "The user or admin gave a wrong email or password."
-          value:
-            success: false
-            message: "The email or password is wrong."
+    description: 'The user gave a wrong email or password'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/errorResponse.yaml'
+            examples:
+                wrongLoginError:
+                    description: 'The user or admin gave a wrong email or password.'
+                    value:
+                        success: false
+                        message: 'The email or password is wrong.'
 
 #----
 
 loginBadRequest:
-  description: "Validation failed. The request body contains missing, invalid, or malformed fields."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/errorResponse.yaml"
-      examples:
-        missingField:
-          summary: "Missing mandatory fields"
-          description: "Triggered when identifier or password is missing."
-          value:
-            success: false
-            message: "The username field is required.."
+    description: 'Validation failed. The request body contains missing, invalid, or malformed fields.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/errorResponse.yaml'
+            examples:
+                missingField:
+                    summary: 'Missing mandatory fields'
+                    description: 'Triggered when identifier or password is missing.'
+                    value:
+                        success: false
+                        message: 'The username field is required..'
 
 #----
 
@@ -55,93 +55,99 @@ loginBadRequest:
 # ----------------------------------------------------
 
 registerSuccess:
-  description: "User account created successfully. The user is now registered in the system."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/users.yaml#/userResponse"
-      examples:
-        RegisterResponse:
-          summary: "Newly created user profile"
-          description: "Example of the returned profile object after a successful registration."
-          value:
-            user:
-              email: "milenia@test.com"
-              id: 1
-              username: "milenia"
-              role: ["user"]
+    description: 'User account created successfully. The user is now registered in the system.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/users.yaml#/userResponse'
+            examples:
+                RegisterResponse:
+                    summary: 'Newly created user profile'
+                    description: 'Example of the returned profile object after a successful registration.'
+                    value:
+                        user:
+                            email: 'milenia@test.com'
+                            id: 1
+                            username: 'milenia'
+                            role: ['user']
 
 #----
 
 registerBadRequest:
-  description: "Validation failed. The request body contains missing, invalid, or malformed fields."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/errorResponse.yaml"
-      examples:
-        missingField:
-          summary: "Missing mandatory fields"
-          description: "Triggered when required fields like 'username' or 'password' or 'username' are not provided."
-          value:
-            success: false
-            message: "The username field is required.."
-        invalidEmail:
-          summary: "Invalid email format"
-          description: "Triggered when the provided email does not match a valid email pattern."
-          value:
-            success: false
-            message: "The email format is invalid."
+    description: 'Validation failed. The request body contains missing, invalid, or malformed fields.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/errorResponse.yaml'
+            examples:
+                missingField:
+                    summary: 'Missing mandatory fields'
+                    description: "Triggered when required fields like 'username' or 'email' are not provided."
+                    value:
+                        success: false
+                        message: 'The username field is required..'
+                invalidEmail:
+                    summary: 'Invalid email format'
+                    description: 'Triggered when the provided email does not match a valid email pattern.'
+                    value:
+                        success: false
+                        message: 'The email format is invalid.'
 
 #----
 
 registerConflict:
-  description: "Registration conflict. The provided email address or username is already in use."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/errorResponse.yaml"
-      examples:
-        emailAlreadyExists:
-          summary: "Email already registered"
-          description: "Returned when a user attempts to sign up with an existing email address."
-          value:
-            success: false
-            message: "An account with this email address already exists."
+    description: 'Registration conflict. The provided email address, username, or Google account is already in use.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/errorResponse.yaml'
+            examples:
+                emailAlreadyExists:
+                    summary: 'Email already registered'
+                    description: 'Returned when a user attempts to sign up with an existing email address.'
+                    value:
+                        success: false
+                        message: 'An account with this email address already exists.'
+                googleAccountAlreadyExists:
+                    summary: 'Google account already linked'
+                    description: 'Returned when a user attempts to sign up with a Google account that is already linked to another account.'
+                    value:
+                        success: false
+                        message: 'This Google account is already linked to an existing account.'
 
 # ----------------------------------------------------
 # Login Responses
 # ----------------------------------------------------
 
 logoutSuccess:
-  description: "User logged out successfully."
-  content:
-    application/json:
-      schema:
-        type: object
-        properties:
-          success:
-            type: boolean
-          message:
-            type: string
-      examples:
-        LogoutResponse:
-          summary: "Successful logout"
-          value:
-            success: true
-            message: "Logout user"
+    description: 'User logged out successfully.'
+    content:
+        application/json:
+            schema:
+                type: object
+                properties:
+                    success:
+                        type: boolean
+                    message:
+                        type: string
+            examples:
+                LogoutResponse:
+                    summary: 'Successful logout'
+                    value:
+                        success: true
+                        message: 'Logout user'
 
 #----
 
 logoutUnauthorized:
-  description: "User is not authenticated."
-  content:
-    application/json:
-      schema:
-        $ref: "../schemas/errorResponse.yaml"
-      examples:
-        LogoutUnauthorized:
-          summary: "No active session"
-          value:
-            success: false
-            message: "Unauthorized"
+    description: 'User is not authenticated.'
+    content:
+        application/json:
+            schema:
+                $ref: '../schemas/errorResponse.yaml'
+            examples:
+                LogoutUnauthorized:
+                    summary: 'No active session'
+                    value:
+                        success: false
+                        message: 'Unauthorized'

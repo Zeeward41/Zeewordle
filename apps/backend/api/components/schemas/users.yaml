@@ -2,92 +2,111 @@
 # User Schemas
 # ----------------------------------------------------
 loginRequest:
-  type: object
-  required:
-    - email
-    - password
-  properties:
-    email:
-      type: string
-      format: email
-      maxLength: 100
-    password:
-      type: string
-      minLength: 5
-      maxLength: 100
-      writeOnly: true
+    type: object
+    required:
+        - email
+        - password
+    properties:
+        email:
+            type: string
+            format: email
+            maxLength: 100
+        password:
+            type: string
+            minLength: 5
+            maxLength: 100
+            writeOnly: true
 
 # ------
 
 registerRequest:
-  type: object
-  required:
-    - email
-    - password
-    - username
-  properties:
-    email:
-      type: string
-      format: email
-      maxLength: 100
-    password:
-      type: string
-      minLength: 5
-      maxLength: 100
-      writeOnly: true
-    username:
-      type: string
-      minLength: 5
-      maxLength: 15
+    type: object
+    required:
+        - email
+        - username
+    properties:
+        email:
+            type: string
+            format: email
+            maxLength: 100
+        username:
+            type: string
+            minLength: 5
+            maxLength: 15
+        password:
+            type: string
+            minLength: 5
+            maxLength: 100
+            writeOnly: true
+        google_id:
+            type: string
+            minLength: 1
+            maxLength: 255
+            writeOnly: true
 
 # ------
 
 userResponse:
-  type: object
-  required:
-    - user
-  properties:
-    user:
-      $ref: '#/userSummary'
+    type: object
+    required:
+        - user
+    properties:
+        user:
+            $ref: '#/userSummary'
 
 # ------
 
 userSummary:
-  type: object
-  required:
-    - id
-    - username
-    - email
-    - role
-  properties:
-    id:
-      type: integer
-      readOnly: true
-    username:
-      type: string
-      minLength: 5
-      maxLength: 15
-    email:
-      type: string
-      maxLength: 100
-      format: email
-    role:
-      readOnly: true
-      type: array
-      items:
-        type: string
-        enum: [user, admin]
-      uniqueItems: true
+    type: object
+    required:
+        - id
+        - username
+        - email
+        - role
+    properties:
+        id:
+            type: integer
+            readOnly: true
+        username:
+            type: string
+            minLength: 5
+            maxLength: 15
+        email:
+            type: string
+            maxLength: 100
+            format: email
+        role:
+            readOnly: true
+            type: array
+            items:
+                type: string
+                enum: [user, admin]
+            uniqueItems: true
+        has_password:
+            type: boolean
+            readOnly: true
 
 # ------
 
 userList:
-  type: object
-  required:
-    - users
-  properties:
-    users:
-      type: array
-      items:
-        $ref: "#/userSummary"
-      uniqueItems: true
+    type: object
+    required:
+        - users
+    properties:
+        users:
+            type: array
+            items:
+                $ref: '#/userSummary'
+            uniqueItems: true
+
+# ------
+
+googleAuthRequest:
+    type: object
+    required:
+        - idToken
+    properties:
+        idToken:
+            type: string
+            minLength: 1
+            description: 'Google ID token (JWT) returned by Google Identity Services.'
