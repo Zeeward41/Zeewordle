@@ -41,6 +41,9 @@ export const Register = () => {
     });
     const { showNotification } = useNotification();
     const navigate = useNavigate();
+    const handleClick = async () => {
+        await navigate({ to: '/auth/login' });
+    };
 
     const handlerSubmit = async (
         e: React.SubmitEvent<HTMLFormElement>
@@ -233,7 +236,11 @@ export const Register = () => {
                 <div className="register__separator">
                     <span>Or</span>
                 </div>
-                <button type="button" className="register-google-btn">
+                <button
+                    type="button"
+                    onClick={handleClick}
+                    className="register-google-btn"
+                >
                     <img
                         src="/google.svg"
                         alt=""
