@@ -31,6 +31,8 @@ fileignoreconfig:
   checksum: a473c2568234215372e4b2db4cb4cb157aa9545d109d58edda2cca12eb417371
 - filename: apps/backend/src/controllers/auth.ts
   checksum: fbdaccd86f190ffeb8d475691ffc3bd6edb19a58a5c445ba94e12a716489e678
+- filename: apps/backend/src/models/user.model.ts
+  checksum: 4f7b0c4b4c2912bbbf0f9d3b5d13c267de3f03fd64e2552056ce1bf139396b29
 - filename: apps/backend/src/schemas/auth.schema.ts
   checksum: f02cc3f3a6d1a2627e63cfdcdd3485ed1cc141cfe89b27ea3c2fe94929abd3b1
 - filename: apps/backend/src/tests/controllers/auth.test.ts
@@ -42,7 +44,7 @@ fileignoreconfig:
 - filename: apps/backend/src/tests/controllers/users.test.ts
   checksum: d2dfbd5c82ee78fc2748ebaeb55ab4b2f5f02e056a00660099c7c3a0c87e822c
 - filename: apps/backend/src/tests/models/user.model.test.ts
-  checksum: bff08c3300c0048887d246ba1d62ca7144897f125dfb18176affa420b87f3174
+  checksum: 69815b83a7d4cd1f275ef0efd03152baab12dfce94bf00689c900fa2e5ba9d44
 - filename: apps/backend/src/types/auth.types.ts
   checksum: 184a95a670b8bfdcd29535040ac87488c0a866f5ebfb3e9fa35ea09c2bfa96c9
 - filename: apps/frontend/.env.example
