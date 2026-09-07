@@ -1,18 +1,20 @@
 CREATE TABLE IF NOT EXISTS users (
     id            SERIAL PRIMARY KEY,
     email         VARCHAR(100)  NOT NULL UNIQUE,
-    username      VARCHAR(15)   NOT NULL UNIQUE,
-    password_hash VARCHAR(255)  NOT NULL,
+    username      VARCHAR(50)   NOT NULL UNIQUE,
+    password_hash VARCHAR(255)  NULL,
+    google_id     VARCHAR(255)  NULL UNIQUE,
     role          VARCHAR(10)[] NOT NULL DEFAULT '{user}',
     created_at    TIMESTAMP DEFAULT NOW()
 );
 
 
-INSERT INTO users (email, username, password_hash, role, created_at)
+INSERT INTO users (email, username, password_hash,google_id, role, created_at)
 VALUES (
     '{{ db_vars.INITIAL_USER_EMAIL }}',
     '{{ db_vars.DB_USER }}',
     '{{ db_vars.INITIAL_USER_PASSWORD_HASH }}',
+    NULL,
     ARRAY['user', 'admin'],
     NOW()
 )
