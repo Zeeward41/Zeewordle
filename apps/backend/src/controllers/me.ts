@@ -37,6 +37,7 @@ export const me = async (req: Request, res: Response, next: NextFunction) => {
             email: result.email,
             username: result.username,
             role: result.role,
+            has_password: Boolean(result.password_hash),
         };
         endRouteTimer({ status: 200, reason: 'success' });
         zeewordle_me_success_total.inc();

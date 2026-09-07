@@ -42,6 +42,7 @@ describe('me route', () => {
             password_hash: 'superhash',
             role: ['user'],
             created_at: new Date('2026-07-01T15:13:00.077Z'),
+            google_id: null,
         });
 
         await me(req, res, next);
@@ -55,6 +56,7 @@ describe('me route', () => {
             email: 'alice@mail.com',
             username: 'alice',
             role: ['user'],
+            has_password: true,
         });
     });
     it('should return a 401 status if the ID does not exist', async () => {
