@@ -12,4 +12,5 @@ export const API_ROUTES = {
     gameCurrent: `${API_URL}/api/v1/game/current`,
     gameGuess: `${API_URL}/api/v1/game/guess`,
     gameStop: `${API_URL}/api/v1/game/stop`,
+    google: `${API_URL}/api/v1/auth/google`,
 };
