@@ -43,6 +43,8 @@ fileignoreconfig:
   checksum: d2dfbd5c82ee78fc2748ebaeb55ab4b2f5f02e056a00660099c7c3a0c87e822c
 - filename: apps/backend/src/tests/models/user.model.test.ts
   checksum: bff08c3300c0048887d246ba1d62ca7144897f125dfb18176affa420b87f3174
+- filename: apps/backend/src/types/auth.types.ts
+  checksum: 184a95a670b8bfdcd29535040ac87488c0a866f5ebfb3e9fa35ea09c2bfa96c9
 - filename: apps/frontend/.env.example
   checksum: 34ff13ed09f3a062d64f67c0ef105bc6f075f97506f27fa2f58dd0be6543236c
 - filename: apps/frontend/pnpm-lock.yaml
