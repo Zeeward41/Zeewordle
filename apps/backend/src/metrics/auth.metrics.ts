@@ -146,3 +146,43 @@ export const zeewordle_logout_duration_seconds = new client.Histogram({
     registers: [myRegister],
     buckets: [0.001, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5],
 });
+
+// ############################################################################
+// GOOGLEAUTH
+// ############################################################################
+
+export const zeewordle_google_auth_duration_seconds = new client.Histogram({
+    name: 'zeewordle_google_auth_duration_seconds',
+    help: 'Duration of Google auth request in seconds',
+    labelNames: ['status', 'reason'],
+    buckets: [0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10],
+    registers: [myRegister],
+});
+
+export const zeewordle_google_auth_db_lookup_duration_seconds =
+    new client.Histogram({
+        name: 'zeewordle_google_auth_db_lookup_duration_seconds',
+        help: 'Duration of DB lookup during Google auth',
+        registers: [myRegister],
+    });
+
+export const zeewordle_google_auth_success_total = new client.Counter({
+    name: 'zeewordle_google_auth_success_total',
+    help: 'Total successful Google authentications',
+    labelNames: ['type'],
+    registers: [myRegister],
+});
+
+export const zeewordle_google_auth_invalid_token_total = new client.Counter({
+    name: 'zeewordle_google_auth_invalid_token_total',
+    help: 'Total failed Google authentications due to invalid token',
+    registers: [myRegister],
+});
+
+export const zeewordle_google_auth_dependency_failures_total =
+    new client.Counter({
+        name: 'zeewordle_google_auth_dependency_failures_total',
+        help: 'Total Google auth failures due to internal dependencies',
+        labelNames: ['dependency'],
+        registers: [myRegister],
+    });

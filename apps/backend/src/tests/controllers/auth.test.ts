@@ -50,6 +50,7 @@ describe('Register Route', () => {
                 email: 'mathilda@example.com',
                 username: 'mathilda',
                 password: 'jupiter',
+                google_id: null,
             },
         } as unknown as Request;
     });
@@ -66,6 +67,7 @@ describe('Register Route', () => {
             username: 'mathilda',
             email: 'mathilda@example.com',
             role: ['user'],
+            has_password: true,
         });
 
         await register(req, res, next);
@@ -78,6 +80,7 @@ describe('Register Route', () => {
                 username: 'mathilda',
                 email: 'mathilda@example.com',
                 role: ['user'],
+                has_password: true,
             },
         });
         expect(createUser).toHaveBeenCalledOnce();
@@ -110,6 +113,7 @@ describe('Register Route', () => {
             username: 'mathilda',
             email: 'mathilda@example.com',
             role: ['user'],
+            has_password: true,
         });
 
         await register(req, res, next);
@@ -117,7 +121,8 @@ describe('Register Route', () => {
         expect(createUser).toHaveBeenCalledWith(
             'mathilda@example.com',
             'mathilda',
-            'hashed_password_123'
+            'hashed_password_123',
+            null
         );
     });
 });
