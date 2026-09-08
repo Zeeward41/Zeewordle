@@ -88,6 +88,7 @@ app.use('/api/v1/users', users);
 app.use('/api/v1/game', game);
 app.use('/api/v1', me);
 
+// Error Handler
 app.use(errorHandler);
 
 const PORT: string | number = process.env['PORT'] ?? 5000;
