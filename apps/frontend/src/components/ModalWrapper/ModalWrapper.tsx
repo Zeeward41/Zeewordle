@@ -25,10 +25,21 @@ export const ModalWrapper = ({ onClose, children }: ModalWrapperProps) => {
         };
     }, [onClose]);
     return createPortal(
-        <div className="modal-wrapper" onClick={onClose}>
+        <div
+            className="modal-wrapper"
+            onClick={onClose}
+            onKeyDown={e => {
+                if (e.key === 'Escape') {
+                    onClose();
+                }
+            }}
+            role="button"
+            tabIndex={0}
+        >
             <div
                 className="modal-wrapper__content"
                 onClick={e => e.stopPropagation()}
+                role="presentation"
             >
                 {children}
             </div>

@@ -66,7 +66,7 @@ fileignoreconfig:
 - filename: apps/frontend/src/components/KeyboardKey/KeyboardKey.tsx
   checksum: 43e0ea0c6043d2867ec9539dc390438d592b2de465b38e3f4bcdbdd124cb4f95
 - filename: apps/frontend/src/components/ModalWrapper/ModalWrapper.tsx
-  checksum: f04b505723c040067c3647e489f3ad1f6348e3b70c331e97a638c215e12da122
+  checksum: b08ffec1a26619ac58ce4b345c040a0689e49348c64bdfc4ea176c9edcb0457b
 - filename: apps/frontend/src/pages/Game/Game.tsx
   checksum: b9c4f3b1d49fa01912f359d6b2740f6f9e1f202f2af888df2121dcda9c81db02
 - filename: apps/frontend/src/pages/Home/Home.tsx
