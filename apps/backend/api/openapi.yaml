@@ -1,7 +1,7 @@
 openapi: 3.1.2
 info:
     title: Zeewordle API documentation.
-    version: '0.1'
+    version: '1'
     description: |
         "Zeewordle API...
     contact:
