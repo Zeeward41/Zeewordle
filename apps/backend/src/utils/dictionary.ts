@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import wordsData from '../config/words.json';
 
 export const getRandomWord = (): string | null => {
@@ -7,6 +8,7 @@ export const getRandomWord = (): string | null => {
         return null;
     }
 
-    const random = Math.floor(Math.random() * listWords.length);
+    const random = crypto.randomInt(listWords.length);
+
     return listWords[random] ?? null;
 };
