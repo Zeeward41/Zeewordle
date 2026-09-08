@@ -16,7 +16,7 @@ post:
                         summary: 'Google authentication with idToken'
                         description: 'Google Identity Services credential token string'
                         value:
-                            idToken: 'eyJhbGciOiJSUzI1NiIsImtpZCI6...'
+                            idToken: 'GOOGLE_ID_TOKEN'
     responses:
         '200':
             $ref: '../components/responses/authResponses.yaml#/loginSuccess'
