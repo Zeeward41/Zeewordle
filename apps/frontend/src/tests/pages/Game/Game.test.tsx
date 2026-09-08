@@ -1,5 +1,5 @@
 import { expect, it, describe, beforeEach, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import type * as reactRouter from '@tanstack/react-router';
 import { useAuth } from '../../../hooks/useAuth.ts';
@@ -406,7 +406,6 @@ describe('game', () => {
             screen.getByText(/Are you sure you want to abandon this game/i)
         ).toBeInTheDocument();
     });
-
     it('should close the confirmation modal when No, continue is clicked', async () => {
         vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
             new Response(
@@ -428,23 +427,31 @@ describe('game', () => {
             expect(globalThis.fetch).toHaveBeenCalledOnce();
         });
 
+        // Ouvre le modal
         await user.click(
             screen.getByRole('button', {
                 name: /Cancel/i,
             })
         );
 
-        await user.click(
-            screen.getByRole('button', {
-                name: /No, continue/i,
-            })
-        );
+        const modalContent = screen.getByText(
+            /Are you sure you want to abandon this game/i
+        ).parentElement?.parentElement;
+
+        expect(modalContent).toBeInTheDocument();
+        if (!modalContent) {
+            throw new Error('Modal content not found');
+        }
+        const continueButton = within(modalContent).getByRole('button', {
+            name: /No, continue/i,
+        });
+
+        await user.click(continueButton);
 
         expect(
             screen.queryByText(/Are you sure you want to abandon this game/i)
         ).not.toBeInTheDocument();
     });
-
     it('should navigate to the home page when Yes, give up is clicked', async () => {
         vi.spyOn(globalThis, 'fetch')
             .mockResolvedValueOnce(
@@ -496,11 +503,20 @@ describe('game', () => {
             })
         );
 
-        await user.click(
-            screen.getByRole('button', {
-                name: /Yes, give up/i,
-            })
-        );
+        const modalContent = screen.getByText(
+            /Are you sure you want to abandon this game/i
+        ).parentElement?.parentElement;
+
+        expect(modalContent).toBeInTheDocument();
+        if (!modalContent) {
+            throw new Error('Modal content not found');
+        }
+
+        const giveUpButton = within(modalContent).getByRole('button', {
+            name: /Yes, give up/i,
+        });
+
+        await user.click(giveUpButton);
 
         await waitFor(() => {
             expect(mockNavigate).toHaveBeenCalledWith({

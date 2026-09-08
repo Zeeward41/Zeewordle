@@ -1,5 +1,5 @@
 import { expect, it, describe, beforeEach, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import type * as reactRouter from '@tanstack/react-router';
 import { useAuth } from '../../../hooks/useAuth.ts';
@@ -92,10 +92,22 @@ describe('settings', () => {
 
         expect(buttonElement).toBeInTheDocument();
 
-        const cancelButton = screen.getByRole('button', { name: /cancel/i });
-        const validationButton = screen.getByRole('button', {
-            name: /Delete account/i,
+        const modal = screen
+            .getByText('Delete your account?')
+            .closest('.modal');
+
+        expect(modal).toBeInTheDocument();
+
+        const cancelButton = within(modal as HTMLElement).getByRole('button', {
+            name: /cancel/i,
         });
+
+        const validationButton = within(modal as HTMLElement).getByRole(
+            'button',
+            {
+                name: /Delete account/i,
+            }
+        );
 
         expect(cancelButton).toBeInTheDocument();
         expect(validationButton).toBeInTheDocument();
@@ -110,6 +122,7 @@ describe('settings', () => {
                 status: 200,
             })
         );
+
         render(<Settings />);
 
         const buttonElement = screen.getByRole('button', {
@@ -120,10 +133,22 @@ describe('settings', () => {
 
         expect(buttonElement).toBeInTheDocument();
 
-        const cancelButton = screen.getByRole('button', { name: /cancel/i });
-        const validationButton = screen.getByRole('button', {
-            name: /Delete account/i,
+        const modal = screen
+            .getByText('Delete your account?')
+            .closest('.modal');
+
+        expect(modal).toBeInTheDocument();
+
+        const cancelButton = within(modal as HTMLElement).getByRole('button', {
+            name: /cancel/i,
         });
+
+        const validationButton = within(modal as HTMLElement).getByRole(
+            'button',
+            {
+                name: /Delete account/i,
+            }
+        );
 
         expect(cancelButton).toBeInTheDocument();
         expect(validationButton).toBeInTheDocument();
@@ -141,15 +166,28 @@ describe('settings', () => {
                 }
             )
         );
+
         render(<Settings />);
+
         const buttonElement = screen.getByRole('button', {
             name: /Delete your Account/i,
         });
+
         await userEvent.click(buttonElement);
 
-        const validationButton = screen.getByRole('button', {
-            name: /Delete account/i,
-        });
+        const modal = screen
+            .getByText('Delete your account?')
+            .closest('.modal');
+
+        expect(modal).toBeInTheDocument();
+
+        const validationButton = within(modal as HTMLElement).getByRole(
+            'button',
+            {
+                name: /Delete account/i,
+            }
+        );
+
         await userEvent.click(validationButton);
 
         await waitFor(() => {
@@ -162,15 +200,28 @@ describe('settings', () => {
                 status: 500,
             })
         );
+
         render(<Settings />);
+
         const buttonElement = screen.getByRole('button', {
             name: /Delete your Account/i,
         });
+
         await userEvent.click(buttonElement);
 
-        const validationButton = screen.getByRole('button', {
-            name: /Delete account/i,
-        });
+        const modal = screen
+            .getByText('Delete your account?')
+            .closest('.modal');
+
+        expect(modal).toBeInTheDocument();
+
+        const validationButton = within(modal as HTMLElement).getByRole(
+            'button',
+            {
+                name: /Delete account/i,
+            }
+        );
+
         await userEvent.click(validationButton);
 
         await waitFor(() => {
