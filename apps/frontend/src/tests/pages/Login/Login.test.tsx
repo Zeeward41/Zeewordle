@@ -27,15 +27,16 @@ const MockLogin = () => {
         <AuthProvider>
             <NotificationsProvider>
                 <Notifications />
-                <RouterProvider router={router} />;
+                <RouterProvider router={router} />
             </NotificationsProvider>
         </AuthProvider>
     );
 };
 
 describe('login', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
         render(<MockLogin />);
+        await screen.findByPlaceholderText(/Email/i);
     });
     afterEach(() => {
         vi.clearAllMocks();

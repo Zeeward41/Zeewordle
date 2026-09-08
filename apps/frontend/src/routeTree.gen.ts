@@ -9,16 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as GameRouteImport } from './routes/game'
-import { Route as ApiDocRouteImport } from './routes/api-doc'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as UsersProfileRouteImport } from './routes/users/profile'
-import { Route as AuthRegisterRouteImport } from './routes/auth/register'
+import { Route as ApiDocRouteImport } from './routes/api-doc'
+import { Route as GameRouteImport } from './routes/game'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AuthRegisterRouteImport } from './routes/auth/register'
+import { Route as UsersProfileRouteImport } from './routes/users/profile'
 
-const GameRoute = GameRouteImport.update({
-  id: '/game',
-  path: '/game',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiDocRoute = ApiDocRouteImport.update({
@@ -26,14 +26,14 @@ const ApiDocRoute = ApiDocRouteImport.update({
   path: '/api-doc',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const GameRoute = GameRouteImport.update({
+  id: '/game',
+  path: '/game',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UsersProfileRoute = UsersProfileRouteImport.update({
-  id: '/users/profile',
-  path: '/users/profile',
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
@@ -41,9 +41,9 @@ const AuthRegisterRoute = AuthRegisterRouteImport.update({
   path: '/auth/register',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/auth/login',
-  path: '/auth/login',
+const UsersProfileRoute = UsersProfileRouteImport.update({
+  id: '/users/profile',
+  path: '/users/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -110,11 +110,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/game': {
-      id: '/game'
-      path: '/game'
-      fullPath: '/game'
-      preLoaderRoute: typeof GameRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api-doc': {
@@ -124,18 +124,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDocRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/game': {
+      id: '/game'
+      path: '/game'
+      fullPath: '/game'
+      preLoaderRoute: typeof GameRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/users/profile': {
-      id: '/users/profile'
-      path: '/users/profile'
-      fullPath: '/users/profile'
-      preLoaderRoute: typeof UsersProfileRouteImport
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/register': {
@@ -145,11 +145,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/login': {
-      id: '/auth/login'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginRouteImport
+    '/users/profile': {
+      id: '/users/profile'
+      path: '/users/profile'
+      fullPath: '/users/profile'
+      preLoaderRoute: typeof UsersProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
