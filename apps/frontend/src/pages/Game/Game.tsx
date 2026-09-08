@@ -34,6 +34,66 @@ export const Game = () => {
         message: '',
     });
 
+    const handleGameResponse = useCallback(
+        async (response: Response): Promise<boolean> => {
+            const json = (await response.json()) as unknown;
+
+            if (!response.ok) {
+                const data = errorResponseSchema.parse(json);
+
+                const notifErr = {
+                    status: 'error' as const,
+                    message: data.message,
+                };
+
+                setGetGameRequest(notifErr);
+                showNotification(notifErr);
+                return false;
+            }
+
+            const result = apiResponseSchema.safeParse(json);
+
+            if (!result.success) {
+                const zodErr = {
+                    status: 'error' as const,
+                    message: 'Validation Error Zod',
+                };
+
+                setGetGameRequest(zodErr);
+                showNotification(zodErr);
+
+                console.error(
+                    'Erreur de validation Zod :',
+                    result.error.format()
+                );
+
+                return false;
+            }
+
+            setGameStatus(result.data.game.status);
+
+            const fetchedGrid: WordleGrid = [];
+
+            for (let i = 0; i < 5; i++) {
+                const currentGuess: WordleRow =
+                    result.data.game.guesses[i] ?? emptyGuess;
+
+                fetchedGrid.push(currentGuess);
+            }
+
+            setGuess(fetchedGrid);
+
+            const firstEmptyIndex = fetchedGrid.findIndex(
+                row => row[0]?.status === 'empty' && row[0]?.letter === ''
+            );
+
+            setCurrentRowIndex(firstEmptyIndex !== -1 ? firstEmptyIndex : 5);
+
+            return true;
+        },
+        [showNotification]
+    );
+
     const fetchGame = useCallback(
         async (signal: AbortSignal | null = null): Promise<void> => {
             try {
@@ -42,64 +102,21 @@ export const Game = () => {
                     credentials: 'include',
                     ...(signal ? { signal } : {}),
                 });
-                const json = (await response.json()) as unknown;
 
-                if (!response.ok) {
-                    const data = errorResponseSchema.parse(json);
-                    const notifErr = {
-                        status: 'error' as const,
-                        message: `${data.message}`,
-                    };
-                    setGetGameRequest(notifErr);
-                    showNotification(notifErr);
-                    return;
-                }
-
-                const result = apiResponseSchema.safeParse(json);
-
-                if (!result.success) {
-                    const zodErr = {
-                        status: 'error' as const,
-                        message: `Validation Error Zod`,
-                    };
-                    setGetGameRequest(zodErr);
-                    showNotification(zodErr);
-                    console.error(
-                        'Erreur de validation Zod :',
-                        result.error.format()
-                    );
-                    return;
-                }
-
-                setGameStatus(result.data.game.status);
-
-                const fetchedGrid: WordleGrid = [];
-
-                for (let i = 0; i < 5; i++) {
-                    const currentGuess: WordleRow =
-                        result.data.game.guesses[i] ?? emptyGuess;
-                    fetchedGrid.push(currentGuess);
-                }
-
-                setGuess(fetchedGrid);
-
-                const firstEmptyIndex = fetchedGrid.findIndex(
-                    row => row[0]?.status === 'empty' && row[0]?.letter === ''
-                );
-                setCurrentRowIndex(
-                    firstEmptyIndex !== -1 ? firstEmptyIndex : 5
-                );
+                await handleGameResponse(response);
             } catch (err) {
                 if ((err as Error).name === 'AbortError') return;
+
                 const notifErrNet = {
                     status: 'error' as const,
                     message: 'Network error, please try again.',
                 };
+
                 setGetGameRequest(notifErrNet);
                 showNotification(notifErrNet);
             }
         },
-        []
+        [handleGameResponse, showNotification]
     );
 
     useEffect(() => {
@@ -126,52 +143,14 @@ export const Game = () => {
                 },
                 body: JSON.stringify({ word: submittedWord }),
             });
-            const json = (await response.json()) as unknown;
-            if (!response.ok) {
-                const data = errorResponseSchema.parse(json);
 
-                const notifErr = {
-                    status: 'error' as const,
-                    message: `${data.message}`,
-                };
-                setGetGameRequest(notifErr);
-                showNotification(notifErr);
-                return;
-            }
-            const result = apiResponseSchema.safeParse(json);
-
-            if (!result.success) {
-                const zodErr = {
-                    status: 'error' as const,
-                    message: `Validation Error Zod`,
-                };
-                setGetGameRequest(zodErr);
-                showNotification(zodErr);
-                console.error(
-                    'Erreur de validation Zod :',
-                    result.error.format()
-                );
-                return;
-            }
-            setGameStatus(result.data.game.status);
-            const fetchedGrid: WordleGrid = [];
-
-            for (let i = 0; i < 5; i++) {
-                const currentGuess: WordleRow =
-                    result.data.game.guesses[i] ?? emptyGuess;
-                fetchedGrid.push(currentGuess);
-            }
-
-            setGuess(fetchedGrid);
-            const firstEmptyIndex = fetchedGrid.findIndex(
-                row => row[0]?.status === 'empty' && row[0]?.letter === ''
-            );
-            setCurrentRowIndex(firstEmptyIndex !== -1 ? firstEmptyIndex : 5);
+            await handleGameResponse(response);
         } catch {
             const notifErrNet = {
                 status: 'error' as const,
                 message: 'Network error, please try again.',
             };
+
             setGetGameRequest(notifErrNet);
             showNotification(notifErrNet);
         }
@@ -179,8 +158,10 @@ export const Game = () => {
 
     const handleKey = (key: string) => {
         const isGameOver = gameStatus !== 'IN_PROGRESS';
-        if (isGameOver || currentRowIndex >= 5 || !guess[currentRowIndex])
+
+        if (isGameOver || currentRowIndex >= 5 || !guess[currentRowIndex]) {
             return;
+        }
 
         const keyUpper = key.toUpperCase();
 
@@ -196,6 +177,7 @@ export const Game = () => {
                 });
                 return;
             }
+
             void SubmitGuess(currentWord);
             return;
         }
@@ -207,14 +189,17 @@ export const Game = () => {
 
             setGuess(prevGrid => {
                 const nextGrid = [...prevGrid];
+
                 const newRow: WordleRow = emptyGuess.map((_cell, index) => ({
                     letter: updatedWord[index] ?? '',
                     status: 'empty',
                 })) as unknown as WordleRow;
 
                 nextGrid[currentRowIndex] = newRow;
+
                 return nextGrid;
             });
+
             return;
         }
 
@@ -223,12 +208,14 @@ export const Game = () => {
 
             setGuess(prevGrid => {
                 const nextGrid = [...prevGrid];
+
                 const newRow: WordleRow = emptyGuess.map((_cell, index) => ({
                     letter: updatedWord[index] ?? '',
                     status: 'empty',
                 })) as unknown as WordleRow;
 
                 nextGrid[currentRowIndex] = newRow;
+
                 return nextGrid;
             });
         }
@@ -247,69 +234,35 @@ export const Game = () => {
 
     const handleConfirmCancel = async () => {
         setShowCancelModal(false);
+
         try {
             const response = await fetch(API_ROUTES.gameStop, {
                 method: 'POST',
                 credentials: 'include',
             });
-            const json = (await response.json()) as unknown;
-            if (!response.ok) {
-                const data = errorResponseSchema.parse(json);
 
-                const notifErr = {
-                    status: 'error' as const,
-                    message: `${data.message}`,
-                };
-                setGetGameRequest(notifErr);
-                showNotification(notifErr);
-                return;
-            }
-            const result = apiResponseSchema.safeParse(json);
-
-            if (!result.success) {
-                const zodErr = {
-                    status: 'error' as const,
-                    message: `Validation Error Zod`,
-                };
-                setGetGameRequest(zodErr);
-                showNotification(zodErr);
-                console.error(
-                    'Erreur de validation Zod :',
-                    result.error.format()
-                );
-                return;
-            }
-            setGameStatus(result.data.game.status);
-            const fetchedGrid: WordleGrid = [];
-
-            for (let i = 0; i < 5; i++) {
-                const currentGuess: WordleRow =
-                    result.data.game.guesses[i] ?? emptyGuess;
-                fetchedGrid.push(currentGuess);
-            }
-
-            setGuess(fetchedGrid);
-            const firstEmptyIndex = fetchedGrid.findIndex(
-                row => row[0]?.status === 'empty' && row[0]?.letter === ''
-            );
-            setCurrentRowIndex(firstEmptyIndex !== -1 ? firstEmptyIndex : 5);
+            await handleGameResponse(response);
         } catch {
             const notifErrNet = {
                 status: 'error' as const,
                 message: 'Network error, please try again.',
             };
+
             setGetGameRequest(notifErrNet);
             showNotification(notifErrNet);
         }
+
         await navigate({ to: '/' });
     };
 
     if (isLoading) {
         return <div>LOADING...</div>;
     }
+
     if (user === null) {
         return <Navigate to="/auth/login" replace />;
     }
+
     return (
         <div className="game__container">
             <div className="game">
@@ -320,10 +273,13 @@ export const Game = () => {
                     {' '}
                     Cancel{' '}
                 </button>
+
                 <GridComponent allLetters={guess} />
+
                 <Keyboard handleKey={handleKey} keyStatuses={mockKeyStatuses} />
             </div>
-            {/*  Victory Modal */}
+
+            {/* Victory Modal */}
             {gameStatus === 'WON' && (
                 <ModalWrapper
                     onClose={() => {
@@ -334,6 +290,7 @@ export const Game = () => {
                         <h2 className="modalGame__title">
                             🏆 Congratulations!
                         </h2>
+
                         <p className="modalGame__text">You found the word!</p>
 
                         <div className="modalGame__actions">
@@ -343,6 +300,7 @@ export const Game = () => {
                             >
                                 Quit
                             </button>
+
                             <button
                                 className="modalGame__btn modalGame__btn--primary"
                                 onClick={() => void fetchGame()}
@@ -353,7 +311,8 @@ export const Game = () => {
                     </div>
                 </ModalWrapper>
             )}
-            {/*  Lost Modal */}
+
+            {/* Lost Modal */}
             {gameStatus === 'LOST' && (
                 <ModalWrapper
                     onClose={() => {
@@ -362,6 +321,7 @@ export const Game = () => {
                 >
                     <div className="modalGame__content modalGame__content--lost">
                         <h2 className="modalGame__title">💀 Game Over!</h2>
+
                         <p className="modalGame__text">
                             You did not find the mystery word.
                         </p>
@@ -373,6 +333,7 @@ export const Game = () => {
                             >
                                 Quit
                             </button>
+
                             <button
                                 className="modalGame__btn modalGame__btn--primary"
                                 onClick={() => void fetchGame()}
@@ -383,14 +344,17 @@ export const Game = () => {
                     </div>
                 </ModalWrapper>
             )}
+
             {/* Modal stop */}
             {showCancelModal && (
                 <ModalWrapper onClose={() => setShowCancelModal(false)}>
                     <div className="modalGame__content modalGame__content--confirm">
                         <h2 className="modalGame__title">⚠️ Give up?</h2>
+
                         <p className="modalGame__text">
                             Are you sure you want to abandon this game?
                         </p>
+
                         <div className="modalGame__actions">
                             <button
                                 className="modalGame__btn modalGame__btn--secondary"
@@ -398,6 +362,7 @@ export const Game = () => {
                             >
                                 No, continue
                             </button>
+
                             <button
                                 className="modalGame__btn modalGame__btn--danger"
                                 onClick={handleConfirmCancel}
