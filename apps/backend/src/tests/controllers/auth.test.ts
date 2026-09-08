@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { register, login, logout } from '../../controllers/auth.ts';
+import { register, login, logout, googleAuth } from '../../controllers/auth.ts';
 import type { Request, Response, NextFunction } from 'express';
 import { createUser, getUserByEmail } from '../../models/user.model.ts';
 import bcrypt from 'bcryptjs';
@@ -8,6 +8,9 @@ import ErrorResponse from '../../utils/errorResponse.ts';
 vi.mock('../../models/user.model.ts', () => ({
     createUser: vi.fn(),
     getUserByEmail: vi.fn(),
+    linkGoogleAccount: vi.fn(),
+    findUserByEmail: vi.fn(),
+    getUserByGoogleId: vi.fn(),
 }));
 
 vi.mock('bcryptjs', () => ({
@@ -15,6 +18,18 @@ vi.mock('bcryptjs', () => ({
         hash: vi.fn(),
         compare: vi.fn(),
     },
+}));
+
+const { mockGetTokenInfo } = vi.hoisted(() => ({
+    mockGetTokenInfo: vi.fn(),
+}));
+
+vi.mock('google-auth-library', () => ({
+    OAuth2Client: vi.fn().mockImplementation(function () {
+        return {
+            getTokenInfo: mockGetTokenInfo,
+        };
+    }),
 }));
 
 // -----------
@@ -321,5 +336,289 @@ describe('logout route', () => {
         expect(res.json).not.toHaveBeenCalled();
         expect(next).toHaveBeenCalledOnce();
         expect(next).toHaveBeenCalledWith(expect.any(Error));
+    });
+});
+
+// -----------
+// Google auth
+// -----------
+describe('Google Auth Route', () => {
+    let req: Request;
+    let res: Response;
+    let next: NextFunction;
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+
+        process.env['GOOGLE_CLIENT_ID'] = 'test-google-client-id';
+
+        req = {
+            body: {
+                idToken: 'valid-google-token',
+            },
+            session: {},
+        } as unknown as Request;
+
+        res = {
+            status: vi.fn().mockReturnThis(),
+            json: vi.fn(),
+        } as unknown as Response;
+
+        next = vi.fn() as NextFunction;
+    });
+
+    it('should be a function', () => {
+        expect(typeof googleAuth).toBe('function');
+    });
+
+    it('should take 3 arguments', () => {
+        expect(googleAuth).toHaveLength(3);
+    });
+
+    it('should return 500 if GOOGLE_CLIENT_ID is not configured', async () => {
+        delete process.env['GOOGLE_CLIENT_ID'];
+
+        await googleAuth(req, res, next);
+
+        expect(next).toHaveBeenCalledWith(
+            expect.objectContaining({
+                statusCode: 500,
+                message: 'GOOGLE_CLIENT_ID is not configured',
+            })
+        );
+
+        expect(res.status).not.toHaveBeenCalled();
+    });
+
+    it('should return 400 for an invalid request body', async () => {
+        req.body = {
+            invalid: 'body',
+        };
+
+        await googleAuth(req, res, next);
+
+        expect(next).toHaveBeenCalledWith(
+            expect.objectContaining({
+                statusCode: 400,
+                message: 'Invalid request body',
+            })
+        );
+
+        expect(res.status).not.toHaveBeenCalled();
+    });
+    it('should return 401 when Google token validation fails', async () => {
+        mockGetTokenInfo.mockRejectedValue(new Error('Invalid token'));
+        mockGetTokenInfo.mockRejectedValue(new Error('Invalid token'));
+
+        await googleAuth(req, res, next);
+
+        expect(next).toHaveBeenCalledWith(
+            expect.objectContaining({
+                statusCode: 401,
+                message: 'Invalid or expired Google token',
+            })
+        );
+
+        expect(res.status).not.toHaveBeenCalled();
+    });
+
+    it('should return 400 for an invalid request body', async () => {
+        req.body = {
+            invalid: 'body',
+        };
+
+        await googleAuth(req, res, next);
+
+        expect(next).toHaveBeenCalledWith(
+            expect.objectContaining({
+                statusCode: 400,
+                message: 'Invalid request body',
+            })
+        );
+
+        expect(res.status).not.toHaveBeenCalled();
+    });
+
+    it('should return 401 when Google userinfo request fails', async () => {
+        vi.spyOn(global, 'fetch').mockResolvedValue(
+            new Response(null, { status: 401 })
+        );
+
+        await googleAuth(req, res, next);
+
+        expect(next).toHaveBeenCalledWith(
+            expect.objectContaining({
+                statusCode: 401,
+                message: 'Invalid or expired Google token',
+            })
+        );
+    });
+
+    it('should return 401 when Google account has no email', async () => {
+        mockGetTokenInfo.mockResolvedValue({
+            aud: 'test-google-client-id',
+        });
+
+        vi.spyOn(global, 'fetch').mockResolvedValue(
+            new Response(
+                JSON.stringify({
+                    sub: 'google-user-123',
+                }),
+                { status: 200 }
+            )
+        );
+
+        await googleAuth(req, res, next);
+
+        expect(next).toHaveBeenCalledWith(
+            expect.objectContaining({
+                statusCode: 401,
+                message: 'Invalid or Missing Email',
+            })
+        );
+    });
+
+    it('should login an existing Google user', async () => {
+        mockGetTokenInfo.mockResolvedValue({
+            aud: 'test-google-client-id',
+        });
+
+        vi.spyOn(global, 'fetch').mockResolvedValue(
+            new Response(
+                JSON.stringify({
+                    sub: 'google-user-123',
+                    email: 'alice@gmail.com',
+                    name: 'Alice',
+                }),
+                { status: 200 }
+            )
+        );
+
+        const { getUserByGoogleId } =
+            await import('../../models/user.model.ts');
+
+        vi.mocked(getUserByGoogleId).mockResolvedValue({
+            id: 42,
+            email: 'alice@gmail.com',
+            username: 'alice',
+            password_hash: null,
+            role: ['user'],
+            created_at: new Date(),
+        });
+
+        await googleAuth(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({
+            user: {
+                id: 42,
+                email: 'alice@gmail.com',
+                username: 'alice',
+                role: ['user'],
+                has_password: false,
+            },
+        });
+
+        expect(req.session.userId).toBe(42);
+        expect(next).not.toHaveBeenCalled();
+    });
+
+    it('should link Google account when email already exists', async () => {
+        mockGetTokenInfo.mockResolvedValue({
+            aud: 'test-google-client-id',
+        });
+
+        vi.spyOn(global, 'fetch').mockResolvedValue(
+            new Response(
+                JSON.stringify({
+                    sub: 'google-user-123',
+                    email: 'existing@gmail.com',
+                    name: 'Existing User',
+                }),
+                { status: 200 }
+            )
+        );
+
+        const { getUserByGoogleId, findUserByEmail, linkGoogleAccount } =
+            await import('../../models/user.model.ts');
+
+        vi.mocked(getUserByGoogleId).mockResolvedValue(undefined);
+
+        vi.mocked(findUserByEmail).mockResolvedValue({
+            id: 10,
+            email: 'existing@gmail.com',
+            username: 'existing',
+            password_hash: 'hashed-password',
+            role: ['user'],
+            created_at: new Date(),
+        });
+
+        vi.mocked(linkGoogleAccount).mockResolvedValue({
+            id: 10,
+            email: 'existing@gmail.com',
+            username: 'existing',
+            password_hash: 'hashed-password',
+            role: ['user'],
+            created_at: new Date(),
+        });
+
+        await googleAuth(req, res, next);
+
+        expect(linkGoogleAccount).toHaveBeenCalledWith(10, 'google-user-123');
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(req.session.userId).toBe(10);
+    });
+    it('should create a new user when Google account and email do not exist', async () => {
+        mockGetTokenInfo.mockResolvedValue({
+            aud: 'test-google-client-id',
+        });
+
+        vi.spyOn(global, 'fetch').mockResolvedValue(
+            new Response(
+                JSON.stringify({
+                    sub: 'google-user-new',
+                    email: 'newuser@gmail.com',
+                    name: 'New User',
+                }),
+                { status: 200 }
+            )
+        );
+
+        const { getUserByGoogleId, findUserByEmail, createUser } =
+            await import('../../models/user.model.ts');
+
+        vi.mocked(getUserByGoogleId).mockResolvedValue(undefined);
+        vi.mocked(findUserByEmail).mockResolvedValue(undefined);
+
+        vi.mocked(createUser).mockResolvedValue({
+            id: 99,
+            email: 'newuser@gmail.com',
+            username: 'New User',
+            role: ['user'],
+            has_password: false,
+        });
+
+        await googleAuth(req, res, next);
+
+        expect(createUser).toHaveBeenCalledWith(
+            'newuser@gmail.com',
+            'New User',
+            null,
+            'google-user-new'
+        );
+
+        expect(req.session.userId).toBe(99);
+
+        expect(res.status).toHaveBeenCalledWith(201);
+        expect(res.json).toHaveBeenCalledWith({
+            user: {
+                id: 99,
+                email: 'newuser@gmail.com',
+                username: 'New User',
+                role: ['user'],
+                has_password: false,
+            },
+        });
     });
 });
