@@ -1,6 +1,7 @@
 import { expect, it, describe, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Login } from '../../../pages/Login/Login.tsx';
+import { API_ROUTES } from '../../../config/api.ts';
 import { userEvent } from '@testing-library/user-event';
 import {
     createMemoryHistory,
@@ -235,5 +236,113 @@ describe('login', () => {
                 'Google Sign-In was unsuccessful. Try again.'
             )
         ).toBeInTheDocument();
+    });
+    it('should login successfully with Google', async () => {
+        vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+            new Response(
+                JSON.stringify({
+                    id: 122,
+                    email: 'maria@mail.com',
+                    username: 'maria',
+                    role: ['user'],
+                }),
+                { status: 200 }
+            )
+        );
+
+        const googleLoginMock = vi.mocked(useGoogleLogin);
+        const options = googleLoginMock.mock.calls[0]?.[0];
+
+        options?.onSuccess?.({
+            access_token: 'fake-google-token',
+        } as never);
+
+        expect(
+            await screen.findByText(
+                'You have successfully logged in with Google.'
+            )
+        ).toBeInTheDocument();
+    });
+    it('should display an error notification when Google authentication returns an error', async () => {
+        vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+            new Response(
+                JSON.stringify({
+                    message: 'Google authentication failed',
+                    success: false,
+                }),
+                { status: 401 }
+            )
+        );
+
+        const googleLoginMock = vi.mocked(useGoogleLogin);
+        const options = googleLoginMock.mock.calls[0]?.[0];
+
+        options?.onSuccess?.({
+            access_token: 'fake-google-token',
+        } as never);
+
+        expect(
+            await screen.findByText('Google authentication failed')
+        ).toBeInTheDocument();
+    });
+    it('should display a network error when Google authentication fails', async () => {
+        vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(
+            new Error('Network error')
+        );
+
+        const googleLoginMock = vi.mocked(useGoogleLogin);
+        const options = googleLoginMock.mock.calls[0]?.[0];
+
+        options?.onSuccess?.({
+            access_token: 'fake-google-token',
+        } as never);
+
+        expect(
+            await screen.findByText('Network error, please try again.')
+        ).toBeInTheDocument();
+    });
+    it('should login successfully when Google response contains a user object', async () => {
+        vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+            new Response(
+                JSON.stringify({
+                    user: {
+                        id: 122,
+                        email: 'maria@mail.com',
+                        username: 'maria',
+                        role: ['user'],
+                    },
+                }),
+                { status: 200 }
+            )
+        );
+
+        const googleLoginMock = vi.mocked(useGoogleLogin);
+        const options = googleLoginMock.mock.calls[0]?.[0];
+
+        options?.onSuccess?.({
+            access_token: 'fake-google-token',
+        } as never);
+
+        expect(
+            await screen.findByText(
+                'You have successfully logged in with Google.'
+            )
+        ).toBeInTheDocument();
+    });
+    it('should not call Google login when there is no access token', () => {
+        const fetchMock = vi.spyOn(globalThis, 'fetch');
+
+        const googleLoginMock = vi.mocked(useGoogleLogin);
+        const options = googleLoginMock.mock.calls[0]?.[0];
+
+        options?.onSuccess?.({
+            code: 'fake-google-code',
+            scope: 'fake-scope',
+        });
+
+        expect(fetchMock).not.toHaveBeenCalledWith(
+            API_ROUTES.google,
+            expect.anything()
+        );
     });
 });
