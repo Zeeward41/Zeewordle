@@ -1,5 +1,9 @@
 # Zeewordle
 
+[![CI](https://github.com/Zeeward41/Zewordle/actions/workflows/ci.yaml/badge.svg)](https://github.com/Zeeward41/Zewordle/actions/workflows/ci.yaml)
+[![CD](https://github.com/Zeeward41/Zewordle/actions/workflows/cd.yaml/badge.svg)](https://github.com/Zeeward41/Zewordle/actions/workflows/cd.yaml)
+[![Destroy CD](https://github.com/Zeeward41/Zewordle/actions/workflows/destroy_cd.yaml/badge.svg)](https://github.com/Zeeward41/Zewordle/actions/workflows/destroy_cd.yaml)
+
 ## 🎯 Objective
 
 The objective of this project is to build a full-stack version of the `Wordle` game,
