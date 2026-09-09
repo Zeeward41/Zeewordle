@@ -5,7 +5,7 @@ import {
     createGame,
     updateGameStatus,
     addGuessToGame,
-} from '../models/game.model';
+} from '../models/game.model.ts';
 import { getRandomWord } from '../utils/dictionary.ts';
 import type {
     GuessRequestBody,
