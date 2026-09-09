@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: .github/workflows/cd.yaml
-  checksum: 137939c7bc06a678e2049c3f5bb8a52bd3fb8d438be23b536a480f016b78bcf7
+  checksum: df9ca4e557d9fc50d03408a0fe98f193cfbb1fc163e593ac1c341f34cac3f8eb
 - filename: .github/workflows/ci.yaml
   checksum: cba4fff11372e2b38bb4c89fa367997c0ed00bb73148ed12328ea0f901fad9b7
 - filename: .sops.yaml
@@ -52,7 +52,7 @@ fileignoreconfig:
 - filename: apps/backend/src/types/auth.types.ts
   checksum: 184a95a670b8bfdcd29535040ac87488c0a866f5ebfb3e9fa35ea09c2bfa96c9
 - filename: apps/frontend/.env.example
-  checksum: 34ff13ed09f3a062d64f67c0ef105bc6f075f97506f27fa2f58dd0be6543236c
+  checksum: 04956e708b19a0766e95c1c610e5b0b63608669205763e992527399be9418b96
 - filename: apps/frontend/pnpm-lock.yaml
   checksum: fa1058a86f89a1f3a9c6922b5c77b3e941544ac1cfa96f3544f413d4a7c8ddfa
 - filename: apps/frontend/public/docs/api-docs.html

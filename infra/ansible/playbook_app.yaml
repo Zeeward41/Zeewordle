@@ -144,7 +144,7 @@
           - "3000:3000"
         env:
           VITE_API_URL: "http://{{ hostvars[groups['role_monitoring_proxy'][0]]['public_ip_address'] }}"
-    
+          VITE_GOOGLE_CLIENT_ID: "${{ google_client_id }}"
     - name: Get container information (frontend)
       docker_container_info:
         name: frontend
