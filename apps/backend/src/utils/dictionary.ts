@@ -8,6 +8,7 @@ export const getRandomWord = (): string | null => {
         return null;
     }
 
+    // Generate a cryptographically secure random index.
     const random = crypto.randomInt(listWords.length);
 
     return listWords[random] ?? null;
