@@ -82,6 +82,7 @@
 
 .game__cancel:hover {
     background-color: #edf2f7;
+    color: black;
 }
 
 /* Alignement des 2 boutons dans la modale */
