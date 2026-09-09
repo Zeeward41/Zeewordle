@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import wordsData from '../config/words.json';
+import wordsData from '../config/words.json' with { type: 'json' };
 
 export const getRandomWord = (): string | null => {
     const listWords: string[] = wordsData.words;
