@@ -109,15 +109,19 @@ resource "aws_vpc_security_group_ingress_rule" "allow_prometheus_ui_inbound" {
   to_port     = 9090
 }
 
-# Allow inbound HTTP web access to Nginx Proxy
-resource "aws_vpc_security_group_ingress_rule" "allow_http_inbound_to_nginx" {
+# Allow inbound HTTP from Cloudfront to Nginx Proxy
+resource "aws_vpc_security_group_ingress_rule" "allow_cloudfront_to_nginx" {
   security_group_id = aws_security_group.monitoring_proxy.id
-  description       = "Allow inbound HTTP traffic from Internet to Nginx proxy"
+  description       = "Allow HTTP traffic from CloudFront to Nginx"
 
-  cidr_ipv4   = "0.0.0.0/0"
-  ip_protocol = "tcp"
-  from_port   = 0
-  to_port     = 65535
+  prefix_list_id = data.aws_ec2_managed_prefix_list.cloudfront.id
+  ip_protocol    = "tcp"
+  from_port      = 80
+  to_port        = 80
+}
+
+data "aws_ec2_managed_prefix_list" "cloudfront" {
+  name = "com.amazonaws.global.cloudfront.origin-facing"
 }
 
 # ==============================================================================
