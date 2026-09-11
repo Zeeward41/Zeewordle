@@ -22,3 +22,4 @@ Each file follows the standard format (Context, Decision, Consequences).
 | [0015](./0015-Public-IP-Instances-(showcase-Environment).md) | 29/07/2026 | Public IP Instances (showcase Environment) | ✅ Accepted |
 | [0016](./0016-Observability-Strategy-for-System-and-Application-Metrics.md) | 19/08/2026 | Observability Stragegy | ✅ Accepted |
 | [0017](./0017-Database-Persistence-and-Backup-Strategy.md) | 19/08/2026 | Database Persistence and Backup Strategy | ✅ Accepted |
+| [0018](./0018-HTTPS-Termination-and-Content-Delivery-with-CloudFront.md) | 11/09/2026 | Cloudfront et HTTPS Termination | ✅ Accepted |
