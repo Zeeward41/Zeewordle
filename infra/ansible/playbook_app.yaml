@@ -144,7 +144,7 @@
           - "3000:3000"
         env:
           VITE_API_URL: "https://zeewordle.zeeward41.com"
-          VITE_GOOGLE_CLIENT_ID: "${{ google_client_id }}"
+          VITE_GOOGLE_CLIENT_ID: "{{ google_client_id }}"
     - name: Get container information (frontend)
       docker_container_info:
         name: frontend
