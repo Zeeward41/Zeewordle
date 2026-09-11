@@ -56,7 +56,7 @@ fileignoreconfig:
 - filename: apps/frontend/pnpm-lock.yaml
   checksum: fa1058a86f89a1f3a9c6922b5c77b3e941544ac1cfa96f3544f413d4a7c8ddfa
 - filename: apps/frontend/public/docs/api-docs.html
-  checksum: 2c81b512438d16cea55243353815471caf3d2a05c74939394dd43f1d6b616880
+  checksum: 611808968d694abedd6b582b8351b3fdd2c73f51bffd8a0f12ca2eaf49ad0470
 - filename: apps/frontend/src/components/Grid/Grid.tsx
   checksum: eb74bdb85ac5a78f52571541b17b2b7b731370c3df8f9d9c2d09ac5456093021
 - filename: apps/frontend/src/components/Keyboard/Keyboard.tsx
