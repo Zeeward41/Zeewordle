@@ -55,7 +55,7 @@ resource "aws_route53_record" "origin" {
   name    = "origin-${var.project_name}.${var.name}.com"
   type    = "A"
   ttl     = 60
-  records = [aws_instance.instance_2.public_ip]
+  records = [aws_instance.instance_1.public_ip]
 }
 
 ### Creates the public-facing alias record that routes the main domain name to the CloudFront distribution.
