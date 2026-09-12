@@ -99,14 +99,25 @@ resource "aws_vpc_security_group_egress_rule" "allow_outbound_traffic_to_app_bac
 # ====================================================
 
 # Allow Web UI access to Prometheus
-resource "aws_vpc_security_group_ingress_rule" "allow_prometheus_ui_inbound" {
+# resource "aws_vpc_security_group_ingress_rule" "allow_prometheus_ui_inbound" {
+#   security_group_id = aws_security_group.monitoring_proxy.id
+#   description       = "Allow inbound web traffic to Prometheus UI"
+
+#   cidr_ipv4   = "0.0.0.0/0"
+#   ip_protocol = "tcp"
+#   from_port   = 9090
+#   to_port     = 9090
+# }
+
+# Allow Web UI access to Grafana
+resource "aws_vpc_security_group_ingress_rule" "allow_grafana_ui_inbound" {
   security_group_id = aws_security_group.monitoring_proxy.id
-  description       = "Allow inbound web traffic to Prometheus UI"
+  description       = "Allow inbound web traffic to Grafana UI"
 
   cidr_ipv4   = "0.0.0.0/0"
   ip_protocol = "tcp"
-  from_port   = 9090
-  to_port     = 9090
+  from_port   = 3000
+  to_port     = 3000
 }
 
 # Allow inbound HTTP from Cloudfront to Nginx Proxy
