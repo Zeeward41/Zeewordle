@@ -8,4 +8,5 @@ Welcome to the documentation 📜 ! Here's how it's organized :
 - [/design](./design/README.md) : Frontend Design.
 - [/guides](./guides) : Installation and Usage Procedures.
 - [/problems & Logbook](./problems/LOGBOOK.md) : Bug Journal and Resolutions.
+- [/observability](./observability/README.md): Grafana dashboards and metrics monitoring.
 
