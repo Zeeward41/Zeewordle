@@ -11,6 +11,8 @@ import OpenApiValidator from 'express-openapi-validator';
 import session from 'express-session';
 import { myRegister } from './src/metrics/registry.ts';
 import metricsMiddleware from './src/middlewares/metrics.middleware.ts';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 
 // Route files
 import auth from './src/routes/auth.ts';
@@ -27,6 +29,12 @@ if (!process.env['SESSION_SECRET']) {
 }
 
 const app: Application = express();
+
+app.set('trust proxy', 1);
+
+// helmet
+app.use(helmet());
+app.disable('x-powered-by');
 
 // prom-client
 app.use(metricsMiddleware);
@@ -55,7 +63,8 @@ app.use(
         cookie: {
             httpOnly: true,
             //secure: process.env['NODE_ENV'] === 'development' ? false : true,
-            secure: false,
+            //secure: false,
+            secure: process.env['NODE_ENV'] === 'production',
             sameSite: 'lax',
             maxAge: 1000 * 60 * 30, // 30 minutes
         },
@@ -64,7 +73,7 @@ app.use(
 
 // Body Parser
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 
 // Cookie Parser
 app.use(cookieParser());
@@ -82,8 +91,14 @@ app.use(
     })
 );
 
+// Rate Limiting
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+});
+
 // Mount routers
-app.use('/api/v1/auth', auth);
+app.use('/api/v1/auth', authLimiter, auth);
 app.use('/api/v1/users', users);
 app.use('/api/v1/game', game);
 app.use('/api/v1', me);
