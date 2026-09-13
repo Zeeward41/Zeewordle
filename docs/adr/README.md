@@ -23,3 +23,4 @@ Each file follows the standard format (Context, Decision, Consequences).
 | [0016](./0016-Observability-Strategy-for-System-and-Application-Metrics.md) | 19/08/2026 | Observability Stragegy | ✅ Accepted |
 | [0017](./0017-Database-Persistence-and-Backup-Strategy.md) | 19/08/2026 | Database Persistence and Backup Strategy | ✅ Accepted |
 | [0018](./0018-HTTPS-Termination-and-Content-Delivery-with-CloudFront.md) | 11/09/2026 | Cloudfront et HTTPS Termination | ✅ Accepted |
+| [0019](./0019-Parameter-Store.md) | 2026 | Parameter Store | ✅ Accepted |
