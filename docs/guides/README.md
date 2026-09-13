@@ -11,3 +11,6 @@ Welcome to the guides section. Here you will find all step-by-step instructions 
 - [Configuration SonarQubeCloud](./internal/0005-sonar-cloud-guide.md) - How to setup SonarQube Cloud and sonarQube Actions (workflow).
 - [How to setup env files](./0006-Managing-env-Files-&-Secrets-with-SOPS-Age-(Frontend-&-Backend).md) - Managing .env Files & Secrets with SOPS + Age (Frontend & Backend).
 - [Initial Setup: Terraform Remote State S3 Backend](./0007-Initial-Setup-Terraform-Remote-State-(S3-Backend).md) - Initial Setup: Terraform Remote State (S3 Backend)
+- [AWS OIDC Github](./0008-aws-oidc-github.md) - Setting up OIDC authentication between GitHub Actions and AWS (no long-lived AWS credentials stored as secrets).
+- [Parameter store](./0009-Setting-Up-AWS-SSM-Parameter-Store.md) - Setting up AWS SSM Parameter Store
+
